@@ -1,67 +1,87 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escola</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conheça Nossa Escola</title>
 
-    <style>
-        body{
-            margin:0;
-            font-family:Arial, Helvetica, sans-serif;
-            background:#f4f4f4;
-        }
+<style>
 
-        header{
-            background:#0056b3;
-            color:white;
-            text-align:center;
-            padding:25px;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
 
-        .galeria{
-            width:90%;
-            max-width:1100px;
-            margin:40px auto;
-        }
+body{
+    background:#f2f2f2;
+}
 
-        .galeria h2{
-            text-align:center;
-            margin-bottom:25px;
-            color:#333;
-        }
+header{
+    background:#004080;
+    color:white;
+    text-align:center;
+    padding:30px;
+}
 
-        .grid{
-            display:grid;
-            grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-            gap:20px;
-        }
+header h1{
+    font-size:40px;
+}
 
-        .card{
-            background:white;
-            border-radius:12px;
-            overflow:hidden;
-            box-shadow:0 5px 15px rgba(0,0,0,.2);
-            transition:.3s;
-        }
+.galeria{
+    width:90%;
+    max-width:1200px;
+    margin:50px auto;
+}
 
-        .card:hover{
-            transform:scale(1.03);
-        }
+.galeria h2{
+    text-align:center;
+    color:#333;
+    margin-bottom:30px;
+    font-size:35px;
+}
 
-        .card img{
-            width:100%;
-            height:250px;
-            object-fit:cover;
-            display:block;
-        }
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+}
 
-        .card h3{
-            text-align:center;
-            padding:15px;
-            margin:0;
-        }
-    </style>
+.card{
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+.card img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+    display:block;
+}
+
+.card h3{
+    text-align:center;
+    padding:18px;
+    color:#333;
+}
+
+footer{
+    background:#004080;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:50px;
+}
+
+</style>
 
 </head>
 
@@ -73,33 +93,37 @@
 
 <section class="galeria">
 
-    <h2>Galeria de Fotos</h2>
+    <h2>Estrutura da Escola</h2>
 
     <div class="grid">
 
         <div class="card">
-            <img src="escola01.png" alt="Escola 1">
-            <h3>Ambiente Escolar</h3>
+            <img src="laboratorio1.png" alt="Laboratório 1">
+            <h3>Laboratório de Informática</h3>
         </div>
 
         <div class="card">
-            <img src="escola02.png" alt="Escola 2">
-            <h3>Estrutura da Escola</h3>
+            <img src="laboratorio2.png" alt="Laboratório 2">
+            <h3>Laboratório de Ciências</h3>
         </div>
 
         <div class="card">
-            <img src="escola01.png" alt="Escola 1">
-            <h3>Laboratório</h3>
+            <img src="quadra1.png" alt="Quadra 1">
+            <h3>Quadra Poliesportiva</h3>
         </div>
 
         <div class="card">
-            <img src="escola02.png" alt="Escola 2">
-            <h3>Quadra Esportiva</h3>
+            <img src="quadra2.png" alt="Quadra 2">
+            <h3>Área Esportiva</h3>
         </div>
 
     </div>
 
 </section>
+
+<footer>
+    <p>&copy; 2026 - Nossa Escola</p>
+</footer>
 
 </body>
 </html>
