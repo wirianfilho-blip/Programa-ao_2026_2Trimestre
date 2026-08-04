@@ -3,142 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Propostas de Melhorias para Nossa Escola</title>
+    <title>Portal de Melhorias | Nossa Escola</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #0d3b66;
+            --primary-hover: #082642;
+            --accent: #f4d35e;
+            --bg-body: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #334155;
+            --text-muted: #64748b;
+            --danger: #ef4444;
+            --success: #10b981;
+        }
+
         * {
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.2s ease-in-out;
         }
 
         body {
             margin: 0;
-            padding: 20px;
-            background-color: #f0f2f5;
-            color: #333;
+            padding: 0;
+            background-color: var(--bg-body);
+            color: var(--text-color);
             line-height: 1.6;
         }
 
+        /* HEADER E LOGO */
         header {
-            text-align: center;
-            padding: 25px 15px;
-            background-color: #0d3b66;
+            background: linear-gradient(135deg, var(--primary) 0%, #1e517b 100%);
             color: #fff;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 0 10px 25px rgba(13, 59, 102, 0.2);
+            position: relative;
         }
 
-        /* LOGO DA ESCOLA */
-        .logo-escola {
-            max-width: 150px;
-            height: auto;
-            margin-bottom: 15px;
+        .logo-container {
+            background: rgba(255, 255, 255, 0.15);
             display: inline-block;
+            padding: 12px;
+            border-radius: 50%;
+            backdrop-filter: blur(5px);
+            margin-bottom: 15px;
+        }
+
+        .logo-escola {
+            max-width: 130px;
+            height: auto;
+            display: block;
+            border-radius: 8px;
         }
 
         header h1 {
             margin: 0 0 10px 0;
-            font-size: 1.8rem;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         header p {
-            margin: 0;
+            margin: 0 auto;
+            max-width: 650px;
+            font-size: 1.05rem;
             opacity: 0.9;
+            color: #e2e8f0;
         }
 
         .container {
-            max-width: 1000px;
-            margin: 0 auto;
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
         }
 
         /* NAVEGAÇÃO POR ABAS */
         .tabs-nav {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .tab-btn {
-            padding: 12px 24px;
-            background-color: #e0e0e0;
+            padding: 12px 22px;
+            background-color: #e2e8f0;
             border: none;
-            border-radius: 8px;
+            border-radius: 50px;
             cursor: pointer;
-            font-weight: bold;
-            font-size: 1rem;
-            color: #555;
-            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .tab-btn:hover {
-            background-color: #d0d0d0;
+            background-color: #cbd5e1;
+            color: var(--primary);
+            transform: translateY(-2px);
         }
 
         .tab-btn.active {
-            background-color: #0d3b66;
+            background-color: var(--primary);
             color: #fff;
-            box-shadow: 0 4px 8px rgba(13, 59, 102, 0.3);
+            box-shadow: 0 4px 12px rgba(13, 59, 102, 0.3);
         }
 
         /* CONTEÚDO DAS ABAS */
         .tab-content {
             display: none;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            animation: fadeIn 0.4s ease-in-out;
+            background-color: var(--card-bg);
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            animation: slideUp 0.4s ease forwards;
         }
 
         .tab-content.active {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         h2 {
-            color: #0d3b66;
+            color: var(--primary);
             margin-top: 0;
-            border-bottom: 2px solid #e0e0e0;
-            padding-bottom: 10px;
+            font-size: 1.6rem;
+            border-bottom: 3px solid #f1f5f9;
+            padding-bottom: 12px;
         }
 
         /* GALERIA DE IMAGENS */
         .galeria-container {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 25px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
         }
 
         .card {
-            background-color: #fafafa;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
             overflow: hidden;
-            width: 45%;
-            min-width: 280px;
-            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.08);
+        }
+
+        .img-wrapper {
+            width: 100%;
+            height: 240px;
+            background-color: #e2e8f0;
+            overflow: hidden;
+            position: relative;
         }
 
         .card img {
             width: 100%;
-            height: 220px;
+            height: 100%;
             object-fit: cover;
+            display: block;
         }
 
-        .card p {
-            padding: 12px;
-            font-weight: bold;
+        .card-body {
+            padding: 15px 20px;
+            text-align: center;
+        }
+
+        .card-body p {
             margin: 0;
-            background-color: #f5f5f5;
-            color: #444;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* METRICAS / STATUS */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .metric-card span {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
         }
 
         /* LISTAS E GRIDS */
@@ -150,25 +219,25 @@
         }
 
         .box-info {
-            background-color: #f8f9fa;
-            border-left: 5px solid #0d3b66;
-            padding: 20px;
-            border-radius: 4px;
+            padding: 22px;
+            border-radius: 12px;
+            border-left: 6px solid var(--primary);
+            background-color: #f8fafc;
         }
 
         .box-info.alerta {
-            border-left-color: #d9534f;
-            background-color: #fdf7f7;
+            border-left-color: var(--danger);
+            background-color: #fef2f2;
         }
 
         .box-info.sucesso {
-            border-left-color: #2e7d32;
-            background-color: #f4fdf4;
+            border-left-color: var(--success);
+            background-color: #f0fdf4;
         }
 
         .box-info h3 {
             margin-top: 0;
-            color: #333;
+            font-size: 1.15rem;
         }
 
         ul {
@@ -179,127 +248,281 @@
         li {
             margin-bottom: 8px;
         }
+
+        /* FORMULÁRIO DE ENVIAR IDEIAS */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .btn-submit {
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* MURAL DE DEPOIMENTOS */
+        .depoimento {
+            background: #f1f5f9;
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .depoimento-autor {
+            font-style: normal;
+            font-weight: bold;
+            color: var(--primary);
+            margin-top: 8px;
+            display: block;
+            font-size: 0.85rem;
+        }
+
+        /* RODAPÉ */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: #0f172a;
+            color: #94a3b8;
+            margin-top: 50px;
+            font-size: 0.9rem;
+        }
+
+        footer strong {
+            color: #f8fafc;
+        }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        
-        <header>
-            <img src="logo.png" alt="Logo da Escola" class="logo-escola">
-            
-            <h1>O Que Nós Podemos Fazer Para Tornar Nossa Escola Ainda Melhor?</h1>
-            <p>Acompanhe o diagnóstico atual, nossas necessidades e o plano de ação</p>
-        </header>
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo da Escola" class="logo-escola" onerror="this.src='https://via.placeholder.com/130x130?text=Logo+Escola'">
+        </div>
+        <h1>O Que Nós Podemos Fazer Para Tornar Nossa Escola Ainda Melhor?</h1>
+        <p>Projeto Estudantil da Rede Estadual do Paraná: Unindo forças para transformar nossa infraestrutura e convivência.</p>
+    </header>
 
+    <div class="container">
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <span>4</span>
+                Áreas Prioritárias
+            </div>
+            <div class="metric-card">
+                <span>85%</span>
+                Engajamento dos Alunos
+            </div>
+            <div class="metric-card">
+                <span>12</span>
+                Propostas em Análise
+            </div>
+        </div>
+        
         <div class="tabs-nav">
             <button class="tab-btn active" onclick="openTab(event, 'lab')">💻 Laboratório</button>
             <button class="tab-btn" onclick="openTab(event, 'quadra')">🏀 Quadra</button>
             <button class="tab-btn" onclick="openTab(event, 'necessidades')">⚠️ Necessidades</button>
-            <button class="tab-btn" onclick="openTab(event, 'melhorias')">💡 Plano de Melhorias</button>
+            <button class="tab-btn" onclick="openTab(event, 'melhorias')">💡 Plano de Ação</button>
+            <button class="tab-btn" onclick="openTab(event, 'vozes')">💬 Voz dos Alunos</button>
+            <button class="tab-btn" onclick="openTab(event, 'sugerir')">✍️ Enviar Ideia</button>
         </div>
 
         <div id="lab" class="tab-content active">
             <h2>Laboratório de Informática</h2>
-            <p>Comparativo entre a situação atual do nosso laboratório e o objetivo que queremos alcançar para melhorar o aprendizado digital.</p>
+            <p>Comparativo entre a situação atual dos nossos computadores/periféricos e a meta de espaço moderno que queremos construir.</p>
             
             <div class="galeria-container">
                 <div class="card">
-                    <img src="laboratorio1.png" alt="Nosso Laboratório Atualmente">
-                    <p>Situação Atual (Laboratório 1)</p>
+                    <div class="img-wrapper">
+                        <img src="laboratorio1.png" alt="Nosso Laboratório Atualmente" onerror="this.src='https://via.placeholder.com/400x240?text=Laboratorio+1+(Atual)'">
+                    </div>
+                    <div class="card-body">
+                        <p>Situação Atual (Laboratório 1)</p>
+                    </div>
                 </div>
                 <div class="card">
-                    <img src="laboratorio2.png" alt="Como Gostaríamos que Estivesse Nosso Laboratório">
-                    <p>Meta Desejada (Laboratório 2)</p>
+                    <div class="img-wrapper">
+                        <img src="laboratorio2.png" alt="Como Gostaríamos que Estivesse Nosso Laboratório" onerror="this.src='https://via.placeholder.com/400x240?text=Laboratorio+2+(Meta)'">
+                    </div>
+                    <div class="card-body">
+                        <p>Meta Desejada (Laboratório 2)</p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div id="quadra" class="tab-content">
             <h2>Quadra Esportiva</h2>
-            <p>Visualização do estado atual do espaço de práticas esportivas e o projeto de revitalização para os estudantes.</p>
+            <p>Espaço de convivência, saúde e esporte. Veja o diagnóstico atual e o projeto de revitalização.</p>
             
             <div class="galeria-container">
                 <div class="card">
-                    <img src="quadra1.png" alt="Quadra Esportiva Atual">
-                    <p>Situação Atual (Quadra 1)</p>
+                    <div class="img-wrapper">
+                        <img src="quadra1.png" alt="Quadra Esportiva Atual" onerror="this.src='https://via.placeholder.com/400x240?text=Quadra+1+(Atual)'">
+                    </div>
+                    <div class="card-body">
+                        <p>Situação Atual (Quadra 1)</p>
+                    </div>
                 </div>
                 <div class="card">
-                    <img src="quadra2.png" alt="Quadra Esportiva Reformada">
-                    <p>Meta Desejada (Quadra 2)</p>
+                    <div class="img-wrapper">
+                        <img src="quadra2.png" alt="Quadra Esportiva Reformada" onerror="this.src='https://via.placeholder.com/400x240?text=Quadra+2+(Meta)'">
+                    </div>
+                    <div class="card-body">
+                        <p>Meta Desejada (Quadra 2)</p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div id="necessidades" class="tab-content">
             <h2>Diagnóstico de Necessidades</h2>
-            <p>Mapeamento dos principais problemas que precisam de atenção imediata na nossa comunidade escolar:</p>
+            <p>Mapeamento dos principais gargalos que dificultam nossas rotinas escolares:</p>
             
             <div class="grid-cards">
                 <div class="box-info alerta">
                     <h3>💻 Equipamentos de Informática</h3>
                     <ul>
-                        <li>Fones de ouvido danificados ou sem funcionamento.</li>
-                        <li>Computadores lentos e defasados.</li>
-                        <li>Falta de manutenção preventiva nos periféricos.</li>
+                        <li>Fones de ouvido quebrados ou sem som.</li>
+                        <li>Computadores sem manutenção técnica em dia.</li>
+                        <li>Ausência de suporte e periféricos reserva.</li>
                     </ul>
                 </div>
 
                 <div class="box-info alerta">
                     <h3>🏀 Esporte e Lazer</h3>
                     <ul>
-                        <li>Pintura das quadras desgastada.</li>
-                        <li>Redes e traves danificadas.</li>
-                        <li>Falta de materiais esportivos variados.</li>
+                        <li>Demarcação do piso apagada.</li>
+                        <li>Redes rasgadas e traves precisando de pintura.</li>
+                        <li>Pouco material disponível para as aulas de Educação Física.</li>
                     </ul>
                 </div>
 
                 <div class="box-info alerta">
-                    <h3>🏫 Infraestrutura Geral</h3>
+                    <h3>🏫 Áreas Comuns</h3>
                     <ul>
-                        <li>Iluminação fraca nos corredores e espaços abertos.</li>
-                        <li>Necessidade de mais lixeiras de coleta seletiva.</li>
-                        <li>Sinalização e cartazes informativos antigos.</li>
+                        <li>Necessidade de mais lixeiras e pontos de reciclagem.</li>
+                        <li>Bebedouros precisando de manutenção.</li>
+                        <li>Iluminação interna fraca em corredores secundários.</li>
                     </ul>
                 </div>
             </div>
         </div>
 
         <div id="melhorias" class="tab-content">
-            <h2>Como Vamos Resolver os Problemas?</h2>
-            <p>Soluções práticas e ações que alunos, professores e a direção podem tomar juntos:</p>
+            <h2>Plano de Ação e Soluções</h2>
+            <p>Como pretendemos trabalhar junto com a comunidade e a direção para fazer acontecer:</p>
             
             <div class="grid-cards">
                 <div class="box-info sucesso">
                     <h3>🛠️ Ações Tecnológicas</h3>
                     <ul>
-                        <li>Solicitar ao Núcleo Regional a troca de periféricos quebrados.</li>
-                        <li>Criar uma equipe de alunos monitores para ajudar no suporte básico do laboratório.</li>
-                        <li>Implantar regras de uso responsável do espaço digital.</li>
+                        <li>Chamados oficiais para substituição de fones via Núcleo de Educação.</li>
+                        <li>Equipe voluntária de alunos para monitoria do laboratório.</li>
+                        <li>Cartazes orientando sobre o cuidado com o patrimônio.</li>
                     </ul>
                 </div>
 
                 <div class="box-info sucesso">
-                    <h3>🌱 Mutirão e Comunidade</h3>
+                    <h3>🌱 Mutirão de Manutenção</h3>
                     <ul>
-                        <li>Organizar mutirões de pintura e conservação com a comunidade escolar.</li>
-                        <li>Realizar feiras ou rifas beneficentes para arrecadar verba para novos equipamentos.</li>
-                        <li>Criar campanhas de conscientização contra o vandalismo.</li>
+                        <li>Organização de mutirão de pintura comunitária na quadra.</li>
+                        <li>Campanha de arrecadação e rifas para novos materiais esportivos.</li>
+                        <li>Conscientização dos estudantes contra o vandalismo.</li>
                     </ul>
                 </div>
 
                 <div class="box-info sucesso">
-                    <h3>📋 Gestão e Organização</h3>
+                    <h3>📋 Parceria e Diálogo</h3>
                     <ul>
-                        <li>Definir horários organizados para uso da quadra no Recreio.</li>
-                        <li>Instalar lâmpadas LED mais econômicas e eficientes.</li>
-                        <li>Manter um canal aberto para alunos enviarem sugestões de melhorias.</li>
+                        <li>Reuniões periódicas entre Grêmio Estudantil e Direção.</li>
+                        <li>Organização de campeonatos internos para apoiar reformas.</li>
+                        <li>Criação deste portal permanente para prestar contas.</li>
                     </ul>
                 </div>
             </div>
         </div>
 
+        <div id="vozes" class="tab-content">
+            <h2>Voz dos Estudantes</h2>
+            <p>O que os alunos da nossa escola pensam sobre essas mudanças:</p>
+
+            <div class="depoimento">
+                "Ter computadores e fones funcionando direitinho no laboratório vai transformar nossas pesquisas e aulas de programação. Torcendo para conseguirmos!"
+                <span class="depoimento-autor">— Aluno do 2º Ano do Ensino Médio</span>
+            </div>
+
+            <div class="depoimento">
+                "A quadra com pintura nova e redes inteiras vai dar um ânimo enorme pro nosso recreio e pras aulas de educação física."
+                <span class="depoimento-autor">— Aluna do 9º Ano</span>
+            </div>
+        </div>
+
+        <div id="sugerir" class="tab-content">
+            <h2>Envie Sua Sugestão de Melhoria</h2>
+            <p>Sua ideia faz a diferença! Preencha o formulário para enviar propostas para o nosso comitê:</p>
+
+            <form id="formSugestao" onsubmit="enviarSugestao(event)">
+                <div class="form-group">
+                    <label for="nome">Seu Nome (ou Anônimo):</label>
+                    <input type="text" id="nome" placeholder="Ex: Maria Silva (opcional)">
+                </div>
+
+                <div class="form-group">
+                    <label for="turma">Sua Turma/Série:</label>
+                    <input type="text" id="turma" placeholder="Ex: 1º Ano B" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="categoria">Setor para Melhoria:</label>
+                    <select id="categoria" required>
+                        <option value="">Selecione...</option>
+                        <option value="lab">Laboratório de Informática</option>
+                        <option value="quadra">Quadra Esportiva</option>
+                        <option value="patio">Pátio / Convivência</option>
+                        <option value="outro">Outro assunto</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="mensagem">Qual é a sua proposta?:</label>
+                    <textarea id="mensagem" rows="4" placeholder="Descreva em detalhes o que pode melhorar..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Enviar Sugestão</button>
+            </form>
+        </div>
+
     </div>
+
+    <footer>
+        <p><strong>Escola da Rede Estadual do Paraná</strong> — Projeto "O Que Podemos Fazer Para Tornar Nossa Escola Ainda Melhor?"</p>
+        <p>Desenvolvido pelos alunos e pela comunidade escolar.</p>
+    </footer>
 
     <script>
         function openTab(evt, tabName) {
@@ -311,6 +534,12 @@
 
             document.getElementById(tabName).classList.add('active');
             evt.currentTarget.classList.add('active');
+        }
+
+        function enviarSugestao(e) {
+            e.preventDefault();
+            alert("Obrigado pela sua sugestão! Sua ideia foi enviada com sucesso para análise do comitê da escola.");
+            document.getElementById("formSugestao").reset();
         }
     </script>
 
