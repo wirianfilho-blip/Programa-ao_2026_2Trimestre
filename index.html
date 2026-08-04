@@ -189,4 +189,132 @@
 
         <div class="tabs-nav">
             <button class="tab-btn active" onclick="openTab(event, 'lab')">💻 Laboratório</button>
-            <button class="tab-btn"
+            <button class="tab-btn" onclick="openTab(event, 'quadra')">🏀 Quadra</button>
+            <button class="tab-btn" onclick="openTab(event, 'necessidades')">⚠️ Necessidades</button>
+            <button class="tab-btn" onclick="openTab(event, 'melhorias')">💡 Plano de Melhorias</button>
+        </div>
+
+        <div id="lab" class="tab-content active">
+            <h2>Laboratório de Informática</h2>
+            <p>Comparativo entre a situação atual do nosso laboratório e o objetivo que queremos alcançar para melhorar o aprendizado digital.</p>
+            
+            <div class="galeria-container">
+                <div class="card">
+                    <img src="laboratorio1.png" alt="Nosso Laboratório Atualmente">
+                    <p>Situação Atual (Laboratório 1)</p>
+                </div>
+                <div class="card">
+                    <img src="laboratorio2.png" alt="Como Gostaríamos que Estivesse Nosso Laboratório">
+                    <p>Meta Desejada (Laboratório 2)</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="quadra" class="tab-content">
+            <h2>Quadra Esportiva</h2>
+            <p>Visualização do estado atual do espaço de práticas esportivas e o projeto de revitalização para os estudantes.</p>
+            
+            <div class="galeria-container">
+                <div class="card">
+                    <img src="quadra1.png" alt="Quadra Esportiva Atual">
+                    <p>Situação Atual (Quadra 1)</p>
+                </div>
+                <div class="card">
+                    <img src="quadra2.png" alt="Quadra Esportiva Reformada">
+                    <p>Meta Desejada (Quadra 2)</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="necessidades" class="tab-content">
+            <h2>Diagnóstico de Necessidades</h2>
+            <p>Mapeamento dos principais problemas que precisam de atenção imediata na nossa comunidade escolar:</p>
+            
+            <div class="galeria-container">
+                <div class="card full-width">
+                    <img src="images.jpeg" alt="Visão Geral da Escola / Diagnóstico">
+                    <p>Visão Geral do Diagnóstico Escolar</p>
+                </div>
+            </div>
+
+            <div class="grid-cards">
+                <div class="box-info alerta">
+                    <h3>💻 Equipamentos de Informática</h3>
+                    <ul>
+                        <li>Fones de ouvido danificados ou sem funcionamento.</li>
+                        <li>Computadores lentos e defasados.</li>
+                        <li>Falta de manutenção preventiva nos periféricos.</li>
+                    </ul>
+                </div>
+
+                <div class="box-info alerta">
+                    <h3>🏀 Esporte e Lazer</h3>
+                    <ul>
+                        <li>Pintura das quadras desgastada.</li>
+                        <li>Redes e traves danificadas.</li>
+                        <li>Falta de materiais esportivos variados.</li>
+                    </ul>
+                </div>
+
+                <div class="box-info alerta">
+                    <h3>🏫 Infraestrutura Geral</h3>
+                    <ul>
+                        <li>Iluminação fraca nos corredores e espaços abertos.</li>
+                        <li>Necessidade de mais lixeiras de coleta seletiva.</li>
+                        <li>Sinalização e cartazes informativos antigos.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="melhorias" class="tab-content">
+            <h2>Como Vamos Resolver os Problemas?</h2>
+            <p>Soluções práticas e ações que alunos, professores e a direção podem tomar juntos:</p>
+            
+            <div class="grid-cards">
+                <div class="box-info sucesso">
+                    <h3>🛠️ Ações Tecnológicas</h3>
+                    <ul>
+                        <li>Solicitar ao Núcleo Regional a troca de periféricos quebrados.</li>
+                        <li>Criar uma equipe de alunos monitores para ajudar no suporte básico do laboratório.</li>
+                        <li>Implantar regras de uso responsável do espaço digital.</li>
+                    </ul>
+                </div>
+
+                <div class="box-info sucesso">
+                    <h3>🌱 Mutirão e Comunidade</h3>
+                    <ul>
+                        <li>Organizar mutirões de pintura e conservação com a comunidade escolar.</li>
+                        <li>Realizar feiras ou rifas beneficentes para arrecadar verba para novos equipamentos.</li>
+                        <li>Criar campanhas de conscientização contra o vandalismo.</li>
+                    </ul>
+                </div>
+
+                <div class="box-info sucesso">
+                    <h3>📋 Gestão e Organização</h3>
+                    <ul>
+                        <li>Definir horários organizados para uso da quadra no Recreio.</li>
+                        <li>Instalar lâmpadas LED mais econômicas e eficientes.</li>
+                        <li>Manter um canal aberto para alunos enviarem sugestões de melhorias.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabName).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
