@@ -3,17 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galeria da Escola</title>
+    <title>Propostas de Melhorias para Nossa Escola</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f9;
-            color: #333;
+        * {
+            box-sizing: border-box;
         }
 
-        h1, h2 {
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
             text-align: center;
+            padding: 20px 0;
+            background-color: #0d3b66;
+            color: #fff;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .secao {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 40px;
+        }
+
+        .secao h2 {
+            color: #0d3b66;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            margin-top: 0;
         }
 
         .galeria-container {
@@ -21,22 +52,22 @@
             flex-wrap: wrap;
             gap: 20px;
             justify-content: center;
-            max-width: 1200px;
-            margin: 0 auto;
+            margin: 20px 0;
         }
 
         .card {
-            background-color: #fff;
+            background-color: #fafafa;
+            border: 1px solid #ddd;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            width: 300px;
+            width: 45%;
+            min-width: 280px;
             text-align: center;
         }
 
         .card img {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: cover;
         }
 
@@ -44,38 +75,70 @@
             padding: 10px;
             font-weight: bold;
             margin: 0;
+            background-color: #eee;
+        }
+
+        .solucoes {
+            background-color: #eef7ee;
+            border-left: 5px solid #2e7d32;
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 20px;
+        }
+
+        .solucoes h3 {
+            color: #2e7d32;
+            margin-top: 0;
+        }
+
+        .solucoes ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .solucoes li {
+            margin-bottom: 8px;
         }
     </style>
 </head>
 <body>
 
-    <h1>Nossa Escola</h1>
+    <div class="container">
+        
+        <header>
+            <h1>O Que Nós Podemos Fazer Para Tornar Nossa Escola Ainda Melhor?</h1>
+            <p>Diagnóstico atual e plano de ação para a melhoria dos nossos espaços</p>
+        </header>
 
-    <h2>Laboratório de Informática</h2>
-    <div class="galeria-container">
-        <div class="card">
-            <img src="laboratorio1.png" alt="Nosso Laboratório Atualmente">
-            <p>Laboratório de Informática (Atual)</p>
-        </div>
-        <div class="card">
-            <img src="laboratorio2.png" alt="Como Gostaríamos que Estivesse Nosso Laboratório">
-            <p>Laboratório de Informática (Futuro)</p>
-        </div>
-    </div>
+        <section class="secao">
+            <h2>1. Laboratório de Informática</h2>
+            
+            <div class="galeria-container">
+                <div class="card">
+                    <img src="laboratorio1.png" alt="Nosso Laboratório Atualmente">
+                    <p>Situação Atual</p>
+                </div>
+                <div class="card">
+                    <img src="laboratorio2.png" alt="Como Gostaríamos que Estivesse Nosso Laboratório">
+                    <p>Meta / Proposta de Futuro</p>
+                </div>
+            </div>
 
-    <br><hr><br>
+            <div class="solucoes">
+                <h3>Como resolver os problemas do Laboratório:</h3>
+                <ul>
+                    <li><strong>Manutenção de Equipamentos:</strong> Abrir chamados técnicos para substituição de periféricos danificados (fones de ouvido, teclados e mouses).</li>
+                    <li><strong>Atualização Tecnológica:</strong> Solicitar ao núcleo regional de educação verbas para substituição ou upgrade de computadores antigos.</li>
+                    <li><strong>Campanha de Conscientização:</strong> Criar regras de uso e cartazes educativos para reforçar o zelo com o patrimônio escolar.</li>
+                    <li><strong>Monitoria de Alunos:</strong> Criar um grupo de estudantes voluntários para ajudar na organização e suporte básico das aulas práticas.</li>
+                </ul>
+            </div>
+        </section>
 
-    <h2>Quadra Esportiva</h2>
-    <div class="galeria-container">
-        <div class="card">
-            <img src="quadra1.png" alt="Quadra Esportiva 1">
-            <p>Quadra de Esportes 1</p>
-        </div>
-        <div class="card">
-            <img src="quadra2.png" alt="Quadra Esportiva 2">
-            <p>Quadra de Esportes 2</p>
-        </div>
-    </div>
-
-</body>
-</html>
+        <section class="secao">
+            <h2>2. Quadra Esportiva</h2>
+            
+            <div class="galeria-container">
+                <div class="card">
+                    <img src="quadra1.png" alt="Quadra Esportiva Atual">
+                    <p>
