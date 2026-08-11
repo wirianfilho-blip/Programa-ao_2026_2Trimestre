@@ -2,47 +2,89 @@
 <html lang="pt-br">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GAME-SABER</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAME-SABER</title>
+    <link rel="stylesheet" href="style.css">
 
-<style>
-div {
-height: 100vh;
-display: block;
-align-items: center;
-justify-content: center;
-text-align: center;
-}
+    <style>
+        #container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
 
-img {
-width: 30%;
-}
+        .galeria-imagens {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
 
+        figure {
+            margin: 10px;
+            max-width: 300px;
+        }
 
-</style>
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
 
+        figcaption {
+            margin-top: 8px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
 
-<div id="container">
+    <div id="container">
 
-<h1><b><u> GAME DO SABER </u></b></h1>
-<p>NOSSA ESCOLA NOSSO COMPROMISSO</p>
-<p style="text-align: center;"> <u>O QUE NÓS PODEMOS FAZER PARA TORNAR NOSSA ESCOLA AINDA MELHOR?</u></p>
+        <h1><b><u>GAME DO SABER</u></b></h1>
+        <p>NOSSA ESCOLA NOSSO COMPROMISSO</p>
+        <p><u>O QUE NÓS PODEMOS FAZER PARA TORNAR NOSSA ESCOLA AINDA MELHOR?</u></p>
 
-<figure>
-<img src="laboratorio1.png">
-<figcaption><b>antes e depois - "laboratorio"</b></figcaption>
-</figure>
+        <div class="galeria-imagens">
+            <figure>
+                <img src="days.jpeg" alt="Antes e depois do ventilador">
+                <figcaption>Antes e depois - "Ventilador"</figcaption>
+            </figure>
 
-<p style="text-align: center;"> O cuidade com o patrimônio da escola é responsabilidade <br>
-de todos os estudantes e funcionários, os bens duráveis são importantes para o desenvolvimento <br>
-dos estudantes e gera um ambiente melhor para todos os envolvidos.</p>
+            <figure>
+                <img src="laboratorio1.png" alt="Laboratório foto 1">
+                <figcaption>Laboratório - Imagem 1</figcaption>
+            </figure>
 
+            <figure>
+                <img src="laboratorio2.png" alt="Laboratório foto 2">
+                <figcaption>Laboratório - Imagem 2</figcaption>
+            </figure>
 
-</div>
+            <figure>
+                <img src="quadra1.png" alt="Quadra foto 1">
+                <figcaption>Quadra Esportiva - Imagem 1</figcaption>
+            </figure>
+
+            <figure>
+                <img src="quadra2.png" alt="Quadra foto 2">
+                <figcaption>Quadra Esportiva - Imagem 2</figcaption>
+            </figure>
+        </div>
+
+        <p>
+            O cuidado com o patrimônio da escola é responsabilidade de todos os estudantes e funcionários.<br>
+            Os bens duráveis são importantes para o desenvolvimento dos estudantes e geram um ambiente melhor para todos os envolvidos.
+        </p>
+
+    </div>
+
 </body>
 </html>
