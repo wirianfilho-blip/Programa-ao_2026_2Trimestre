@@ -1,184 +1,48 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Melhorias | Nossa Escola</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GAME-SABER</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+div {
+height: 100vh;
+display: block;
+align-items: center;
+justify-content: center;
+text-align: center;
+}
+
+img {
+width: 30%;
+}
+
+
+</style>
+
 </head>
+
 <body>
 
-    <header>
-        <div class="logo-container">
-            <img src="logo.png" alt="Logo da Escola" class="logo-escola" onerror="this.src='https://via.placeholder.com/130x130?text=Logo+Escola'">
-        </div>
-        <h1>O Que Nós Podemos Fazer Para Tornar Nossa Escola Ainda Melhor?</h1>
-        <p>Projeto Estudantil da Rede Estadual do Paraná: Unindo forças para transformar nossa infraestrutura e convivência.</p>
-    </header>
+<div id="container">
 
-    <div class="container">
+<h1><b><u> GAME DO SABER </u></b></h1>
+<p>NOSSA ESCOLA NOSSO COMPROMISSO</p>
+<p style="text-align: center;"> <u>O QUE NÓS PODEMOS FAZER PARA TORNAR NOSSA ESCOLA AINDA MELHOR?</u></p>
 
-        <div class="metrics-grid">
-            <div class="metric-card">
-                <span>4</span>
-                Áreas Prioritárias
-            </div>
-            <div class="metric-card">
-                <span>85%</span>
-                Engajamento dos Alunos
-            </div>
-            <div class="metric-card">
-                <span>12</span>
-                Propostas em Análise
-            </div>
-        </div>
-        
-        <div class="tabs-nav">
-            <button class="tab-btn active" onclick="openTab(event, 'lab')">💻 Laboratório</button>
-            <button class="tab-btn" onclick="openTab(event, 'quadra')">🏀 Quadra</button>
-            <button class="tab-btn" onclick="openTab(event, 'necessidades')">⚠️ Necessidades</button>
-            <button class="tab-btn" onclick="openTab(event, 'melhorias')">💡 Plano de Ação</button>
-            <button class="tab-btn" onclick="openTab(event, 'vozes')">💬 Voz dos Alunos</button>
-            <button class="tab-btn" onclick="openTab(event, 'sugerir')">✍️ Enviar Ideia</button>
-        </div>
+<figure>
+<img src="days.jpeg">
+<figcaption><b>antes e depois - "ventilador"</b></figcaption>
+</figure>
 
-        <div id="lab" class="tab-content active">
-            <h2>Laboratório de Informática</h2>
-            <p>Comparativo entre a situação atual dos nossos computadores/periféricos e a meta de espaço moderno que queremos construir.</p>
-            
-            <div class="galeria-container">
-                <div class="card">
-                    <div class="img-wrapper">
-                        <img src="laboratorio1.png" alt="Nosso Laboratório Atualmente" onerror="this.src='https://via.placeholder.com/400x240?text=Laboratorio+1+(Atual)'">
-                    </div>
-                    <div class="card-body">
-                        <p>Situação Atual (Laboratório 1)</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="img-wrapper">
-                        <img src="laboratorio2.png" alt="Como Gostaríamos que Estivesse Nosso Laboratório" onerror="this.src='https://via.placeholder.com/400x240?text=Laboratorio+2+(Meta)'">
-                    </div>
-                    <div class="card-body">
-                        <p>Meta Desejada (Laboratório 2)</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<p style="text-align: center;"> O cuidade com o patrimônio da escola é responsabilidade <br>
+de todos os estudantes e funcionários, os bens duráveis são importantes para o desenvolvimento <br>
+dos estudantes e gera um ambiente melhor para todos os envolvidos.</p>
 
-        <div id="quadra" class="tab-content">
-            <h2>Quadra Esportiva</h2>
-            <p>Espaço de convivência, saúde e esporte. Veja o diagnóstico atual e o projeto de revitalização.</p>
-            
-            <div class="galeria-container">
-                <div class="card">
-                    <div class="img-wrapper">
-                        <img src="quadra1.png" alt="Quadra Esportiva Atual" onerror="this.src='https://via.placeholder.com/400x240?text=Quadra+1+(Atual)'">
-                    </div>
-                    <div class="card-body">
-                        <p>Situação Atual (Quadra 1)</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="img-wrapper">
-                        <img src="quadra2.png" alt="Quadra Esportiva Reformada" onerror="this.src='https://via.placeholder.com/400x240?text=Quadra+2+(Meta)'">
-                    </div>
-                    <div class="card-body">
-                        <p>Meta Desejada (Quadra 2)</p>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div id="necessidades" class="tab-content">
-            <h2>Diagnóstico de Necessidades</h2>
-            <p>Mapeamento dos principais gargalos que dificultam nossas rotinas escolares:</p>
-            
-            <div class="grid-cards">
-                <div class="box-info alerta">
-                    <h3>💻 Equipamentos de Informática</h3>
-                    <ul>
-                        <li>Fones de ouvido quebrados ou sem som.</li>
-                        <li>Computadores sem manutenção técnica em dia.</li>
-                        <li>Ausência de suporte e periféricos reserva.</li>
-                    </ul>
-                </div>
-
-                <div class="box-info alerta">
-                    <h3>🏀 Esporte e Lazer</h3>
-                    <ul>
-                        <li>Demarcação do piso apagada.</li>
-                        <li>Redes rasgadas e traves precisando de pintura.</li>
-                        <li>Pouco material disponível para as aulas de Educação Física.</li>
-                    </ul>
-                </div>
-
-                <div class="box-info alerta">
-                    <h3>🏫 Áreas Comuns</h3>
-                    <ul>
-                        <li>Necessidade de mais lixeiras e pontos de reciclagem.</li>
-                        <li>Bebedouros precisando de manutenção.</li>
-                        <li>Iluminação interna fraca em corredores secundários.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div id="melhorias" class="tab-content">
-            <h2>Plano de Ação e Soluções</h2>
-            <p>Como pretendemos trabalhar junto com a comunidade e a direção para fazer acontecer:</p>
-            
-            <div class="grid-cards">
-                <div class="box-info sucesso">
-                    <h3>🛠️ Ações Tecnológicas</h3>
-                    <ul>
-                        <li>Chamados oficiais para substituição de fones via Núcleo de Educação.</li>
-                        <li>Equipe voluntária de alunos para monitoria do laboratório.</li>
-                        <li>Cartazes orientando sobre o cuidado com o patrimônio.</li>
-                    </ul>
-                </div>
-
-                <div class="box-info sucesso">
-                    <h3>🌱 Mutirão de Manutenção</h3>
-                    <ul>
-                        <li>Organização de mutirão de pintura comunitária na quadra.</li>
-                        <li>Campanha de arrecadação e rifas para novos materiais esportivos.</li>
-                        <li>Conscientização dos estudantes contra o vandalismo.</li>
-                    </ul>
-                </div>
-
-                <div class="box-info sucesso">
-                    <h3>📋 Parceria e Diálogo</h3>
-                    <ul>
-                        <li>Reuniões periódicas entre Grêmio Estudantil e Direção.</li>
-                        <li>Organização de campeonatos internos para apoiar reformas.</li>
-                        <li>Criação deste portal permanente para prestar contas.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div id="vozes" class="tab-content">
-            <h2>Voz dos Estudantes</h2>
-            <p>O que os alunos da nossa escola pensam sobre essas mudanças:</p>
-
-            <div class="depoimento">
-                "Ter computadores e fones funcionando direitinho no laboratório vai transformar nossas pesquisas e aulas de programação. Torcendo para conseguirmos!"
-                <span class="depoimento-autor">— Aluno do 2º Ano do Ensino Médio</span>
-            </div>
-
-            <div class="depoimento">
-                "A quadra com pintura nova e redes inteiras vai dar um ânimo enorme pro nosso recreio e pras aulas de educação física."
-                <span class="depoimento-autor">— Aluna do 9º Ano</span>
-            </div>
-        </div>
-
-        <div id="sugerir" class="tab-content">
-            <h2>Envie Sua Sugestão de Melhoria</h2>
-            <p>Sua ideia faz a diferença! Preencha o formulário para enviar propostas para o nosso comitê:</p>
-
-            <form id="formSugestao" onsubmit="enviarSugestao(event)">
-                <div class="form-group">
-                    <label for="nome">Seu Nome (ou Anônimo):</label>
-                    <input type="text" id="nome" placeholder="Ex: Maria Silva (opcional)">
+</div>
+</body>
+</html>
