@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAME DO SABER</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Game do Saber | Nossa Escola</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
+        /* Reseta estilos padrão */
         * {
             margin: 0;
             padding: 0;
@@ -19,46 +19,47 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f4f7f6;
-            color: #333;
-            line-height: 1.6;
+            font-family: 'Nunito', sans-serif;
+            background-color: #f0f7f4; /* Tom suave e acolhedor */
+            color: #2d3748;
+            line-height: 1.7;
         }
 
-        /* Menu de Navegação (Abas) */
-        nav {
-            background-color: #1a252f;
-            padding: 15px 0;
+        /* Menu de Navegação */
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             position: sticky;
             top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 100;
         }
 
         nav ul {
             display: flex;
             justify-content: center;
             list-style: none;
-            gap: 20px;
+            gap: 15px;
+            padding: 15px 20px;
             flex-wrap: wrap;
         }
 
         nav a {
-            color: #ffffff;
+            color: #4a5568;
             text-decoration: none;
-            font-weight: 600;
-            padding: 10px 20px;
+            font-weight: 700;
+            padding: 8px 18px;
             border-radius: 20px;
             transition: all 0.3s ease;
         }
 
         nav a:hover {
-            background-color: #27ae60;
-            color: #fff;
+            background-color: #e6f4ea;
+            color: #2e7d32;
         }
 
-        #container {
-            max-width: 1200px;
+        /* Conteúdo Principal */
+        .container {
+            max-width: 1000px;
             margin: 0 auto;
             padding: 40px 20px;
             display: flex;
@@ -67,200 +68,49 @@
             text-align: center;
         }
 
-        /* Título Principal */
-        h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 900;
-            font-size: 3rem;
-            color: #2c3e50;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 5px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .subtitulo-compromisso {
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: #27ae60;
-            letter-spacing: 3px;
-            margin-bottom: 30px;
-        }
-
-        /* Seção da Logo Chamativa */
-        .secao-logo {
-            margin: 20px 0 40px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-        }
-
-        .logo-destaque {
-            width: 250px;
-            max-width: 80%;
-            height: auto;
-            filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.2));
-            transition: transform 0.4s ease;
-        }
-
-        .logo-destaque:hover {
-            transform: scale(1.08) rotate(-2deg);
-        }
-
-        /* Títulos das Seções */
-        h2.pergunta-chave {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.5rem;
-            color: #e74c3c;
-            background: #fff;
-            padding: 15px 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            margin: 30px 0 20px 0;
-            border-left: 5px solid #e74c3c;
-        }
-
-        /* Galeria de Imagens */
-        .galeria-imagens {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 25px;
-            margin: 30px 0;
-        }
-
-        figure {
+        /* Área de Boas-Vindas & Logo */
+        .hero {
             background: #ffffff;
-            padding: 12px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            max-width: 280px;
+            border-radius: 24px;
+            padding: 40px 25px;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+            margin-bottom: 35px;
+        }
+
+        .logo-container {
+            margin: 20px 0;
+        }
+
+        .logo-img {
+            max-width: 220px;
+            height: auto;
             transition: transform 0.3s ease;
         }
 
-        figure:hover {
-            transform: translateY(-5px);
+        .logo-img:hover {
+            transform: scale(1.05);
         }
 
-        img.galeria-foto {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
+        h1 {
+            font-family: 'Fredoka', cursive;
+            font-size: 2.8rem;
+            color: #2d6a4f;
+            margin-bottom: 5px;
         }
 
-        figcaption {
-            margin-top: 10px;
-            font-weight: 600;
+        .subtitulo {
+            font-weight: 700;
+            color: #52b788;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
             font-size: 0.95rem;
-            color: #34495e;
         }
 
-        /* Seções de Conteúdo */
-        .card-texto {
+        /* Cartões de Conteúdo Humanizados */
+        .card {
             background: #ffffff;
+            border-radius: 20px;
             padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            margin: 20px 0;
-            max-width: 850px;
-            text-align: left;
-        }
-
-        .card-texto h3 {
-            color: #2980b9;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-
-        .card-texto ul {
-            margin-left: 20px;
-            margin-top: 10px;
-        }
-
-        .card-texto li {
-            margin-bottom: 8px;
-        }
-
-        /* Responsividade para Celulares */
-        @media (max-width: 768px) {
-            h1 { font-size: 2.2rem; }
-            nav ul { gap: 10px; }
-            nav a { padding: 8px 12px; font-size: 0.9rem; }
-            .logo-destaque { width: 180px; }
-        }
-    </style>
-</head>
-
-<body>
-
-    <nav>
-        <ul>
-            <li><a href="#inicio">Início</a></li>
-            <li><a href="#patrimonio">Patrimônio</a></li>
-            <li><a href="#galeria">Fotos</a></li>
-            <li><a href="#comunidade">Comunidade Escolar</a></li>
-        </ul>
-    </nav>
-
-    <div id="container">
-
-        <h1 id="inicio">GAME DO SABER</h1>
-        <p class="subtitulo-compromisso">NOSSA ESCOLA, NOSSO COMPROMISSO</p>
-
-        <div class="secao-logo">
-            <img src="logo.png" alt="Logo Game do Saber" class="logo-destaque">
-        </div>
-
-        <h2 class="pergunta-chave" id="patrimonio">O QUE NÓS PODEMOS FAZER PARA TORNAR NOSSA ESCOLA AINDA MELHOR?</h2>
-
-        <div class="card-texto">
-            <p>
-                O cuidado com o patrimônio da escola é responsabilidade de todos os estudantes e funcionários.
-                Os bens duráveis são importantes para o desenvolvimento dos estudantes e geram um ambiente melhor para todos os envolvidos.
-            </p>
-        </div>
-
-        <div class="galeria-imagens" id="galeria">
-            <figure>
-                <img src="days.jpeg" alt="Antes e depois do ventilador" class="galeria-foto">
-                <figcaption>Antes e depois - "Ventilador"</figcaption>
-            </figure>
-
-            <figure>
-                <img src="laboratorio1.png" alt="Laboratório foto 1" class="galeria-foto">
-                <figcaption>Laboratório - Imagem 1</figcaption>
-            </figure>
-
-            <figure>
-                <img src="laboratorio2.png" alt="Laboratório foto 2" class="galeria-foto">
-                <figcaption>Laboratório - Imagem 2</figcaption>
-            </figure>
-
-            <figure>
-                <img src="quadra1.png" alt="Quadra foto 1" class="galeria-foto">
-                <figcaption>Quadra Esportiva - Imagem 1</figcaption>
-            </figure>
-
-            <figure>
-                <img src="quadra2.png" alt="Quadra foto 2" class="galeria-foto">
-                <figcaption>Quadra Esportiva - Imagem 2</figcaption>
-            </figure>
-        </div>
-
-        <div class="card-texto" id="comunidade">
-            <h3>O que a comunidade escolar pode fazer para melhorar a nossa escola?</h3>
-            <p>A melhoria contínua da nossa escola depende do engajamento de pais, alunos, professores e moradores do entorno. Algumas ações fundamentais incluem:</p>
-            <ul>
-                <li><strong>Participação ativa:</strong> Estar presente nas reuniões de pais e conselhos escolares.</li>
-                <li><strong>Preservação do espaço público:</strong> Promover mutirões de pintura, jardinagem e conservação.</li>
-                <li><strong>Projetos comunitários:</strong> Desenvolver hortas comunitárias, feiras culturais e arrecadação de livros.</li>
-                <li><strong>Diálogo aberto:</strong> Dar sugestões construtivas à direção e apoiar as iniciativas pedagógicas.</li>
-            </ul>
-        </div>
-
-    </div>
-
-</body>
-</html>
+            margin-bottom: 35px;
+            width:
