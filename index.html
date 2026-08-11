@@ -8,10 +8,19 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* Reseta estilos padrão */
+        :root {
+            --bg-principal: #f4f7f5;
+            --cor-card: #ffffff;
+            --verde-escuro: #1b4332;
+            --verde-medio: #2d6a4f;
+            --verde-destaque: #52b788;
+            --texto: #334155;
+            --sombra: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -20,264 +29,244 @@
 
         body {
             font-family: 'Nunito', sans-serif;
-            background-color: #f0f7f4; /* Tom suave e acolhedor */
-            color: #2d3748;
-            line-height: 1.7;
+            background-color: var(--bg-principal);
+            color: var(--texto);
+            line-height: 1.6;
         }
 
-        /* Menu de Navegação */
-        header {
-            background-color: #ffffff;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        .topbar {
+            background: var(--cor-card);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
         }
 
-        nav ul {
+        .nav-links {
             display: flex;
             justify-content: center;
+            gap: 1.5rem;
             list-style: none;
-            gap: 15px;
-            padding: 15px 20px;
-            flex-wrap: wrap;
+            padding: 1rem;
         }
 
-        nav a {
-            color: #4a5568;
+        .nav-links a {
             text-decoration: none;
+            color: var(--texto);
             font-weight: 700;
-            padding: 8px 18px;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
             border-radius: 20px;
-            transition: all 0.3s ease;
+            transition: background-color 0.2s ease, color 0.2s ease;
         }
 
-        nav a:hover {
-            background-color: #e6f4ea;
-            color: #2e7d32;
+        .nav-links a:hover {
+            background-color: #e8f5e9;
+            color: var(--verde-medio);
         }
 
-        /* Conteúdo Principal */
-        .container {
-            max-width: 1000px;
+        .wrapper {
+            max-width: 960px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 2.5rem 1.25rem;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            text-align: center;
+            gap: 2rem;
         }
 
-        /* Área de Boas-Vindas & Logo */
         .hero {
-            background: #ffffff;
-            border-radius: 24px;
-            padding: 40px 25px;
-            width: 100%;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
-            margin-bottom: 35px;
-        }
-
-        .logo-container {
-            margin: 20px 0;
-        }
-
-        .logo-img {
-            max-width: 220px;
-            height: auto;
-            transition: transform 0.3s ease;
-        }
-
-        .logo-img:hover {
-            transform: scale(1.05);
-        }
-
-        h1 {
-            font-family: 'Fredoka', cursive;
-            font-size: 2.8rem;
-            color: #2d6a4f;
-            margin-bottom: 5px;
-        }
-
-        .subtitulo {
-            font-weight: 700;
-            color: #52b788;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-size: 0.95rem;
-        }
-
-        /* Cartões de Conteúdo Humanizados */
-        .card {
-            background: #ffffff;
+            background: var(--cor-card);
+            padding: 2.5rem 1.5rem;
             border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 35px;
-            width: 100%;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
-            text-align: left;
+            text-align: center;
+            box-shadow: var(--sombra);
         }
 
-        .card h2 {
+        .hero h1 {
             font-family: 'Fredoka', cursive;
-            color: #1b4332;
-            font-size: 1.6rem;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            color: var(--verde-escuro);
+            font-size: 2.5rem;
         }
 
-        .card p {
-            font-size: 1.1rem;
-            color: #4a5568;
+        .tagline {
+            color: var(--verde-destaque);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-top: 0.25rem;
         }
 
-        /* Galeria de Fotos */
-        .galeria-grid {
+        .brand-logo {
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        .brand-logo img {
+            max-width: 200px;
+            width: 100%;
+            height: auto;
+        }
+
+        .content-card {
+            background: var(--cor-card);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--sombra);
+        }
+
+        .content-card h2 {
+            font-family: 'Fredoka', cursive;
+            color: var(--verde-escuro);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .photo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            width: 100%;
-            margin-top: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.25rem;
+            margin-top: 1rem;
         }
 
-        .galeria-item {
-            background: #ffffff;
-            border-radius: 16px;
+        .photo-card {
+            background: #fafafa;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
+            border: 1px solid #edf2f7;
         }
 
-        .galeria-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .galeria-item img {
+        .photo-card img {
             width: 100%;
-            height: 180px;
+            height: 160px;
             object-fit: cover;
             display: block;
         }
 
-        .galeria-item figcaption {
-            padding: 12px;
-            font-size: 0.95rem;
+        .photo-card figcaption {
+            padding: 0.75rem;
+            font-size: 0.9rem;
             font-weight: 700;
-            color: #2d6a4f;
+            color: var(--verde-medio);
             text-align: center;
         }
 
-        /* Lista de Ações */
-        .lista-acoes {
+        .action-list {
             list-style: none;
-            margin-top: 15px;
+            margin-top: 1rem;
         }
 
-        .lista-acoes li {
-            position: relative;
-            padding-left: 30px;
-            margin-bottom: 12px;
-            font-size: 1.05rem;
+        .action-list li {
+            padding: 0.6rem 0;
+            border-bottom: 1px dashed #e2e8f0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
         }
 
-        .lista-acoes li::before {
-            content: "🌱";
-            position: absolute;
-            left: 0;
-            top: 0;
+        .action-list li:last-child {
+            border-bottom: none;
         }
 
-        /* Rodapé */
         footer {
             text-align: center;
-            padding: 20px;
-            color: #718096;
-            font-size: 0.9rem;
+            padding: 2rem 1rem;
+            color: #94a3b8;
+            font-size: 0.875rem;
         }
 
-        /* Responsividade */
-        @media (max-width: 600px) {
-            h1 { font-size: 2.2rem; }
-            .card { padding: 20px; }
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 2rem; }
+            .content-card { padding: 1.5rem; }
+            .nav-links { gap: 0.5rem; }
+            .nav-links a { font-size: 0.85rem; padding: 0.4rem 0.8rem; }
         }
     </style>
 </head>
 
 <body>
 
-    <header>
+    <header class="topbar">
         <nav>
-            <ul>
+            <ul class="nav-links">
                 <li><a href="#inicio">Início</a></li>
-                <li><a href="#patrimonio">Nosso Espaço</a></li>
-                <li><a href="#fotos">Galeria</a></li>
-                <li><a href="#comunidade">Nossa Comunidade</a></li>
+                <li><a href="#espaco">Nosso Espaço</a></li>
+                <li><a href="#galeria">Galeria</a></li>
+                <li><a href="#comunidade">Comunidade</a></li>
             </ul>
         </nav>
     </header>
 
-    <main class="container">
+    <main class="wrapper">
 
         <section class="hero" id="inicio">
-            <h1>GAME DO SABER</h1>
-            <p class="subtitulo">Nossa Escola, Nosso Compromisso</p>
+            <h1>Game do Saber</h1>
+            <p class="tagline">Nossa Escola, Nosso Compromisso</p>
 
-            <div class="logo-container">
-                <img src="logo.png" alt="Logo Game do Saber" class="logo-img">
+            <div class="brand-logo">
+                <img src="logo.png" alt="Logo do projeto Game do Saber">
             </div>
         </section>
 
-        <section class="card" id="patrimonio">
-            <h2>O que podemos fazer para tornar nossa escola ainda melhor?</h2>
+        <section class="content-card" id="espaco">
+            <h2>Como podemos transformar nossa escola juntas?</h2>
             <p>
-                Cuidar da nossa escola é um ato de carinho com o nosso próprio futuro. Quando preservamos os equipamentos,
-                salas e espaços de convivência, criamos um ambiente mais acolhedor, bonito e seguro para que todos aprendam e cresçam juntos.
+                Cuidar dos espaços da nossa escola é um investimento na nossa própria rotina. Quando mantemos os laboratórios, quadras e salas organizados, criamos um ambiente agradável para estudar, praticar esportes e conviver todos os dias.
             </p>
         </section>
 
-        <section class="card" id="fotos">
-            <h2>Conheça Nossos Espaços</h2>
-            <div class="galeria-grid">
-                <figure class="galeria-item">
-                    <img src="laboratorio1.png" alt="Nosso Laboratório - Espaço 1">
-                    <figcaption>Laboratório de Ciências 1</figcaption>
+        <section class="content-card" id="galeria">
+            <h2>Nossos Espaços em Ação</h2>
+            <div class="photo-grid">
+                <figure class="photo-card">
+                    <img src="laboratorio1.png" alt="Laboratório de ciências preparado para aula">
+                    <figcaption>Laboratório 1</figcaption>
                 </figure>
 
-                <figure class="galeria-item">
-                    <img src="laboratorio2.png" alt="Nosso Laboratório - Espaço 2">
-                    <figcaption>Laboratório de Ciências 2</figcaption>
+                <figure class="photo-card">
+                    <img src="laboratorio2.png" alt="Bancadas do laboratório de ciências">
+                    <figcaption>Laboratório 2</figcaption>
                 </figure>
 
-                <figure class="galeria-item">
-                    <img src="quadra1.png" alt="Nossa Quadra Esportiva 1">
-                    <figcaption>Quadra Esportiva</figcaption>
+                <figure class="photo-card">
+                    <img src="quadra1.png" alt="Quadra poliesportiva limpa e organizada">
+                    <figcaption>Quadra de Esportes</figcaption>
                 </figure>
 
-                <figure class="galeria-item">
-                    <img src="quadra2.png" alt="Nossa Quadra Esportiva 2">
-                    <figcaption>Atividades na Quadra</figcaption>
+                <figure class="photo-card">
+                    <img src="quadra2.png" alt="Espaço de jogos e atividades na quadra">
+                    <figcaption>Área de Atividades</figcaption>
                 </figure>
             </div>
         </section>
 
-        <section class="card" id="comunidade">
-            <h2>O papel da comunidade escolar</h2>
-            <p>Uma escola forte é feita com a união de alunos, famílias e professores. Veja como podemos colaborar no dia a dia:</p>
+        <section class="content-card" id="comunidade">
+            <h2>Como a comunidade escolar pode colaborar?</h2>
+            <p>A escola fica ainda melhor quando todo mundo participa do processo. Algumas atitudes simples fazem toda a diferença:</p>
             
-            <ul class="lista-acoes">
-                <li><strong>Presença e parceria:</strong> Acompanhar os eventos, reuniões e a rotina escolar de perto.</li>
-                <li><strong>Cuidado coletivo:</strong> Tratar as instalações como uma extensão da nossa própria casa.</li>
-                <li><strong>Ações de melhoria:</strong> Apoiar mutirões de pintura, hortas escolares e feiras culturais.</li>
-                <li><strong>Boas ideias:</strong> Compartilhar sugestões que ajudem no bem-estar de toda a comunidade.</li>
+            <ul class="action-list">
+                <li>
+                    <span>🌱</span>
+                    <div><strong>Presença constante:</strong> Participar dos eventos, conselhos e reuniões escolares.</div>
+                </li>
+                <li>
+                    <span>🌱</span>
+                    <div><strong>Zelo pelo espaço:</strong> Cuidar das instalações públicas como cuidamos da nossa casa.</div>
+                </li>
+                <li>
+                    <span>🌱</span>
+                    <div><strong>Mutirões e projetos:</strong> Apoiar ações de jardinagem, pintura e feiras de troca de livros.</div>
+                </li>
+                <li>
+                    <span>🌱</span>
+                    <div><strong>Troca de ideias:</strong> Trazer sugestões construtivas para a equipe gestora e os professores.</div>
+                </li>
             </ul>
         </section>
 
     </main>
 
     <footer>
-        <p>Game do Saber &bull; Unindo forças por uma educação cada vez melhor.</p>
+        <p>Proposta de engajamento do Game do Saber &bull; Juntos por uma escola melhor</p>
     </footer>
 
 </body>
