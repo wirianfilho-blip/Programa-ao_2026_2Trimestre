@@ -45,47 +45,65 @@
         .nav-links {
             display: flex;
             justify-content: center;
-            gap: 1.5rem;
+            gap: 1rem;
             list-style: none;
             padding: 1rem;
         }
 
-        .nav-links a {
-            text-decoration: none;
+        .tab-btn {
+            background: none;
+            border: none;
+            font-family: inherit;
             color: var(--texto);
             font-weight: 700;
             font-size: 0.95rem;
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 1.2rem;
             border-radius: 20px;
-            transition: background-color 0.2s ease, color 0.2s ease;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .nav-links a:hover {
+        .tab-btn:hover {
             background-color: #e8f5e9;
             color: var(--verde-medio);
+        }
+
+        .tab-btn.active {
+            background-color: var(--verde-medio);
+            color: #ffffff;
         }
 
         .wrapper {
             max-width: 960px;
             margin: 0 auto;
             padding: 2.5rem 1.25rem;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
         }
 
-        .hero {
+        .tab-content {
+            display: none;
             background: var(--cor-card);
-            padding: 2.5rem 1.5rem;
+            padding: 2.5rem;
             border-radius: 20px;
-            text-align: center;
             box-shadow: var(--sombra);
+            text-align: center;
         }
 
-        .hero h1 {
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content h1, .tab-content h2 {
             font-family: 'Fredoka', cursive;
             color: var(--verde-escuro);
+            margin-bottom: 1rem;
+        }
+
+        .tab-content h1 {
             font-size: 2.5rem;
+        }
+
+        .tab-content h2 {
+            font-size: 1.8rem;
         }
 
         .tagline {
@@ -98,34 +116,23 @@
         }
 
         .brand-logo {
-            margin: 1.5rem 0 0.5rem;
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
         }
 
         .brand-logo img {
-            max-width: 200px;
+            max-width: 250px;
             width: 100%;
             height: auto;
-        }
-
-        .content-card {
-            background: var(--cor-card);
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: var(--sombra);
-        }
-
-        .content-card h2 {
-            font-family: 'Fredoka', cursive;
-            color: var(--verde-escuro);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+            border-radius: 12px;
         }
 
         .photo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1.25rem;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
 
         .photo-card {
@@ -137,7 +144,7 @@
 
         .photo-card img {
             width: 100%;
-            height: 160px;
+            height: 180px;
             object-fit: cover;
             display: block;
         }
@@ -152,15 +159,16 @@
 
         .action-list {
             list-style: none;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
+            text-align: left;
         }
 
         .action-list li {
-            padding: 0.6rem 0;
+            padding: 0.8rem 0;
             border-bottom: 1px dashed #e2e8f0;
             display: flex;
             align-items: flex-start;
-            gap: 0.5rem;
+            gap: 0.75rem;
         }
 
         .action-list li:last-child {
@@ -175,10 +183,9 @@
         }
 
         @media (max-width: 640px) {
-            .hero h1 { font-size: 2rem; }
-            .content-card { padding: 1.5rem; }
-            .nav-links { gap: 0.5rem; }
-            .nav-links a { font-size: 0.85rem; padding: 0.4rem 0.8rem; }
+            .tab-content { padding: 1.5rem; }
+            .nav-links { gap: 0.3rem; flex-wrap: wrap; }
+            .tab-btn { font-size: 0.85rem; padding: 0.4rem 0.8rem; }
         }
     </style>
 </head>
@@ -188,58 +195,60 @@
     <header class="topbar">
         <nav>
             <ul class="nav-links">
-                <li><a href="#inicio">Início</a></li>
-                <li><a href="#espaco">Nosso Espaço</a></li>
-                <li><a href="#galeria">Galeria</a></li>
-                <li><a href="#comunidade">Comunidade</a></li>
+                <li><button class="tab-btn active" onclick="openTab(event, 'inicio')">Início</button></li>
+                <li><button class="tab-btn" onclick="openTab(event, 'espaco')">Nosso Espaço</button></li>
+                <li><button class="tab-btn" onclick="openTab(event, 'galeria')">Galeria</button></li>
+                <li><button class="tab-btn" onclick="openTab(event, 'comunidade')">Comunidade</button></li>
             </ul>
         </nav>
     </header>
 
     <main class="wrapper">
 
-        <section class="hero" id="inicio">
+        <section id="inicio" class="tab-content active">
             <h1>Game do Saber</h1>
             <p class="tagline">Nossa Escola, Nosso Compromisso</p>
 
             <div class="brand-logo">
-                <img src="logo.png" alt="Logo do projeto Game do Saber">
+                <img src="logo.png" onerror="this.onerror=null; this.src='https://via.placeholder.com/250x150?text=Logo+Game+do+Saber';" alt="Logo do projeto Game do Saber">
             </div>
+
+            <p>Seja bem-vindo ao projeto Game do Saber! Navegue pelas abas acima para conhecer mais sobre nossos projetos e espaços.</p>
         </section>
 
-        <section class="content-card" id="espaco">
+        <section id="espaco" class="tab-content">
             <h2>Como podemos transformar nossa escola juntas?</h2>
             <p>
                 Cuidar dos espaços da nossa escola é um investimento na nossa própria rotina. Quando mantemos os laboratórios, quadras e salas organizados, criamos um ambiente agradável para estudar, praticar esportes e conviver todos os dias.
             </p>
         </section>
 
-        <section class="content-card" id="galeria">
+        <section id="galeria" class="tab-content">
             <h2>Nossos Espaços em Ação</h2>
             <div class="photo-grid">
                 <figure class="photo-card">
-                    <img src="laboratorio1.png" alt="Laboratório de ciências preparado para aula">
+                    <img src="laboratorio1.png" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200?text=Laboratorio+1';" alt="Laboratório de ciências 1">
                     <figcaption>Laboratório 1</figcaption>
                 </figure>
 
                 <figure class="photo-card">
-                    <img src="laboratorio2.png" alt="Bancadas do laboratório de ciências">
+                    <img src="laboratorio2.png" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200?text=Laboratorio+2';" alt="Laboratório de ciências 2">
                     <figcaption>Laboratório 2</figcaption>
                 </figure>
 
                 <figure class="photo-card">
-                    <img src="quadra1.png" alt="Quadra poliesportiva limpa e organizada">
-                    <figcaption>Quadra de Esportes</figcaption>
+                    <img src="quadra1.png" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200?text=Quadra+1';" alt="Quadra poliesportiva 1">
+                    <figcaption>Quadra de Esportes 1</figcaption>
                 </figure>
 
                 <figure class="photo-card">
-                    <img src="quadra2.png" alt="Espaço de jogos e atividades na quadra">
-                    <figcaption>Área de Atividades</figcaption>
+                    <img src="quadra2.png" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200?text=Quadra+2';" alt="Quadra poliesportiva 2">
+                    <figcaption>Quadra de Esportes 2</figcaption>
                 </figure>
             </div>
         </section>
 
-        <section class="content-card" id="comunidade">
+        <section id="comunidade" class="tab-content">
             <h2>Como a comunidade escolar pode colaborar?</h2>
             <p>A escola fica ainda melhor quando todo mundo participa do processo. Algumas atitudes simples fazem toda a diferença:</p>
             
@@ -268,6 +277,25 @@
     <footer>
         <p>Proposta de engajamento do Game do Saber &bull; Juntos por uma escola melhor</p>
     </footer>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
 
 </body>
 </html>
