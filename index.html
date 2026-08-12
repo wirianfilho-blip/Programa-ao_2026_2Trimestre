@@ -13,16 +13,15 @@
     <style>
         :root {
             --gradient-main: linear-gradient(135deg, #059669 0%, #10b981 50%, #3b82f6 100%);
-            --bg-principal: #f0fdf4;
-            --cor-card: #ffffff;
+            --cor-card: rgba(255, 255, 255, 0.95);
             --verde-escuro: #064e3b;
             --verde-medio: #059669;
             --verde-destaque: #10b981;
             --azul-destaque: #2563eb;
             --texto: #1e293b;
             --texto-suave: #64748b;
-            --sombra-forte: 0 20px 30px -10px rgba(5, 150, 105, 0.15);
-            --sombra-card: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            --sombra-forte: 0 20px 30px -10px rgba(0, 0, 0, 0.25);
+            --sombra-card: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
             --cinza-claro: #f8fafc;
             --borda: #e2e8f0;
         }
@@ -33,11 +32,17 @@
             box-sizing: border-box;
         }
 
+        /* Fundo com a imagem langer.png */
         body {
             font-family: 'Nunito', sans-serif;
-            background-color: var(--bg-principal);
+            background-image: linear-gradient(rgba(240, 253, 244, 0.75), rgba(240, 253, 244, 0.75)), url('langer.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             color: var(--texto);
             line-height: 1.6;
+            min-height: 100vh;
         }
 
         /* Header Chamativo */
@@ -105,10 +110,11 @@
         .tab-content {
             display: none;
             background: var(--cor-card);
+            backdrop-filter: blur(8px);
             padding: 3rem;
             border-radius: 28px;
             box-shadow: var(--sombra-forte);
-            border: 1px solid rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.8);
         }
 
         .tab-content.active {
@@ -339,7 +345,10 @@
             padding: 2.5rem 1rem;
             color: var(--texto-suave);
             font-size: 0.9rem;
-            font-weight: 700;
+            font-weight: 800;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+            margin-top: 2rem;
         }
 
         @media (max-width: 768px) {
