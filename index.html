@@ -19,6 +19,8 @@
             --verde-destaque: #52b788;
             --texto: #334155;
             --sombra: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            --cinza-claro: #f8fafc;
+            --borda: #e2e8f0;
         }
 
         * {
@@ -40,14 +42,18 @@
             top: 0;
             z-index: 10;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1.5rem;
         }
 
         .nav-links {
             display: flex;
             justify-content: center;
-            gap: 1rem;
+            gap: 0.5rem;
             list-style: none;
-            padding: 1rem;
+            flex-wrap: wrap;
         }
 
         .tab-btn {
@@ -71,6 +77,21 @@
         .tab-btn.active {
             background-color: var(--verde-medio);
             color: #ffffff;
+        }
+
+        .btn-auth-trigger {
+            background-color: var(--verde-escuro);
+            color: #ffffff;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .btn-auth-trigger:hover {
+            background-color: var(--verde-medio);
         }
 
         .wrapper {
@@ -139,7 +160,7 @@
             background: #fafafa;
             border-radius: 12px;
             overflow: hidden;
-            border: 1px solid #edf2f7;
+            border: 1px solid var(--borda);
         }
 
         .photo-card img {
@@ -165,7 +186,7 @@
 
         .action-list li {
             padding: 0.8rem 0;
-            border-bottom: 1px dashed #e2e8f0;
+            border-bottom: 1px dashed var(--borda);
             display: flex;
             align-items: flex-start;
             gap: 0.75rem;
@@ -173,6 +194,132 @@
 
         .action-list li:last-child {
             border-bottom: none;
+        }
+
+        /* --- Estilos de Login / Cadastro --- */
+        .auth-container {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .auth-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .auth-toggle-btn {
+            background: none;
+            border: none;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            color: var(--texto);
+            padding-bottom: 0.2rem;
+            border-bottom: 2px solid transparent;
+        }
+
+        .auth-toggle-btn.active {
+            color: var(--verde-medio);
+            border-bottom-color: var(--verde-medio);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        /* --- Sistema de Avaliação & Propostas --- */
+        .eval-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .eval-card {
+            background: var(--cinza-claro);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--borda);
+        }
+
+        .eval-card h3 {
+            font-size: 1.1rem;
+            color: var(--verde-escuro);
+            margin-bottom: 0.5rem;
+        }
+
+        .score-bar {
+            background: #e2e8f0;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 0.5rem 0 1rem 0;
+        }
+
+        .score-fill {
+            background: var(--verde-destaque);
+            height: 100%;
+            border-radius: 5px;
+        }
+
+        /* Formulários */
+        .form-eval {
+            margin-top: 2rem;
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
+
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--borda);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .form-group input:focus, 
+        .form-group select:focus, 
+        .form-group textarea:focus {
+            border-color: var(--verde-medio);
+        }
+
+        .btn-submit {
+            background: var(--verde-medio);
+            color: #ffffff;
+            border: none;
+            padding: 0.8rem 1.8rem;
+            font-weight: 700;
+            font-size: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            background: var(--verde-escuro);
         }
 
         footer {
@@ -183,8 +330,9 @@
         }
 
         @media (max-width: 640px) {
+            .topbar { flex-direction: column; gap: 0.5rem; }
             .tab-content { padding: 1.5rem; }
-            .nav-links { gap: 0.3rem; flex-wrap: wrap; }
+            .nav-links { gap: 0.3rem; }
             .tab-btn { font-size: 0.85rem; padding: 0.4rem 0.8rem; }
         }
     </style>
@@ -199,8 +347,10 @@
                 <li><button class="tab-btn" onclick="openTab(event, 'espaco')">Nosso Espaço</button></li>
                 <li><button class="tab-btn" onclick="openTab(event, 'galeria')">Galeria</button></li>
                 <li><button class="tab-btn" onclick="openTab(event, 'comunidade')">Comunidade</button></li>
+                <li><button class="tab-btn" onclick="openTab(event, 'avaliacao')">Avaliações & Propostas</button></li>
             </ul>
         </nav>
+        <button class="btn-auth-trigger" onclick="openTab(event, 'login')">Entrar / Cadastrar</button>
     </header>
 
     <main class="wrapper">
@@ -213,7 +363,7 @@
                 <img src="logo.png" onerror="this.onerror=null; this.src='https://via.placeholder.com/250x150?text=Logo+Game+do+Saber';" alt="Logo do projeto Game do Saber">
             </div>
 
-            <p>Seja bem-vindo ao projeto Game do Saber! Navegue pelas abas acima para conhecer mais sobre nossos projetos e espaços.</p>
+            <p>Seja bem-vindo ao projeto Game do Saber! Navegue pelas abas para conhecer nossos projetos ou enviar sua avaliação diretamente para nossa equipe.</p>
         </section>
 
         <section id="espaco" class="tab-content">
@@ -272,6 +422,93 @@
             </ul>
         </section>
 
+        <section id="avaliacao" class="tab-content">
+            <h2>Enviar Avaliação ou Proposta</h2>
+            <p>Sua opinião é fundamental! Preencha o formulário abaixo e ele será enviado diretamente para a coordenação do projeto.</p>
+
+            <form class="form-eval" action="https://formspree.io/f/wirian.filho@escola.pr.gov.br" method="POST">
+                <div class="form-group">
+                    <label for="nome_eval">Seu Nome / Usuário:</label>
+                    <input type="text" id="nome_eval" name="Nome" placeholder="Ex: Maria Silva" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email_eval">Seu E-mail:</label>
+                    <input type="email" id="email_eval" name="Email" placeholder="seuemail@escola.pr.gov.br" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="tipo">Tipo de Mensagem:</label>
+                    <select id="tipo" name="Tipo_De_Mensagem">
+                        <option value="Proposta de Melhoria">Proposta de Melhoria</option>
+                        <option value="Avaliação do Espaço">Avaliação do Espaço</option>
+                        <option value="Elogio ou Crítica">Elogio ou Crítica</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="setor">Setor Relacionado:</label>
+                    <select id="setor" name="Setor">
+                        <option value="Laboratórios">Laboratórios</option>
+                        <option value="Quadra Esportiva">Quadra Esportiva</option>
+                        <option value="Salas de Aula">Salas de Aula</option>
+                        <option value="Geral">Geral / Outro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="mensagem">Sua Mensagem / Sugestão:</label>
+                    <textarea id="mensagem" name="Mensagem" rows="5" placeholder="Descreva sua avaliação ou ideia detalhadamente..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Enviar para wirian.filho@escola.pr.gov.br</button>
+            </form>
+        </section>
+
+        <section id="login" class="tab-content">
+            <div class="auth-container">
+                <div class="auth-toggle">
+                    <button class="auth-toggle-btn active" onclick="switchAuth('login-form', event)">Entrar</button>
+                    <button class="auth-toggle-btn" onclick="switchAuth('register-form', event)">Cadastrar-se</button>
+                </div>
+
+                <form id="login-form" class="auth-form active" onsubmit="event.preventDefault(); alert('Login efetuado com sucesso!');">
+                    <h2>Acessar Conta</h2>
+                    <div class="form-group">
+                        <label for="login-user">Usuário ou E-mail:</label>
+                        <input type="text" id="login-user" placeholder="Seu usuário ou e-mail" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login-pass">Senha:</label>
+                        <input type="password" id="login-pass" placeholder="••••••••" required>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Entrar</button>
+                </form>
+
+                <form id="register-form" class="auth-form" onsubmit="event.preventDefault(); alert('Cadastro realizado com sucesso!');">
+                    <h2>Criar Nova Conta</h2>
+                    <div class="form-group">
+                        <label for="reg-name">Nome Completo:</label>
+                        <input type="text" id="reg-name" placeholder="Seu nome" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-email">E-mail Institucional:</label>
+                        <input type="email" id="reg-email" placeholder="usuario@escola.pr.gov.br" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-pass">Senha:</label>
+                        <input type="password" id="reg-pass" placeholder="Crie uma senha" required>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Concluir Cadastro</button>
+                </form>
+            </div>
+        </section>
+
     </main>
 
     <footer>
@@ -293,6 +530,23 @@
             }
 
             document.getElementById(tabName).classList.add("active");
+            if (evt && evt.currentTarget) {
+                evt.currentTarget.classList.add("active");
+            }
+        }
+
+        function switchAuth(formId, evt) {
+            var forms = document.getElementsByClassName("auth-form");
+            for (var i = 0; i < forms.length; i++) {
+                forms[i].classList.remove("active");
+            }
+
+            var toggleBtns = document.getElementsByClassName("auth-toggle-btn");
+            for (var j = 0; j < toggleBtns.length; j++) {
+                toggleBtns[j].classList.remove("active");
+            }
+
+            document.getElementById(formId).classList.add("active");
             evt.currentTarget.classList.add("active");
         }
     </script>
