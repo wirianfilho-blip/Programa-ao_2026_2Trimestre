@@ -5,167 +5,218 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal de Melhorias | Nossa Escola</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    
+    <style>
+        /* ==========================================================
+           1. VARIÁVEIS E ESTILOS BASE
+           ========================================================== */
+        :root {
+            --primary: #0d3b66;          /* Azul Marinho Principal */
+            --primary-hover: #082642;    /* Azul para Hovers */
+            --accent: #f4d35e;           /* Amarelo/Dourado */
+            --bg-body: #f8fafc;          /* Fundo do Site */
+            --card-bg: #ffffff;          /* Fundo dos Cards */
+            --text-color: #334155;       /* Cor dos Textos */
+            --text-muted: #64748b;      /* Textos Secundários */
+            --danger: #ef4444;          /* Vermelho Alerta */
+            --success: #10b981;         /* Verde Sucesso */
+        }
 
-    <div id="modalLogin" class="modal-overlay">
-        <div class="modal-box">
-            <h2>Área de Acesso</h2>
-            <p>Faça login para acessar o portal de melhorias</p>
-            
-            <form id="formLogin" onsubmit="realizarLogin(event)">
-                <div class="form-group">
-                    <label for="usuario">Usuário / CGM:</label>
-                    <input type="text" id="usuario" placeholder="Digite seu usuário" required>
-                </div>
-                <div class="form-group">
-                    <label for="senha">Senha:</label>
-                    <input type="password" id="senha" placeholder="Digite sua senha" required>
-                </div>
-                <button type="submit" class="btn-submit" style="width: 100%;">Entrar</button>
-            </form>
-        </div>
-    </div>
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.25s ease-in-out;
+        }
 
-    <header>
-        <div class="logo-container">
-            <img src="logo.png" alt="Logo da Escola" class="logo-escola" onerror="this.src='https://via.placeholder.com/130x130?text=Logo+Escola'">
-        </div>
-        <h1>O Que Nós Podemos Fazer Para Tornar Nossa Escola Ainda Melhor?</h1>
-        <p>Projeto Estudantil da Rede Estadual do Paraná: Unindo forças para transformar nossa infraestrutura e convivência.</p>
-    </header>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-body);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
 
-    <div class="container">
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
 
-        <div class="metrics-grid">
-            <div class="metric-card">
-                <span>4</span>
-                Áreas Prioritárias
-            </div>
-            <div class="metric-card">
-                <span>85%</span>
-                Engajamento dos Alunos
-            </div>
-            <div class="metric-card">
-                <span>12</span>
-                Propostas em Análise
-            </div>
-        </div>
-        
-        <div class="tabs-nav">
-            <button class="tab-btn active" onclick="openTab(event, 'lab')">💻 Laboratório</button>
-            <button class="tab-btn" onclick="openTab(event, 'quadra')">🏀 Quadra</button>
-            <button class="tab-btn" onclick="openTab(event, 'necessidades')">⚠️ Necessidades</button>
-            <button class="tab-btn" onclick="openTab(event, 'melhorias')">💡 Plano de Ação</button>
-            <button class="tab-btn" onclick="openTab(event, 'vozes')">💬 Voz dos Alunos</button>
-            <button class="tab-btn" onclick="openTab(event, 'sugerir')">✍️ Enviar Ideia</button>
-        </div>
+        /* ==========================================================
+           2. TELA DE LOGIN (TELA CHEIA)
+           ========================================================== */
+        .login-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, #1e517b 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
 
-        <div id="lab" class="tab-content active">
-            <h2>Laboratório de Informática</h2>
-            <p>Comparativo entre a situação atual dos nossos computadores/periféricos e a meta de espaço moderno que queremos construir.</p>
-            
-            <div class="galeria-container">
-                <div class="card">
-                    <div class="img-wrapper">
-                        <img src="laboratorio1.png" alt="Nosso Laboratório Atualmente" onerror="this.src='https://via.placeholder.com/400x240?text=Laboratorio+1+(Atual)'">
-                    </div>
-                    <div class="card-body">
-                        <p>Situação Atual (Laboratório 1)</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="img-wrapper">
-                        <img src="laboratorio2.png" alt="Como Gostaríamos que Estivesse Nosso Laboratório" onerror="this.src='https://via.placeholder.com/400x240?text=Laboratorio+2+(Meta)'">
-                    </div>
-                    <div class="card-body">
-                        <p>Meta Desejada (Laboratório 2)</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        .login-box {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 420px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
 
-        <div id="quadra" class="tab-content">
-            <h2>Quadra Esportiva</h2>
-            <p>Espaço de convivência, saúde e esporte. Veja o diagnóstico atual e o projeto de revitalização.</p>
-            
-            <div class="galeria-container">
-                <div class="card">
-                    <div class="img-wrapper">
-                        <img src="quadra1.png" alt="Quadra Esportiva Atual" onerror="this.src='https://via.placeholder.com/400x240?text=Quadra+1+(Atual)'">
-                    </div>
-                    <div class="card-body">
-                        <p>Situação Atual (Quadra 1)</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="img-wrapper">
-                        <img src="quadra2.png" alt="Quadra Esportiva Reformada" onerror="this.src='https://via.placeholder.com/400x240?text=Quadra+2+(Meta)'">
-                    </div>
-                    <div class="card-body">
-                        <p>Meta Desejada (Quadra 2)</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        .login-logo {
+            max-width: 100px;
+            height: auto;
+            margin-bottom: 15px;
+        }
 
-        <div id="necessidades" class="tab-content">
-            <h2>Diagnóstico de Necessidades</h2>
-            <p>Mapeamento dos principais gargalos que dificultam nossas rotinas escolares:</p>
-            
-            <div class="grid-cards">
-                <div class="box-info alerta">
-                    <h3>💻 Equipamentos de Informática</h3>
-                    <ul>
-                        <li>Fones de ouvido quebrados ou sem som.</li>
-                        <li>Computadores sem manutenção técnica em dia.</li>
-                        <li>Ausência de suporte e periféricos reserva.</li>
-                    </ul>
-                </div>
+        .login-box h2 {
+            margin: 0 0 8px 0;
+            color: var(--primary);
+        }
 
-                <div class="box-info alerta">
-                    <h3>🏀 Esporte e Lazer</h3>
-                    <ul>
-                        <li>Demarcação do piso apagada.</li>
-                        <li>Redes rasgadas e traves precisando de pintura.</li>
-                        <li>Pouco material disponível para as aulas de Educação Física.</li>
-                    </ul>
-                </div>
+        .login-box p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
 
-                <div class="box-info alerta">
-                    <h3>🏫 Áreas Comuns</h3>
-                    <ul>
-                        <li>Necessidade de mais lixeiras e pontos de reciclagem.</li>
-                        <li>Bebedouros precisando de manutenção.</li>
-                        <li>Iluminação interna fraca em corredores secundários.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        /* ==========================================================
+           3. CABEÇALHO DO PORTAL
+           ========================================================== */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e517b 100%);
+            color: #ffffff;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 0 10px 25px rgba(13, 59, 102, 0.2);
+        }
 
-        <div id="melhorias" class="tab-content">
-            <h2>Plano de Ação e Soluções</h2>
-            <p>Como pretendemos trabalhar junto com a comunidade e a direção para fazer acontecer:</p>
-            
-            <div class="grid-cards">
-                <div class="box-info sucesso">
-                    <h3>🛠️ Ações Tecnológicas</h3>
-                    <ul>
-                        <li>Chamados oficiais para substituição de fones via Núcleo de Educação.</li>
-                        <li>Equipe voluntária de alunos para monitoria do laboratório.</li>
-                        <li>Cartazes orientando sobre o cuidado com o patrimônio.</li>
-                    </ul>
-                </div>
+        .logo-container {
+            background: rgba(255, 255, 255, 0.15);
+            display: inline-block;
+            padding: 12px;
+            border-radius: 50%;
+            backdrop-filter: blur(5px);
+            margin-bottom: 15px;
+        }
 
-                <div class="box-info sucesso">
-                    <h3>🌱 Mutirão de Manutenção</h3>
-                    <ul>
-                        <li>Organização de mutirão de pintura comunitária na quadra.</li>
-                        <li>Campanha de arrecadação e rifas para novos materiais esportivos.</li>
-                        <li>Conscientização dos estudantes contra o vandalismo.</li>
-                    </ul>
-                </div>
+        .logo-escola {
+            max-width: 130px;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
 
-                <div class="box-info sucesso">
-                    <h3>
+        header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            margin: 0 auto;
+            max-width: 650px;
+            font-size: 1.05rem;
+            opacity: 0.9;
+            color: #e2e8f0;
+        }
+
+        /* ==========================================================
+           4. MÉTRICAS E STATUS
+           ========================================================== */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .metric-card span {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+        }
+
+        /* ==========================================================
+           5. NAVEGAÇÃO POR ABAS
+           ========================================================== */
+        .tabs-nav {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .tab-btn {
+            padding: 12px 22px;
+            background-color: #e2e8f0;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .tab-btn:hover {
+            background-color: #cbd5e1;
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(13, 59, 102, 0.3);
+        }
+
+        /* ==========================================================
+           6. CONTEÚDO DAS ABAS
+           ========================================================== */
+        .tab-content {
+            display: none;
+            background-color: var(--card-bg);
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            animation: slideUp 0.4s ease forwards;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-top: 0;
+            font-size: 1.6rem;
+            border-bottom: 3px solid #f1f5f9;
+            padding-bottom: 12px;
+        }
+
+        /* ==========================================================
