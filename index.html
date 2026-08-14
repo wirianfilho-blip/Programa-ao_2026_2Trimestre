@@ -18,6 +18,7 @@
             --brand-accent: #f59e0b;
             --brand-accent-hover: #d97706;
             --brand-success: #10b981;
+            --yellow-neon: #facc15;
             
             --bg-body: #f8fafc;
             --bg-card: #ffffff;
@@ -69,7 +70,32 @@
         }
 
         /* ==========================================================================
-           2. TOAST & MODAIS FLUTUANTES
+           2. EFEITO DO RAIO ILUMINADO PISCANDO (AMARELO NÉON)
+           ========================================================================== */
+        @keyframes yellowLightningPulse {
+            0%, 100% {
+                opacity: 1;
+                filter: drop-shadow(0 0 6px #facc15) drop-shadow(0 0 18px #eab308);
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.25;
+                filter: drop-shadow(0 0 2px #facc15);
+                transform: scale(0.92);
+            }
+        }
+
+        .flashing-lightning {
+            display: inline-block;
+            color: var(--yellow-neon);
+            animation: yellowLightningPulse 0.8s infinite alternate ease-in-out;
+            font-size: 1.6rem;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+
+        /* ==========================================================================
+           3. TOAST & MODAIS FLUTUANTES
            ========================================================================== */
         #toast-container {
             position: fixed;
@@ -135,7 +161,7 @@
         }
 
         /* ==========================================================================
-           3. LANDING PAGE SÊNIOR (PRÉ-LOGIN)
+           4. LANDING PAGE SÊNIOR (PRÉ-LOGIN)
            ========================================================================== */
         .landing-view {
             min-height: 100vh;
@@ -161,7 +187,6 @@
             -webkit-text-fill-color: transparent;
             display: flex;
             align-items: center;
-            gap: 8px;
         }
 
         .hero-section {
@@ -269,7 +294,7 @@
         }
 
         /* ==========================================================================
-           4. TELA DE AUTENTICAÇÃO (MODAL SLIDE-IN)
+           5. TELA DE AUTENTICAÇÃO (MODAL SLIDE-IN)
            ========================================================================== */
         .auth-overlay {
             position: fixed;
@@ -365,7 +390,7 @@
         .btn-action:hover { opacity: 0.95; transform: translateY(-1px); }
 
         /* ==========================================================================
-           5. DASHBOARD PRINCIPAL (POS-LOGIN)
+           6. DASHBOARD PRINCIPAL (POS-LOGIN)
            ========================================================================== */
         .app-shell { display: none; }
         .app-shell.active { display: block; }
@@ -632,13 +657,17 @@
 
     <div id="landing-view" class="landing-view">
         <nav class="landing-nav">
-            <div class="logo-badge">🎮 GAME DO <span>SABER</span></div>
+            <div class="logo-badge">
+                <span class="flashing-lightning">⚡</span> GAME DO <span>SABER</span>
+            </div>
             <button class="btn-hero-primary" onclick="openAuthModal('login')">Acessar Portal</button>
         </nav>
 
         <section class="hero-section">
             <div>
-                <h1 class="hero-title">Inovação e Transparência na <span>Sua Escola</span>.</h1>
+                <h1 class="hero-title">
+                    <span class="flashing-lightning" style="font-size: 3rem;">⚡</span> Inovação e Transparência na <span>Sua Escola</span>.
+                </h1>
                 <p class="hero-subtitle">Acompanhe projetos de infraestrutura, participe ativamente de enquetes e aprenda jogando no Game do Saber da rede pública.</p>
                 
                 <div class="hero-buttons">
@@ -740,7 +769,7 @@
         </div>
 
         <header class="main-header">
-            <h1>Painel de Infraestrutura & Game Escolar</h1>
+            <h1><span class="flashing-lightning">⚡</span> Painel de Infraestrutura & Game Escolar</h1>
             <p>Gerencie, sugira e ganhe XP participando das decisões da sua escola</p>
         </header>
 
@@ -748,7 +777,7 @@
             <nav class="nav-tabs">
                 <button class="tab-btn active" onclick="showTab('tab-quadra', this)">🏀 Quadra</button>
                 <button class="tab-btn" onclick="showTab('tab-lab', this)">💻 Laboratório TI</button>
-                <button class="tab-btn" onclick="showTab('tab-game', this)">🎮 Game do Saber (Quiz)</button>
+                <button class="tab-btn" onclick="showTab('tab-game', this)">⚡ Game do Saber (Quiz)</button>
                 <button class="tab-btn" onclick="showTab('tab-enquete', this)">🗳️ Enquete</button>
             </nav>
 
@@ -863,7 +892,7 @@
             </section>
 
             <section id="tab-game" class="tab-content">
-                <h3>🎮 Game do Saber - Desafio de Aprendizagem</h3>
+                <h3>⚡ Game do Saber - Desafio de Aprendizagem</h3>
                 <p style="color: var(--text-muted);">Responda ao desafio para ganhar XP e evoluir seu nível de usuário no portal!</p>
 
                 <div class="quiz-card">
