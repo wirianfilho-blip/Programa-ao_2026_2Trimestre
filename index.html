@@ -185,9 +185,7 @@
             margin-bottom: 20px;
         }
 
-        .hero-title span {
-            color: var(--brand-primary-light);
-        }
+        .hero-title span { color: var(--brand-primary-light); }
 
         .hero-subtitle {
             font-size: 1.15rem;
@@ -214,9 +212,7 @@
             transition: var(--transition);
         }
 
-        .btn-hero-primary:hover {
-            transform: translateY(-3px) scale(1.02);
-        }
+        .btn-hero-primary:hover { transform: translateY(-3px) scale(1.02); }
 
         .btn-hero-secondary {
             padding: 16px 32px;
@@ -381,8 +377,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            sticky: top;
-            z-index: 100;
         }
 
         .user-badge-group {
@@ -670,7 +664,7 @@
 
             <div class="hero-banner-card">
                 <div style="position: relative; height: 260px; border-radius: var(--radius-m); overflow: hidden; margin-bottom: 16px;">
-                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop" style="width:100%; height:100%; object-fit:cover;" alt="Escola Modernizada">
+                    <img id="img-hero" src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop" style="width:100%; height:100%; object-fit:cover;" alt="Escola Modernizada" onerror="this.src='escola.jpg'">
                 </div>
                 <h3>Plataforma Integrada de Gestão & Aprendizado</h3>
                 <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 6px;">Tecnologia avançada para transformar o ecossistema educacional.</p>
@@ -773,7 +767,7 @@
                                             📷 <input type="file" accept="image/*" style="display:none;" onchange="uploadCardImage(event, 'img-quadra-1')">
                                         </label>
                                     </div>
-                                    <img id="img-quadra-1" class="card-image-render" src="https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=800&auto=format&fit=crop" alt="Quadra">
+                                    <img id="img-quadra-1" class="card-image-render" src="https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=800&auto=format&fit=crop" alt="Quadra Atual" onerror="this.src='quadra1.jpg'">
                                 </div>
                                 <div class="card-body-text">
                                     <span style="color: var(--brand-accent-hover); font-weight:800; font-size:0.75rem;">SITUAÇÃO ATUAL</span>
@@ -797,7 +791,7 @@
                                             📷 <input type="file" accept="image/*" style="display:none;" onchange="uploadCardImage(event, 'img-quadra-2')">
                                         </label>
                                     </div>
-                                    <img id="img-quadra-2" class="card-image-render" src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=800&auto=format&fit=crop" alt="Nova Quadra">
+                                    <img id="img-quadra-2" class="card-image-render" src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=800&auto=format&fit=crop" alt="Nova Quadra" onerror="this.src='quadra2.jpg'">
                                 </div>
                                 <div class="card-body-text">
                                     <span style="color: var(--brand-success); font-weight:800; font-size:0.75rem;">PROJETO FUTURO</span>
@@ -828,7 +822,7 @@
                                             📷 <input type="file" accept="image/*" style="display:none;" onchange="uploadCardImage(event, 'img-lab-1')">
                                         </label>
                                     </div>
-                                    <img id="img-lab-1" class="card-image-render" src="https://images.unsplash.com/photo-1588072432836-e10032774350?q=80&w=800&auto=format&fit=crop" alt="Lab">
+                                    <img id="img-lab-1" class="card-image-render" src="https://images.unsplash.com/photo-1588072432836-e10032774350?q=80&w=800&auto=format&fit=crop" alt="Laboratório Atual" onerror="this.src='lab1.jpg'">
                                 </div>
                                 <div class="card-body-text">
                                     <span style="color: var(--brand-accent-hover); font-weight:800; font-size:0.75rem;">SITUAÇÃO ATUAL</span>
@@ -852,7 +846,7 @@
                                             📷 <input type="file" accept="image/*" style="display:none;" onchange="uploadCardImage(event, 'img-lab-2')">
                                         </label>
                                     </div>
-                                    <img id="img-lab-2" class="card-image-render" src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop" alt="Espaço Maker">
+                                    <img id="img-lab-2" class="card-image-render" src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop" alt="Espaço Maker" onerror="this.src='lab2.jpg'">
                                 </div>
                                 <div class="card-body-text">
                                     <span style="color: var(--brand-success); font-weight:800; font-size:0.75rem;">PROJETO FUTURO</span>
@@ -892,7 +886,7 @@
 
     <script>
         // ESTADO GLOBAL & PERSISTÊNCIA LOCAL
-        let currentUser = JSON.parse(localStorage.getItem('portal_user')) || null;
+        let currentUser = JSON.parse(localStorage.setItem ? localStorage.getItem('portal_user') : null) || null;
         let generatedCode = "";
 
         const defaultAvatar = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 24 24' fill='%232563eb'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/></svg>";
@@ -982,7 +976,7 @@
         });
 
         function saveUserSession() {
-            localStorage.setItem('portal_user', JSON.stringify(currentUser));
+            try { localStorage.setItem('portal_user', JSON.stringify(currentUser)); } catch(e){}
             closeAuthModal();
             renderAppSession();
             Toast.show(`Bem-vindo, ${currentUser.name}!`, 'success');
@@ -997,7 +991,7 @@
         }
 
         function logout() {
-            localStorage.removeItem('portal_user');
+            try { localStorage.removeItem('portal_user'); } catch(e){}
             currentUser = null;
             document.getElementById('app-shell').classList.remove('active');
             document.getElementById('landing-view').style.display = 'flex';
@@ -1098,7 +1092,7 @@
                 if (currentUser) {
                     currentUser.xp += 50;
                     currentUser.level = Math.floor(currentUser.xp / 100) + 1;
-                    localStorage.setItem('portal_user', JSON.stringify(currentUser));
+                    try { localStorage.setItem('portal_user', JSON.stringify(currentUser)); } catch(e){}
                     document.getElementById('user-level-display').innerText = `Nível ${currentUser.level} • ${currentUser.xp} XP`;
                 }
             } else {
