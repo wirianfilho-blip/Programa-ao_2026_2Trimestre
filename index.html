@@ -13,7 +13,6 @@
            1. DESIGN TOKENS & SYSTEM VARIABLES
            ========================================================================== */
         :root {
-            /* Palette */
             --brand-primary: #0f2c59;
             --brand-primary-light: #1e40af;
             --brand-accent: #f59e0b;
@@ -21,7 +20,7 @@
             
             --surface-ground: #f8fafc;
             --surface-card: #ffffff;
-            --surface-glass: rgba(255, 255, 255, 0.85);
+            --surface-glass: rgba(255, 255, 255, 0.88);
             
             --text-main: #0f172a;
             --text-muted: #64748b;
@@ -32,7 +31,6 @@
             --status-success: #10b981;
             --status-success-bg: #ecfdf5;
             
-            /* Elevation & Geometry */
             --radius-s: 8px;
             --radius-m: 16px;
             --radius-l: 24px;
@@ -47,9 +45,6 @@
             --transition-bounce: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        /* ==========================================================================
-           2. RESET & BASE STYLES
-           ========================================================================== */
         *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
@@ -57,7 +52,7 @@
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
             background-color: var(--surface-ground);
             color: var(--text-main);
             line-height: 1.6;
@@ -69,10 +64,9 @@
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--surface-ground); }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: var(--radius-full); }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
         /* ==========================================================================
-           3. TOAST NOTIFICATION ENGINE
+           2. TOAST NOTIFICATIONS
            ========================================================================== */
         #toast-container {
             position: fixed;
@@ -109,7 +103,7 @@
         }
 
         /* ==========================================================================
-           4. AUTHENTICATION MODULE (LOGIN SCREEN)
+           3. AUTHENTICATION MODULE (LOGIN & CADASTRO)
            ========================================================================== */
         .auth-view {
             position: fixed;
@@ -128,57 +122,78 @@
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 48px 40px;
+            padding: 40px 36px;
             border-radius: var(--radius-l);
             width: 100%;
-            max-width: 440px;
+            max-width: 460px;
             box-shadow: var(--shadow-3d);
             text-align: center;
         }
 
         .auth-brand img {
-            width: 90px;
-            height: 90px;
+            width: 80px;
+            height: 80px;
             object-fit: contain;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.15));
+            margin-bottom: 16px;
         }
 
-        .auth-header h2 {
-            font-size: 1.75rem;
-            font-weight: 800;
-            color: var(--brand-primary);
-            letter-spacing: -0.5px;
+        .auth-nav-toggle {
+            display: flex;
+            background: rgba(15, 44, 89, 0.08);
+            border-radius: var(--radius-full);
+            padding: 4px;
+            margin-bottom: 24px;
         }
 
-        .auth-header p {
+        .auth-toggle-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: var(--radius-full);
+            background: transparent;
             color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 32px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
         }
 
-        /* Form Components */
-        .form-field {
-            margin-bottom: 20px;
+        .auth-toggle-btn.active {
+            background: var(--brand-primary);
+            color: var(--text-white);
+            box-shadow: 0 4px 12px rgba(15, 44, 89, 0.2);
+        }
+
+        .auth-form {
+            display: none;
             text-align: left;
+        }
+
+        .auth-form.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .form-field {
+            margin-bottom: 16px;
         }
 
         .form-field label {
             display: block;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
             color: var(--text-main);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         .input-control {
             width: 100%;
-            padding: 14px 18px;
+            padding: 12px 16px;
             border: 2px solid #e2e8f0;
             border-radius: var(--radius-m);
-            font-size: 1rem;
+            font-size: 0.95rem;
             background: #ffffff;
             color: var(--text-main);
             outline: none;
@@ -192,7 +207,7 @@
 
         .btn-btn {
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             border: none;
             border-radius: var(--radius-m);
             background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-light));
@@ -202,6 +217,7 @@
             cursor: pointer;
             box-shadow: 0 8px 20px rgba(15, 44, 89, 0.25);
             transition: var(--transition-bounce);
+            margin-top: 8px;
         }
 
         .btn-btn:hover {
@@ -210,7 +226,7 @@
         }
 
         /* ==========================================================================
-           5. MAIN APP DASHBOARD
+           4. MAIN DASHBOARD & USER BAR
            ========================================================================== */
         .app-shell {
             display: none;
@@ -223,13 +239,55 @@
             opacity: 1;
         }
 
-        /* Header Engine */
+        .user-header-bar {
+            background: rgba(15, 44, 89, 0.95);
+            color: var(--text-white);
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--brand-accent);
+            color: var(--brand-primary);
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-logout {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-logout:hover {
+            background: var(--status-danger);
+            border-color: var(--status-danger);
+        }
+
         .app-header {
             background: linear-gradient(135deg, var(--brand-primary) 0%, #1e3a8a 100%);
             color: var(--text-white);
-            padding: 60px 24px 80px 24px;
+            padding: 50px 24px 70px 24px;
             text-align: center;
-            position: relative;
             clip-path: ellipse(150% 100% at 50% 0%);
         }
 
@@ -239,32 +297,22 @@
         }
 
         .header-brand-logo {
-            width: 100px;
-            height: 100px;
+            width: 90px;
+            height: 90px;
             object-fit: cover;
             border-radius: var(--radius-m);
             border: 3px solid rgba(255,255,255,0.3);
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             background: #fff;
             padding: 6px;
         }
 
         .app-header h1 {
-            font-size: 2.25rem;
+            font-size: 2.1rem;
             font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 12px;
-            line-height: 1.2;
+            margin-bottom: 10px;
         }
 
-        .app-header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            color: #cbd5e1;
-            font-weight: 400;
-        }
-
-        /* Layout Container */
         .main-container {
             max-width: 1200px;
             margin: -40px auto 60px auto;
@@ -283,30 +331,30 @@
 
         .metric-card {
             background: var(--surface-card);
-            padding: 24px;
+            padding: 20px;
             border-radius: var(--radius-m);
             box-shadow: var(--shadow-md);
             border: 1px solid #f1f5f9;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 16px;
         }
 
         .metric-icon {
-            width: 52px;
-            height: 52px;
+            width: 48px;
+            height: 48px;
             border-radius: var(--radius-m);
             background: rgba(15, 44, 89, 0.08);
             color: var(--brand-primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 800;
         }
 
         .metric-data h4 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 800;
             color: var(--brand-primary);
             line-height: 1;
@@ -321,7 +369,7 @@
         /* Navigation Tabs */
         .nav-tabs-wrapper {
             background: var(--surface-card);
-            padding: 10px;
+            padding: 8px;
             border-radius: var(--radius-full);
             box-shadow: var(--shadow-md);
             margin-bottom: 32px;
@@ -333,22 +381,17 @@
 
         .nav-tab-btn {
             flex: 1;
-            min-width: 140px;
-            padding: 14px 20px;
+            min-width: 130px;
+            padding: 12px 18px;
             border: none;
             border-radius: var(--radius-full);
             background: transparent;
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 700;
             cursor: pointer;
             transition: var(--transition-smooth);
             white-space: nowrap;
-        }
-
-        .nav-tab-btn:hover {
-            color: var(--brand-primary);
-            background: rgba(15, 44, 89, 0.04);
         }
 
         .nav-tab-btn.active {
@@ -357,11 +400,10 @@
             box-shadow: 0 6px 16px rgba(15, 44, 89, 0.25);
         }
 
-        /* Tab Content Panel */
         .tab-panel {
             display: none;
             background: var(--surface-card);
-            padding: 40px;
+            padding: 36px;
             border-radius: var(--radius-l);
             box-shadow: var(--shadow-md);
             border: 1px solid #f1f5f9;
@@ -378,34 +420,27 @@
         }
 
         .section-header {
-            margin-bottom: 32px;
+            margin-bottom: 28px;
             border-bottom: 2px solid #f1f5f9;
-            padding-bottom: 16px;
+            padding-bottom: 14px;
         }
 
         .section-header h3 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 800;
             color: var(--brand-primary);
         }
 
-        .section-header p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        /* ==========================================================================
-           6. ADVANCED 3D FLASHCARDS ENGINE
-           ========================================================================== */
+        /* 3D FLASHCARDS ENGINE */
         .flashcards-3d-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 32px;
-            perspective: 1200px; /* Essential for 3D Perspective Depth */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 28px;
+            perspective: 1200px;
         }
 
         .card-3d-wrapper {
-            height: 380px;
+            height: 360px;
             cursor: pointer;
         }
 
@@ -430,13 +465,11 @@
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
             border-radius: var(--radius-l);
             overflow: hidden;
             border: 1px solid #e2e8f0;
         }
 
-        /* Front Side */
         .card-3d-front {
             background: #ffffff;
             display: flex;
@@ -452,33 +485,29 @@
 
         .card-3d-caption {
             height: 35%;
-            padding: 20px;
+            padding: 16px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            background: #ffffff;
         }
 
         .card-3d-caption span {
             font-size: 0.75rem;
             font-weight: 800;
-            text-transform: uppercase;
             color: var(--brand-accent-hover);
-            letter-spacing: 1px;
         }
 
         .card-3d-caption h4 {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: var(--brand-primary);
         }
 
-        /* Back Side (Interactive 3D Reverse) */
         .card-3d-back {
             transform: rotateY(180deg);
             background: linear-gradient(135deg, var(--brand-primary), #1e3a8a);
             color: var(--text-white);
-            padding: 32px;
+            padding: 28px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -487,105 +516,68 @@
         }
 
         .card-3d-back h4 {
-            font-size: 1.35rem;
-            font-weight: 800;
-            margin-bottom: 12px;
+            font-size: 1.25rem;
             color: var(--brand-accent);
-        }
-
-        .card-3d-back p {
-            font-size: 0.95rem;
-            opacity: 0.9;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .badge-3d {
-            display: inline-block;
-            padding: 6px 16px;
-            border-radius: var(--radius-full);
-            background: rgba(255, 255, 255, 0.15);
-            font-size: 0.8rem;
-            font-weight: 700;
-            backdrop-filter: blur(4px);
-        }
-
-        /* ==========================================================================
-           7. DIAGNOSTIC & ACTION PLAN CARDS
-           ========================================================================== */
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-        }
-
-        .info-box {
-            padding: 28px;
-            border-radius: var(--radius-m);
-            border-left: 6px solid var(--brand-primary);
-            background: #f8fafc;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .info-box.danger {
-            border-left-color: var(--status-danger);
-            background: var(--status-danger-bg);
-        }
-
-        .info-box.success {
-            border-left-color: var(--status-success);
-            background: var(--status-success-bg);
-        }
-
-        .info-box h4 {
-            font-size: 1.2rem;
-            font-weight: 800;
-            margin-bottom: 16px;
-        }
-
-        .info-box ul {
-            padding-left: 20px;
-        }
-
-        .info-box li {
             margin-bottom: 10px;
-            font-size: 0.95rem;
-            color: var(--text-main);
         }
 
-        /* ==========================================================================
-           8. TESTIMONIALS & FEEDBACK FORM
-           ========================================================================== */
-        .testimonial-card {
+        /* ENQUETE INTERATIVA (POLL ENGINE) */
+        .poll-item {
             background: #f8fafc;
-            padding: 24px;
-            border-radius: var(--radius-m);
-            margin-bottom: 20px;
             border: 1px solid #e2e8f0;
-            position: relative;
+            border-radius: var(--radius-m);
+            padding: 20px;
+            margin-bottom: 16px;
+            transition: var(--transition-smooth);
         }
 
-        .testimonial-card p {
-            font-style: italic;
-            font-size: 1rem;
-            color: var(--text-main);
+        .poll-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .poll-progress-bg {
+            height: 12px;
+            background: #e2e8f0;
+            border-radius: var(--radius-full);
+            overflow: hidden;
             margin-bottom: 12px;
         }
 
-        .testimonial-author {
-            font-weight: 800;
-            font-style: normal;
-            font-size: 0.85rem;
+        .poll-progress-fill {
+            height: 100%;
+            background: var(--brand-primary);
+            width: 0%;
+            transition: width 0.6s ease;
+        }
+
+        .btn-vote {
+            background: var(--brand-accent);
+            border: none;
             color: var(--brand-primary);
+            padding: 8px 18px;
+            border-radius: var(--radius-full);
+            font-weight: 800;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition-bounce);
+        }
+
+        .btn-vote:hover {
+            background: var(--brand-accent-hover);
+            color: #fff;
         }
 
         /* Footer */
         footer {
             background: #091e3e;
             color: #94a3b8;
-            padding: 40px 24px;
+            padding: 36px 24px;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             margin-top: 60px;
         }
 
@@ -601,34 +593,67 @@
             <div class="auth-brand">
                 <img src="logo.png" alt="Logo Escola" id="login-logo-img">
             </div>
-            <div class="auth-header">
-                <h2>Portal de Acesso</h2>
-                <p>Identifique-se para continuar para a plataforma</p>
-            </div>
             
-            <form id="login-form">
+            <div class="auth-nav-toggle">
+                <button type="button" class="auth-toggle-btn active" onclick="toggleAuthMode('login')">Entrar</button>
+                <button type="button" class="auth-toggle-btn" onclick="toggleAuthMode('register')">Cadastrar</button>
+            </div>
+
+            <form id="login-form" class="auth-form active">
                 <div class="form-field">
-                    <label for="input-user">Usuário / Registros CGM</label>
-                    <input type="text" id="input-user" class="input-control" placeholder="Digite seu usuário ou identificador" required autocomplete="username">
+                    <label for="input-user">Usuário / CGM</label>
+                    <input type="text" id="input-user" class="input-control" placeholder="Digite seu usuário" required>
                 </div>
                 
                 <div class="form-field">
                     <label for="input-pass">Senha de Acesso</label>
-                    <input type="password" id="input-pass" class="input-control" placeholder="••••••••" required autocomplete="current-password">
+                    <input type="password" id="input-pass" class="input-control" placeholder="••••••••" required>
                 </div>
 
-                <button type="submit" class="btn-btn">Acessar Plataforma</button>
+                <button type="submit" class="btn-btn">Entrar na Conta</button>
+            </form>
+
+            <form id="register-form" class="auth-form">
+                <div class="form-field">
+                    <label for="reg-name">Nome Completo</label>
+                    <input type="text" id="reg-name" class="input-control" placeholder="Ex: Lucas Silva" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="reg-cgm">CGM ou E-mail Escolar</label>
+                    <input type="text" id="reg-cgm" class="input-control" placeholder="Digite seu registro escolar" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="reg-class">Série / Turma</label>
+                    <input type="text" id="reg-class" class="input-control" placeholder="Ex: 2º Ano B" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="reg-pass">Crie uma Senha</label>
+                    <input type="password" id="reg-pass" class="input-control" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn-btn">Finalizar Cadastro</button>
             </form>
         </div>
     </div>
 
     <div id="app-shell" class="app-shell">
         
+        <div class="user-header-bar">
+            <div class="user-info">
+                <div class="user-avatar" id="user-initials">U</div>
+                <span>Conectado como: <strong id="logged-user-name">Usuário</strong></span>
+            </div>
+            <button class="btn-logout" onclick="fazerLogout()">Sair</button>
+        </div>
+
         <header class="app-header">
             <div class="header-content">
                 <img src="logo.png" alt="Escola Logo" class="header-brand-logo" id="header-logo-img">
                 <h1>O Que Podemos Fazer Para Tornar Nossa Escola Ainda Melhor?</h1>
-                <p>Painel de Gestão Participativa e Diagnóstico Estrutural | Rede Estadual do Paraná</p>
+                <p>Painel de Gestão Participativa | Rede Estadual do Paraná</p>
             </div>
         </header>
 
@@ -650,27 +675,26 @@
                     </div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-icon">98%</div>
+                    <div class="metric-icon" id="vote-count-metric">142</div>
                     <div class="metric-data">
-                        <h4>Adesão</h4>
-                        <p>Engajamento dos Alunos</p>
+                        <h4>Votos</h4>
+                        <p>Registrados na Enquete</p>
                     </div>
                 </div>
             </div>
 
-            <nav class="nav-tabs-wrapper" aria-label="Abas de Conteúdo">
+            <nav class="nav-tabs-wrapper">
                 <button class="nav-tab-btn active" data-tab="tab-lab">💻 Laboratório</button>
                 <button class="nav-tab-btn" data-tab="tab-quadra">🏀 Quadra</button>
-                <button class="nav-tab-btn" data-tab="tab-diag">⚠️ Diagnóstico</button>
+                <button class="nav-tab-btn" data-tab="tab-poll">🗳️ Enquete ao Vivo</button>
                 <button class="nav-tab-btn" data-tab="tab-plano">💡 Plano de Ação</button>
-                <button class="nav-tab-btn" data-tab="tab-vozes">💬 Voz dos Alunos</button>
                 <button class="nav-tab-btn" data-tab="tab-sugerir">✍️ Nova Ideia</button>
             </nav>
 
             <section id="tab-lab" class="tab-panel active">
                 <div class="section-header">
                     <h3>Laboratório de Informática (Visão 3D)</h3>
-                    <p>Passe o mouse ou toque no card para girar em 3D e comparar a versão atual com a planejada.</p>
+                    <p>Clique ou passe o mouse nos cards para girá-los e ver detalhes do plano.</p>
                 </div>
 
                 <div class="flashcards-3d-grid">
@@ -685,8 +709,7 @@
                             </div>
                             <div class="card-3d-back">
                                 <h4>Diagnóstico Técnico</h4>
-                                <p>Necessidade urgente de fones de ouvido novos, periféricos funcionais e manutenção preventiva em todos os terminais.</p>
-                                <span class="badge-3d">Girar Card 🔄</span>
+                                <p>Troca imediata de fones quebrados, limpeza técnica de perifericos e revisão geral das máquinas.</p>
                             </div>
                         </div>
                     </div>
@@ -701,9 +724,8 @@
                                 </div>
                             </div>
                             <div class="card-3d-back">
-                                <h4>Projeção Futurista</h4>
-                                <p>Ambiente equipado com computadores de alta velocidade, fones em suporte individual e mesas organizadas para estudos de programação.</p>
-                                <span class="badge-3d">Girar Card 🔄</span>
+                                <h4>Meta Futurista</h4>
+                                <p>Ambiente moderno, com novos kits de robótica, computadores rápidos e organizadores de cabos.</p>
                             </div>
                         </div>
                     </div>
@@ -713,7 +735,7 @@
             <section id="tab-quadra" class="tab-panel">
                 <div class="section-header">
                     <h3>Quadra Esportiva (Visão 3D)</h3>
-                    <p>Interaja com os cards para entender a meta de revitalização do ambiente esportivo.</p>
+                    <p>Compare o estado atual com o projeto de revitalização.</p>
                 </div>
 
                 <div class="flashcards-3d-grid">
@@ -728,8 +750,7 @@
                             </div>
                             <div class="card-3d-back">
                                 <h4>Estado Atual</h4>
-                                <p>Demarcação do piso apagada, redes desgastadas e falhas na pintura que exigem revitalização estrutural.</p>
-                                <span class="badge-3d">Girar Card 🔄</span>
+                                <p>Piso com pintura desgastada, falta de redes e demarcação de quadra apagada.</p>
                             </div>
                         </div>
                     </div>
@@ -745,46 +766,51 @@
                             </div>
                             <div class="card-3d-back">
                                 <h4>Projeto de Reforma</h4>
-                                <p>Piso com tinta epóxi de alta durabilidade, traves novas, redes profissionais e equipamentos modernos para Educação Física.</p>
-                                <span class="badge-3d">Girar Card 🔄</span>
+                                <p>Nova pintura antiderrapante, traves reformadas, redes reforçadas e refletores em LED.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section id="tab-diag" class="tab-panel">
+            <section id="tab-poll" class="tab-panel">
                 <div class="section-header">
-                    <h3>Mapeamento de Necessidades</h3>
-                    <p>Análise detalhada das demandas levantadas pelos estudantes da Rede Estadual.</p>
+                    <h3>Votação de Prioridades da Escola</h3>
+                    <p>Qual dessas melhorias deve ser realizada primeiro? Escolha e vote!</p>
                 </div>
 
-                <div class="info-grid">
-                    <div class="info-box danger">
-                        <h4>💻 Tecnologia & Periféricos</h4>
-                        <ul>
-                            <li>Pilha de fones de ouvido danificados aguardando substituição.</li>
-                            <li>Lentidão em máquinas antigas sem upgrade de memória SSD.</li>
-                            <li>Ajustes necessários no cabeamento estruturado da rede.</li>
-                        </ul>
+                <div id="poll-container">
+                    <div class="poll-item">
+                        <div class="poll-header">
+                            <span>💻 Novos fones e manutenção do Laboratório de TI</span>
+                            <span class="poll-percent" id="p1-percent">45%</span>
+                        </div>
+                        <div class="poll-progress-bg">
+                            <div class="poll-progress-fill" id="p1-bar" style="width: 45%;"></div>
+                        </div>
+                        <button class="btn-vote" onclick="votar(1)">Votar nesta opção</button>
                     </div>
 
-                    <div class="info-box danger">
-                        <h4>🏀 Complexo Esportivo</h4>
-                        <ul>
-                            <li>Restauração total do garrafão de basquete e linhas de vôlei.</li>
-                            <li>Aquisição de conjunto de bolas oficiais e redes reforçadas.</li>
-                            <li>Inspecionar refletores do teto para iluminação noturna.</li>
-                        </ul>
+                    <div class="poll-item">
+                        <div class="poll-header">
+                            <span>🏀 Pintura nova e redes para a Quadra Esportiva</span>
+                            <span class="poll-percent" id="p2-percent">35%</span>
+                        </div>
+                        <div class="poll-progress-bg">
+                            <div class="poll-progress-fill" id="p2-bar" style="width: 35%;"></div>
+                        </div>
+                        <button class="btn-vote" onclick="votar(2)">Votar nesta opção</button>
                     </div>
 
-                    <div class="info-box danger">
-                        <h4>🏫 Convivência Geral</h4>
-                        <ul>
-                            <li>Implantação de coletores para separação seletiva de lixo.</li>
-                            <li>Renovação da sinalização e quadros de aviso nos corredores.</li>
-                            <li>Manutenção periódica nos filtros dos bebedouros.</li>
-                        </ul>
+                    <div class="poll-item">
+                        <div class="poll-header">
+                            <span>🌱 Pontos de Reciclagem e Manutenção dos Bebedouros</span>
+                            <span class="poll-percent" id="p3-percent">20%</span>
+                        </div>
+                        <div class="poll-progress-bg">
+                            <div class="poll-progress-fill" id="p3-bar" style="width: 20%;"></div>
+                        </div>
+                        <button class="btn-vote" onclick="votar(3)">Votar nesta opção</button>
                     </div>
                 </div>
             </section>
@@ -792,89 +818,23 @@
             <section id="tab-plano" class="tab-panel">
                 <div class="section-header">
                     <h3>Plano de Ação Estratégico</h3>
-                    <p>Conjunto de soluções práticas divididas entre alunos, corpo docente e gestão.</p>
+                    <p>Resumo das atividades divididas por grupos de trabalho.</p>
                 </div>
-
-                <div class="info-grid">
-                    <div class="info-box success">
-                        <h4>🛠️ Ações Tecnológicas</h4>
-                        <ul>
-                            <li>Abertura formal de chamados para reequipar os periféricos do laboratório.</li>
-                            <li>Formação do comitê "Estudantes Monitores de TI".</li>
-                            <li>Campanha de conscientização e zelo pelo patrimônio escolar.</li>
-                        </ul>
-                    </div>
-
-                    <div class="info-box success">
-                        <h4>🌱 Integração Comunitária</h4>
-                        <ul>
-                            <li>Mutirão de pintura participativa com a comunidade escolar.</li>
-                            <li>Eventos culturais e rifas beneficentes para aquisição de artigos.</li>
-                            <li>Garantia da preservação dos materiais contra avarias.</li>
-                        </ul>
-                    </div>
-
-                    <div class="info-box success">
-                        <h4>📋 Governança & Transparência</h4>
-                        <ul>
-                            <li>Reunião mensal do Grêmio Estudantil com a Direção Escolar.</li>
-                            <li>Tabela de horários equilibrada para acesso à quadra no recreio.</li>
-                            <li>Prestação de contas em tempo real via portal.</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section id="tab-vozes" class="tab-panel">
-                <div class="section-header">
-                    <h3>Voz dos Estudantes</h3>
-                    <p>Opiniões reais colhidas junto aos estudantes do colégio.</p>
-                </div>
-
-                <div class="testimonial-card">
-                    <p>"Ver um laboratório de informática moderno com fones e computadores que respondem rápido vai transformar nossa preparação para vestibulares e cursos de programação."</p>
-                    <span class="testimonial-author">— Estudante do 3º Ano do Ensino Médio</span>
-                </div>
-
-                <div class="testimonial-card">
-                    <p>"A quadra reformada vai dar uma nova vida aos nossos intervalos e incentivar muito mais gente a praticar esportes de verdade."</p>
-                    <span class="testimonial-author">— Aluno do Ensino Fundamental II</span>
-                </div>
+                <p>Nossas ações incluem mutirão comunitário de pintura, parceria com a direção para chamados oficiais de manutenção e criação de um comitê estudantil para zelo dos computadores.</p>
             </section>
 
             <section id="tab-sugerir" class="tab-panel">
                 <div class="section-header">
                     <h3>Submeter Nova Sugestão</h3>
-                    <p>Ajude a construir o futuro da nossa escola enviando sua proposta direta.</p>
+                    <p>Sua opinião contribui diretamente para a nossa escola.</p>
                 </div>
 
                 <form id="idea-form" style="max-width: 600px;">
                     <div class="form-field">
-                        <label for="idea-author">Seu Nome (Opcional)</label>
-                        <input type="text" id="idea-author" class="input-control" placeholder="Ex: Maria Oliveira">
+                        <label for="idea-text">Sua Proposta</label>
+                        <textarea id="idea-text" class="input-control" rows="4" placeholder="Descreva sua sugestão em detalhes..." required></textarea>
                     </div>
-
-                    <div class="form-field">
-                        <label for="idea-class">Sua Turma / Série</label>
-                        <input type="text" id="idea-class" class="input-control" placeholder="Ex: 2º Ano C" required>
-                    </div>
-
-                    <div class="form-field">
-                        <label for="idea-category">Área Foco</label>
-                        <select id="idea-category" class="input-control" required>
-                            <option value="">Selecione o setor...</option>
-                            <option value="Laboratório">Laboratório de Informática</option>
-                            <option value="Quadra">Quadra Esportiva</option>
-                            <option value="Infraestrutura">Infraestrutura Geral</option>
-                        </select>
-                    </div>
-
-                    <div class="form-field">
-                        <label for="idea-text">Descrição da Proposta</label>
-                        <textarea id="idea-text" class="input-control" rows="4" placeholder="Descreva os detalhes da sua proposta para a escola..." required></textarea>
-                    </div>
-
-                    <button type="submit" class="btn-btn" style="width: auto; padding: 14px 32px;">Enviar Proposta</button>
+                    <button type="submit" class="btn-btn" style="width: auto; padding: 12px 28px;">Enviar Sugestão</button>
                 </form>
             </section>
 
@@ -882,120 +842,154 @@
 
         <footer>
             <p><strong>Rede Estadual de Ensino do Paraná</strong> | Projeto de Infraestrutura e Cidadania Estudantil</p>
-            <p style="margin-top: 8px; opacity: 0.7;">Desenvolvido com arquitetura web moderna e focada em performance.</p>
         </footer>
 
     </div>
 
     <script>
-        /**
-         * Application State Management & UI Engine
-         */
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // 1. Image Fallback Engine (Prevents Broken Image Icons)
-            const setupImageFallbacks = () => {
-                const svgPlaceholder = (label) => 
-                    `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="240" viewBox="0 0 400 240"><rect width="100%" height="100%" fill="%23cbd5e1"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="18" fill="%23475569">${encodeURIComponent(label)}</text></svg>`;
+        // Banco de Dados em Memória de Usuários Registrados
+        const usuariosCadastrados = [
+            { cgm: "123", senha: "123", nome: "Aluno Demo", turma: "2º B" }
+        ];
 
-                document.querySelectorAll('img').forEach(img => {
-                    img.addEventListener('error', function() {
-                        const altText = this.getAttribute('alt') || 'Imagem Não Encontrada';
-                        this.src = svgPlaceholder(altText);
-                    });
-                });
-            };
+        let pollVotes = { p1: 65, p2: 50, p3: 27 };
 
-            // 2. Toast Notification System
-            const Toast = {
-                show(message, type = 'info') {
-                    const container = document.getElementById('toast-container');
-                    const toast = document.createElement('div');
-                    toast.className = `toast ${type}`;
-                    
-                    toast.innerHTML = `
-                        <span>${message}</span>
-                        <button style="background:none; border:none; cursor:pointer; font-weight:bold;" onclick="this.parentElement.remove()">✕</button>
-                    `;
-                    
-                    container.appendChild(toast);
-                    
-                    setTimeout(() => {
-                        toast.style.opacity = '0';
-                        toast.style.transform = 'translateX(100%)';
-                        setTimeout(() => toast.remove(), 400);
-                    }, 4000);
-                }
-            };
+        // Alternar Formulários (Login / Cadastro)
+        function toggleAuthMode(mode) {
+            const btns = document.querySelectorAll('.auth-toggle-btn');
+            const forms = document.querySelectorAll('.auth-form');
 
-            // 3. Login Controller
-            const loginForm = document.getElementById('login-form');
-            loginForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                const userVal = document.getElementById('input-user').value.trim();
-                const passVal = document.getElementById('input-pass').value.trim();
+            btns.forEach(b => b.classList.remove('active'));
+            forms.forEach(f => f.classList.remove('active'));
 
-                if (userVal && passVal) {
-                    const authView = document.getElementById('auth-view');
-                    const appShell = document.getElementById('app-shell');
+            if (mode === 'login') {
+                btns[0].classList.add('active');
+                document.getElementById('login-form').classList.add('active');
+            } else {
+                btns[1].classList.add('active');
+                document.getElementById('register-form').classList.add('active');
+            }
+        }
 
-                    // Smooth Fade Transition
-                    authView.style.opacity = '0';
-                    authView.style.pointerEvents = 'none';
+        // Sistema de Notificação Toast
+        const Toast = {
+            show(msg, type = 'info') {
+                const container = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.innerHTML = `<span>${msg}</span><button style="background:none;border:none;cursor:pointer;" onclick="this.parentElement.remove()">✕</button>`;
+                container.appendChild(toast);
+                setTimeout(() => toast.remove(), 4000);
+            }
+        };
 
-                    setTimeout(() => {
-                        authView.style.display = 'none';
-                        appShell.classList.add('active');
-                        Toast.show(`Autenticado com sucesso. Bem-vindo(a), ${userVal}!`, 'success');
-                    }, 400);
-                } else {
-                    Toast.show('Preencha as credenciais corretamente.', 'error');
-                }
+        // Tratamento de Imagens Quebradas (SVG Inline Fallback)
+        function setupFallbacks() {
+            const placeholder = (label) => `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="240" viewBox="0 0 400 240"><rect width="100%" height="100%" fill="%23cbd5e1"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="16" fill="%23475569">${encodeURIComponent(label)}</text></svg>`;
+            document.querySelectorAll('img').forEach(img => {
+                img.onerror = function() { this.src = placeholder(this.alt || 'Imagem'); };
             });
+        }
 
-            // 4. Tab Navigation System
-            const tabButtons = document.querySelectorAll('.nav-tab-btn');
-            const tabPanels = document.querySelectorAll('.tab-panel');
+        // Login
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const user = document.getElementById('input-user').value.trim();
+            const pass = document.getElementById('input-pass').value.trim();
 
-            tabButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const targetTabId = btn.getAttribute('data-tab');
+            const usuarioEncontrado = usuariosCadastrados.find(u => u.cgm === user && u.senha === pass);
 
-                    // Update Active Button State
-                    tabButtons.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-
-                    // Switch Active Panel
-                    tabPanels.forEach(panel => {
-                        if (panel.id === targetTabId) {
-                            panel.classList.add('active');
-                        } else {
-                            panel.classList.remove('active');
-                        }
-                    });
-                });
-            });
-
-            // 5. 3D Card Touch & Click Trigger (Mobile Friendly Support)
-            const cards3D = document.querySelectorAll('.card-3d-wrapper');
-            cards3D.forEach(card => {
-                card.addEventListener('click', () => {
-                    card.classList.toggle('is-flipped');
-                });
-            });
-
-            // 6. Form Submission Controller
-            const ideaForm = document.getElementById('idea-form');
-            ideaForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                Toast.show('Proposta enviada com sucesso ao comitê escolar!', 'success');
-                ideaForm.reset();
-            });
-
-            // Initialize Fallback logic
-            setupImageFallbacks();
+            if (usuarioEncontrado || (user !== "" && pass !== "")) {
+                const nomeFinal = usuarioEncontrado ? usuarioEncontrado.nome : user;
+                iniciarSessao(nomeFinal);
+            } else {
+                Toast.show('Usuário ou senha incorretos!', 'error');
+            }
         });
+
+        // Cadastro
+        document.getElementById('register-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const nome = document.getElementById('reg-name').value.trim();
+            const cgm = document.getElementById('reg-cgm').value.trim();
+            const turma = document.getElementById('reg-class').value.trim();
+            const senha = document.getElementById('reg-pass').value.trim();
+
+            // Salva no banco em memória
+            usuariosCadastrados.push({ cgm, senha, nome, turma });
+            Toast.show('Cadastro realizado com sucesso! Faça login para acessar.', 'success');
+            
+            // Limpa formulário e muda para login
+            document.getElementById('register-form').reset();
+            toggleAuthMode('login');
+        });
+
+        function iniciarSessao(nome) {
+            document.getElementById('auth-view').style.display = 'none';
+            document.getElementById('app-shell').classList.add('active');
+            document.getElementById('logged-user-name').innerText = nome;
+            document.getElementById('user-initials').innerText = nome.charAt(0).toUpperCase();
+            Toast.show(`Bem-vindo(a) ao portal, ${nome}!`, 'success');
+        }
+
+        function fazerLogout() {
+            document.getElementById('app-shell').classList.remove('active');
+            document.getElementById('auth-view').style.display = 'flex';
+            Toast.show('Sessão encerrada com sucesso.', 'info');
+        }
+
+        // Sistema de Votação na Enquete
+        function votar(opcao) {
+            if (opcao === 1) pollVotes.p1++;
+            if (opcao === 2) pollVotes.p2++;
+            if (opcao === 3) pollVotes.p3++;
+
+            const total = pollVotes.p1 + pollVotes.p2 + pollVotes.p3;
+            
+            const perc1 = Math.round((pollVotes.p1 / total) * 100);
+            const perc2 = Math.round((pollVotes.p2 / total) * 100);
+            const perc3 = Math.round((pollVotes.p3 / total) * 100);
+
+            document.getElementById('p1-bar').style.width = perc1 + '%';
+            document.getElementById('p1-percent').innerText = perc1 + '%';
+
+            document.getElementById('p2-bar').style.width = perc2 + '%';
+            document.getElementById('p2-percent').innerText = perc2 + '%';
+
+            document.getElementById('p3-bar').style.width = perc3 + '%';
+            document.getElementById('p3-percent').innerText = perc3 + '%';
+
+            document.getElementById('vote-count-metric').innerText = total;
+
+            Toast.show('Seu voto foi registrado com sucesso!', 'success');
+        }
+
+        // Navegação de Abas
+        document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = btn.getAttribute('data-tab');
+                document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+
+                btn.classList.add('active');
+                document.getElementById(target).classList.add('active');
+            });
+        });
+
+        // Evento dos Cards 3D
+        document.querySelectorAll('.card-3d-wrapper').forEach(card => {
+            card.addEventListener('click', () => card.classList.toggle('is-flipped'));
+        });
+
+        // Evento do Formulário de Ideias
+        document.getElementById('idea-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            Toast.show('Proposta enviada ao comitê de alunos!', 'success');
+            document.getElementById('idea-form').reset();
+        });
+
+        // Executar fallbacks na inicialização
+        setupFallbacks();
     </script>
 </body>
 </html>
