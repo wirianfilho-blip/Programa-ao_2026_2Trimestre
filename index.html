@@ -1,645 +1,171 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game do Saber | Portal Escolar Interativo</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --gradient-main: linear-gradient(135deg, #059669 0%, #10b981 50%, #3b82f6 100%);
-            --cor-card: rgba(255, 255, 255, 0.95);
-            --verde-escuro: #064e3b;
-            --verde-medio: #059669;
-            --verde-destaque: #10b981;
-            --azul-destaque: #2563eb;
-            --texto: #1e293b;
-            --texto-suave: #64748b;
-            --sombra-forte: 0 20px 30px -10px rgba(0, 0, 0, 0.25);
-            --sombra-card: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
-            --cinza-claro: #f8fafc;
-            --borda: #e2e8f0;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* Fundo com a imagem langer.png */
-        body {
-            font-family: 'Nunito', sans-serif;
-            background-image: linear-gradient(rgba(240, 253, 244, 0.75), rgba(240, 253, 244, 0.75)), url('langer.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            color: var(--texto);
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-
-        /* Header Chamativo */
-        .topbar {
-            background: var(--gradient-main);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            padding: 1rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .brand-header {
-            font-family: 'Fredoka', cursive;
-            font-size: 1.6rem;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 0.5rem;
-            list-style: none;
-            flex-wrap: wrap;
-        }
-
-        .tab-btn {
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            font-family: inherit;
-            color: #ffffff;
-            font-weight: 800;
-            font-size: 0.9rem;
-            padding: 0.6rem 1.2rem;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-        }
-
-        .tab-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .tab-btn.active {
-            background: #ffffff;
-            color: var(--verde-escuro);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
-        /* Layout Container */
-        .wrapper {
-            max-width: 1050px;
-            margin: 0 auto;
-            padding: 2.5rem 1.25rem;
-        }
-
-        .tab-content {
-            display: none;
-            background: var(--cor-card);
-            backdrop-filter: blur(8px);
-            padding: 3rem;
-            border-radius: 28px;
-            box-shadow: var(--sombra-forte);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.4s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .tab-content h1, .tab-content h2 {
-            font-family: 'Fredoka', cursive;
-            color: var(--verde-escuro);
-            margin-bottom: 1rem;
-        }
-
-        .tab-content h1 { font-size: 2.6rem; text-align: center; }
-        .tab-content h2 { font-size: 1.8rem; }
-
-        .tagline {
-            text-align: center;
-            color: var(--verde-medio);
-            background: var(--gradient-main);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 900;
-            text-transform: uppercase;
-            font-size: 0.95rem;
-            letter-spacing: 1.5px;
-            margin-bottom: 2rem;
-        }
-
-        .brand-logo {
-            margin: 1.5rem 0;
-            display: flex;
-            justify-content: center;
-        }
-
-        .brand-logo img {
-            max-width: 240px;
-            width: 100%;
-            height: auto;
-            border-radius: 16px;
-            box-shadow: var(--sombra-card);
-        }
-
-        /* Grid de Cards */
-        .grid-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .info-card {
-            background: var(--cinza-claro);
-            padding: 1.8rem;
-            border-radius: 20px;
-            border: 1px solid var(--borda);
-            transition: all 0.3s ease;
-        }
-
-        .info-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--verde-destaque);
-            box-shadow: var(--sombra-card);
-        }
-
-        .info-card h3 {
-            color: var(--verde-medio);
-            margin-bottom: 0.75rem;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Galeria */
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .photo-card {
-            background: #ffffff;
-            border-radius: 18px;
-            overflow: hidden;
-            border: 1px solid var(--borda);
-            box-shadow: var(--sombra-card);
-            transition: all 0.3s ease;
-        }
-
-        .photo-card:hover {
-            transform: scale(1.03);
-            box-shadow: var(--sombra-forte);
-        }
-
-        .photo-card img {
-            width: 100%;
-            height: 190px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .photo-card figcaption {
-            padding: 1rem;
-            font-size: 0.95rem;
-            font-weight: 800;
-            color: var(--verde-medio);
-            text-align: center;
-        }
-
-        /* Formulários e Login */
-        .auth-card {
-            max-width: 450px;
-            margin: 0 auto;
-            background: #ffffff;
-            padding: 2.5rem;
-            border-radius: 24px;
-            box-shadow: var(--sombra-forte);
-            border: 1px solid var(--borda);
-        }
-
-        .auth-toggle {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            border-bottom: 2px solid var(--borda);
-            padding-bottom: 0.5rem;
-        }
-
-        .auth-toggle-btn {
-            background: none;
-            border: none;
-            font-weight: 800;
-            font-size: 1.1rem;
-            cursor: pointer;
-            color: var(--texto-suave);
-            padding-bottom: 0.3rem;
-            border-bottom: 3px solid transparent;
-            transition: all 0.2s ease;
-        }
-
-        .auth-toggle-btn.active {
-            color: var(--verde-medio);
-            border-bottom-color: var(--verde-medio);
-        }
-
-        .auth-form { display: none; }
-        .auth-form.active { display: block; }
-
-        .form-group {
-            margin-bottom: 1.2rem;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 800;
-            margin-bottom: 0.4rem;
-            font-size: 0.9rem;
-            color: var(--texto);
-        }
-
-        .form-group input, 
-        .form-group select, 
-        .form-group textarea {
-            width: 100%;
-            padding: 0.85rem 1.2rem;
-            border: 2px solid var(--borda);
-            border-radius: 12px;
-            font-family: inherit;
-            font-size: 0.95rem;
-            outline: none;
-            background: #ffffff;
-            transition: all 0.2s ease;
-        }
-
-        .form-group input:focus, 
-        .form-group select:focus, 
-        .form-group textarea:focus {
-            border-color: var(--verde-medio);
-            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
-        }
-
-        .btn-submit {
-            background: var(--gradient-main);
-            color: #ffffff;
-            border: none;
-            padding: 0.95rem 1.8rem;
-            font-weight: 800;
-            font-size: 1rem;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);
-        }
-
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(5, 150, 105, 0.4);
-        }
-
-        .custom-list {
-            list-style: none;
-            margin-top: 1.5rem;
-        }
-
-        .custom-list li {
-            padding: 1rem;
-            background: var(--cinza-claro);
-            border-radius: 12px;
-            margin-bottom: 0.75rem;
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            border-left: 4px solid var(--verde-medio);
-        }
-
-        footer {
-            text-align: center;
-            padding: 2.5rem 1rem;
-            color: var(--texto-suave);
-            font-size: 0.9rem;
-            font-weight: 800;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(5px);
-            margin-top: 2rem;
-        }
-
-        @media (max-width: 768px) {
-            .topbar { flex-direction: column; gap: 1rem; }
-            .tab-content { padding: 1.5rem; }
-            .nav-links { gap: 0.3rem; }
-            .tab-btn { font-size: 0.8rem; padding: 0.4rem 0.8rem; }
-        }
-    </style>
+    <title>Portal de Melhorias | Nossa Escola</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <header class="topbar">
-        <div class="brand-header">
-            <span>🎮</span> Game do Saber
+    <div id="modalLogin" class="modal-overlay">
+        <div class="modal-box">
+            <h2>Área de Acesso</h2>
+            <p>Faça login para acessar o portal de melhorias</p>
+            
+            <form id="formLogin" onsubmit="realizarLogin(event)">
+                <div class="form-group">
+                    <label for="usuario">Usuário / CGM:</label>
+                    <input type="text" id="usuario" placeholder="Digite seu usuário" required>
+                </div>
+                <div class="form-group">
+                    <label for="senha">Senha:</label>
+                    <input type="password" id="senha" placeholder="Digite sua senha" required>
+                </div>
+                <button type="submit" class="btn-submit" style="width: 100%;">Entrar</button>
+            </form>
         </div>
-        <nav>
-            <ul class="nav-links">
-                <li><button class="tab-btn active" onclick="openTab(event, 'login')">Acesso</button></li>
-                <li><button class="tab-btn" onclick="openTab(event, 'inicio')">Início</button></li>
-                <li><button class="tab-btn" onclick="openTab(event, 'espaco')">Nosso Espaço</button></li>
-                <li><button class="tab-btn" onclick="openTab(event, 'galeria')">Galeria</button></li>
-                <li><button class="tab-btn" onclick="openTab(event, 'comunidade')">Comunidade</button></li>
-                <li><button class="tab-btn" onclick="openTab(event, 'projetos')">Projetos</button></li>
-                <li><button class="tab-btn" onclick="openTab(event, 'avaliacao')">Propostas</button></li>
-            </ul>
-        </nav>
+    </div>
+
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo da Escola" class="logo-escola" onerror="this.src='https://via.placeholder.com/130x130?text=Logo+Escola'">
+        </div>
+        <h1>O Que Nós Podemos Fazer Para Tornar Nossa Escola Ainda Melhor?</h1>
+        <p>Projeto Estudantil da Rede Estadual do Paraná: Unindo forças para transformar nossa infraestrutura e convivência.</p>
     </header>
 
-    <main class="wrapper">
+    <div class="container">
 
-        <section id="login" class="tab-content active">
-            <h1>Área do Aluno e Comunidade</h1>
-            <p class="tagline">Acesse para fazer a diferença na nossa escola</p>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <span>4</span>
+                Áreas Prioritárias
+            </div>
+            <div class="metric-card">
+                <span>85%</span>
+                Engajamento dos Alunos
+            </div>
+            <div class="metric-card">
+                <span>12</span>
+                Propostas em Análise
+            </div>
+        </div>
+        
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="openTab(event, 'lab')">💻 Laboratório</button>
+            <button class="tab-btn" onclick="openTab(event, 'quadra')">🏀 Quadra</button>
+            <button class="tab-btn" onclick="openTab(event, 'necessidades')">⚠️ Necessidades</button>
+            <button class="tab-btn" onclick="openTab(event, 'melhorias')">💡 Plano de Ação</button>
+            <button class="tab-btn" onclick="openTab(event, 'vozes')">💬 Voz dos Alunos</button>
+            <button class="tab-btn" onclick="openTab(event, 'sugerir')">✍️ Enviar Ideia</button>
+        </div>
 
-            <div class="auth-card">
-                <div class="auth-toggle">
-                    <button class="auth-toggle-btn active" onclick="switchAuth('login-form', event)">Entrar</button>
-                    <button class="auth-toggle-btn" onclick="switchAuth('register-form', event)">Cadastrar-se</button>
+        <div id="lab" class="tab-content active">
+            <h2>Laboratório de Informática</h2>
+            <p>Comparativo entre a situação atual dos nossos computadores/periféricos e a meta de espaço moderno que queremos construir.</p>
+            
+            <div class="galeria-container">
+                <div class="card">
+                    <div class="img-wrapper">
+                        <img src="laboratorio1.png" alt="Nosso Laboratório Atualmente" onerror="this.src='https://via.placeholder.com/400x240?text=Laboratorio+1+(Atual)'">
+                    </div>
+                    <div class="card-body">
+                        <p>Situação Atual (Laboratório 1)</p>
+                    </div>
                 </div>
-
-                <form id="login-form" class="auth-form active" onsubmit="event.preventDefault(); alert('Login efetuado com sucesso!');">
-                    <div class="form-group">
-                        <label for="login-user">E-mail ou Usuário:</label>
-                        <input type="text" id="login-user" placeholder="usuario@escola.pr.gov.br" required>
+                <div class="card">
+                    <div class="img-wrapper">
+                        <img src="laboratorio2.png" alt="Como Gostaríamos que Estivesse Nosso Laboratório" onerror="this.src='https://via.placeholder.com/400x240?text=Laboratorio+2+(Meta)'">
                     </div>
-
-                    <div class="form-group">
-                        <label for="login-pass">Senha:</label>
-                        <input type="password" id="login-pass" placeholder="••••••••" required>
+                    <div class="card-body">
+                        <p>Meta Desejada (Laboratório 2)</p>
                     </div>
-
-                    <button type="submit" class="btn-submit">Entrar no Portal</button>
-                </form>
-
-                <form id="register-form" class="auth-form" onsubmit="event.preventDefault(); alert('Cadastro efetuado!');">
-                    <div class="form-group">
-                        <label for="reg-name">Nome Completo:</label>
-                        <input type="text" id="reg-name" placeholder="Seu nome completo" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="reg-email">E-mail Institucional:</label>
-                        <input type="email" id="reg-email" placeholder="usuario@escola.pr.gov.br" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="reg-pass">Crie uma Senha:</label>
-                        <input type="password" id="reg-pass" placeholder="Mínimo de 6 caracteres" required>
-                    </div>
-
-                    <button type="submit" class="btn-submit">Criar Minha Conta</button>
-                </form>
+                </div>
             </div>
-        </section>
+        </div>
 
-        <section id="inicio" class="tab-content">
-            <h1>Game do Saber</h1>
-            <p class="tagline">Nossa Escola, Nosso Compromisso</p>
-
-            <div class="brand-logo">
-                <img src="logo.png" onerror="this.onerror=null; this.src='https://via.placeholder.com/250x150/10b981/ffffff?text=Game+do+Saber';" alt="Logo do projeto Game do Saber">
+        <div id="quadra" class="tab-content">
+            <h2>Quadra Esportiva</h2>
+            <p>Espaço de convivência, saúde e esporte. Veja o diagnóstico atual e o projeto de revitalização.</p>
+            
+            <div class="galeria-container">
+                <div class="card">
+                    <div class="img-wrapper">
+                        <img src="quadra1.png" alt="Quadra Esportiva Atual" onerror="this.src='https://via.placeholder.com/400x240?text=Quadra+1+(Atual)'">
+                    </div>
+                    <div class="card-body">
+                        <p>Situação Atual (Quadra 1)</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="img-wrapper">
+                        <img src="quadra2.png" alt="Quadra Esportiva Reformada" onerror="this.src='https://via.placeholder.com/400x240?text=Quadra+2+(Meta)'">
+                    </div>
+                    <div class="card-body">
+                        <p>Meta Desejada (Quadra 2)</p>
+                    </div>
+                </div>
             </div>
+        </div>
 
-            <p style="text-align: center; max-width: 750px; margin: 0 auto; font-size: 1.05rem;">
-                O portal <strong>Game do Saber</strong> é uma iniciativa inovadora focada em engajar estudantes, equipe pedagógica e a comunidade local na transformação contínua do ambiente escolar.
-            </p>
-
+        <div id="necessidades" class="tab-content">
+            <h2>Diagnóstico de Necessidades</h2>
+            <p>Mapeamento dos principais gargalos que dificultam nossas rotinas escolares:</p>
+            
             <div class="grid-cards">
-                <div class="info-card">
-                    <h3>🎯 Missão Principal</h3>
-                    <p>Incentivar o protagonismo jovem, promovendo a conservação, a criatividade e a participação ativa na melhoria do ecossistema escolar.</p>
+                <div class="box-info alerta">
+                    <h3>💻 Equipamentos de Informática</h3>
+                    <ul>
+                        <li>Fones de ouvido quebrados ou sem som.</li>
+                        <li>Computadores sem manutenção técnica em dia.</li>
+                        <li>Ausência de suporte e periféricos reserva.</li>
+                    </ul>
                 </div>
-                <div class="info-card">
-                    <h3>🤝 Parceria Comunitária</h3>
-                    <p>Aproximar os pais, moradores e lideranças locais da gestão democrática da escola, unindo esforços por uma educação de excelência.</p>
+
+                <div class="box-info alerta">
+                    <h3>🏀 Esporte e Lazer</h3>
+                    <ul>
+                        <li>Demarcação do piso apagada.</li>
+                        <li>Redes rasgadas e traves precisando de pintura.</li>
+                        <li>Pouco material disponível para as aulas de Educação Física.</li>
+                    </ul>
                 </div>
-                <div class="info-card">
-                    <h3>💡 Canal Direto</h3>
-                    <p>Garantir voz ativa para todos com o envio direto de ideias, avaliações de espaços e projetos inovadores.</p>
+
+                <div class="box-info alerta">
+                    <h3>🏫 Áreas Comuns</h3>
+                    <ul>
+                        <li>Necessidade de mais lixeiras e pontos de reciclagem.</li>
+                        <li>Bebedouros precisando de manutenção.</li>
+                        <li>Iluminação interna fraca em corredores secundários.</li>
+                    </ul>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section id="espaco" class="tab-content">
-            <h2>Como preservar e transformar nossa escola?</h2>
-            <p style="font-size: 1.05rem;">
-                Estruturas bem preservadas geram motivação e orgulho. O cuidado diário com nossas instalações é a chave para garantir aprendizado de qualidade.
-            </p>
-
+        <div id="melhorias" class="tab-content">
+            <h2>Plano de Ação e Soluções</h2>
+            <p>Como pretendemos trabalhar junto com a comunidade e a direção para fazer acontecer:</p>
+            
             <div class="grid-cards">
-                <div class="info-card">
-                    <h3>🧪 Laboratórios de Ciências</h3>
-                    <p>Espaços equipados com reagentes e microscópios. A conservação das bancadas e vidrarias possibilita aulas práticas dinâmicas e seguras.</p>
-                </div>
-                <div class="info-card">
-                    <h3>🏀 Complexo Esportivo</h3>
-                    <p>Nossa quadra poliesportiva é o coração dos eventos, campeonatos e aulas de Educação Física.</p>
-                </div>
-                <div class="info-card">
-                    <h3>📖 Áreas de Estudo e Pátio</h3>
-                    <p>Ambientes arborizados e funcionais pensados para a convivência saudável, leitura ao ar livre e descanso entre os períodos de aula.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="galeria" class="tab-content">
-            <h2>Nossos Espaços em Destaque</h2>
-            <p>Conheça os ambientes que mantemos com carinho e dedicação coletiva:</p>
-
-            <div class="photo-grid">
-                <figure class="photo-card">
-                    <img src="laboratorio1.png" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/059669/ffffff?text=Laboratorio+1';" alt="Laboratório de ciências 1">
-                    <figcaption>Laboratório de Ciências 1</figcaption>
-                </figure>
-
-                <figure class="photo-card">
-                    <img src="laboratorio2.png" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/059669/ffffff?text=Laboratorio+2';" alt="Laboratório de ciências 2">
-                    <figcaption>Laboratório de Ciências 2</figcaption>
-                </figure>
-
-                <figure class="photo-card">
-                    <img src="quadra1.png" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/3b82f6/ffffff?text=Quadra+1';" alt="Quadra poliesportiva 1">
-                    <figcaption>Quadra de Esportes 1</figcaption>
-                </figure>
-
-                <figure class="photo-card">
-                    <img src="quadra2.png" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/2563eb/ffffff?text=Quadra+2';" alt="Área de Jogos e Atividades na Quadra 2">
-                    <figcaption>Quadra de Esportes 2 (Atividades)</figcaption>
-                </figure>
-            </div>
-        </section>
-
-        <section id="comunidade" class="tab-content">
-            <h2>Engajamento e Participação Comunitária</h2>
-            <p>A escola é um patrimônio público e vivo. Veja como a comunidade participa ativamente:</p>
-
-            <ul class="custom-list">
-                <li>
-                    <span>🌱</span>
-                    <div><strong>Mutirões de Sustentabilidade:</strong> Encontros mensais de jardinagem e cuidados com a horta comunitária.</div>
-                </li>
-                <li>
-                    <span>🎨</span>
-                    <div><strong>Revitalização Visual:</strong> Projetos de grafite e pintura artística com temas educativos nos muros e corredores.</div>
-                </li>
-                <li>
-                    <span>📚</span>
-                    <div><strong>Feira de Troca de Livros:</strong> Incentivo à leitura com a circulação e doação continuada de obras literárias.</div>
-                </li>
-            </ul>
-        </section>
-
-        <section id="projetos" class="tab-content">
-            <h2>Projetos em Andamento</h2>
-            <p>Conheça os programas de destaque desenvolvidos pelos alunos ao longo do ano:</p>
-
-            <div class="grid-cards">
-                <div class="info-card">
-                    <h3>♻️ Coleta Seletiva Inteligente</h3>
-                    <p>Instalação de lixeiras temáticas para reciclagem de papéis e plásticos.</p>
-                </div>
-                <div class="info-card">
-                    <h3>🥗 Horta Orgânica Escolar</h3>
-                    <p>Cultivo de verduras e temperos pelos próprios estudantes para a merenda escolar.</p>
-                </div>
-                <div class="info-card">
-                    <h3>🏆 Game do Saber Acadêmico</h3>
-                    <p>Desafios interativos de conhecimentos gerais unindo tecnologia e aprendizado.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="avaliacao" class="tab-content">
-            <h2>Envie sua Avaliação ou Proposta</h2>
-            <p>Suas propostas são enviadas diretamente para a gestão no e-mail: <strong>wirian.filho@escola.pr.gov.br</strong>.</p>
-
-            <form style="margin-top: 1.5rem;" action="https://formspree.io/f/xkdowpql" method="POST">
-                <input type="hidden" name="_to" value="wirian.filho@escola.pr.gov.br">
-
-                <div class="form-group">
-                    <label for="nome_eval">Nome Completo:</label>
-                    <input type="text" id="nome_eval" name="Nome" placeholder="Ex: Gabriel Souza" required>
+                <div class="box-info sucesso">
+                    <h3>🛠️ Ações Tecnológicas</h3>
+                    <ul>
+                        <li>Chamados oficiais para substituição de fones via Núcleo de Educação.</li>
+                        <li>Equipe voluntária de alunos para monitoria do laboratório.</li>
+                        <li>Cartazes orientando sobre o cuidado com o patrimônio.</li>
+                    </ul>
                 </div>
 
-                <div class="form-group">
-                    <label for="email_eval">Seu E-mail Institucional:</label>
-                    <input type="email" id="email_eval" name="Email" placeholder="seu.nome@escola.pr.gov.br" required>
+                <div class="box-info sucesso">
+                    <h3>🌱 Mutirão de Manutenção</h3>
+                    <ul>
+                        <li>Organização de mutirão de pintura comunitária na quadra.</li>
+                        <li>Campanha de arrecadação e rifas para novos materiais esportivos.</li>
+                        <li>Conscientização dos estudantes contra o vandalismo.</li>
+                    </ul>
                 </div>
 
-                <div class="form-group">
-                    <label for="tipo">Categoria da Proposta:</label>
-                    <select id="tipo" name="Tipo_De_Mensagem">
-                        <option value="Proposta de Melhoria">Proposta de Melhoria</option>
-                        <option value="Avaliação de Infraestrutura">Avaliação de Infraestrutura</option>
-                        <option value="Sugestão de Projeto">Sugestão de Projeto</option>
-                        <option value="Elogio / Crítica">Elogio ou Crítica</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="setor">Setor Relacionado:</label>
-                    <select id="setor" name="Setor">
-                        <option value="Laboratórios">Laboratórios</option>
-                        <option value="Quadra Esportiva">Quadra Esportiva (1 ou 2)</option>
-                        <option value="Salas de Aula">Salas de Aula</option>
-                        <option value="Pátio e Áreas Comuns">Pátio / Áreas Comuns</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="mensagem">Detalhes da Proposta:</label>
-                    <textarea id="mensagem" name="Mensagem" rows="5" placeholder="Descreva sua ideia de forma clara..." required></textarea>
-                </div>
-
-                <button type="submit" class="btn-submit">Enviar Proposta Direta</button>
-            </form>
-        </section>
-
-    </main>
-
-    <footer>
-        <p>Game do Saber &bull; Secretaria de Estado da Educação do Paraná &bull; Unindo forças por uma escola cada vez melhor.</p>
-    </footer>
-
-    <script>
-        function openTab(evt, tabName) {
-            var i, tabcontent, tablinks;
-
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].classList.remove("active");
-            }
-
-            tablinks = document.getElementsByClassName("tab-btn");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("active");
-            }
-
-            var targetTab = document.getElementById(tabName);
-            if (targetTab) {
-                targetTab.classList.add("active");
-            }
-
-            if (evt && evt.currentTarget) {
-                evt.currentTarget.classList.add("active");
-            }
-        }
-
-        function switchAuth(formId, evt) {
-            var forms = document.getElementsByClassName("auth-form");
-            for (var i = 0; i < forms.length; i++) {
-                forms[i].classList.remove("active");
-            }
-
-            var toggleBtns = document.getElementsByClassName("auth-toggle-btn");
-            for (var j = 0; j < toggleBtns.length; j++) {
-                toggleBtns[j].classList.remove("active");
-            }
-
-            var targetForm = document.getElementById(formId);
-            if (targetForm) {
-                targetForm.classList.add("active");
-            }
-
-            if (evt && evt.currentTarget) {
-                evt.currentTarget.classList.add("active");
-            }
-        }
-    </script>
-
-</body>
-</html>
+                <div class="box-info sucesso">
+                    <h3>
