@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Escolar Sênior & Game do Saber</title>
+    <title>Game do Saber & Portal Escolar</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -632,7 +632,7 @@
 
     <div id="landing-view" class="landing-view">
         <nav class="landing-nav">
-            <div class="logo-badge">🏫 PR-ESCOLAR <span>SÊNIOR</span></div>
+            <div class="logo-badge">🎮 GAME DO <span>SABER</span></div>
             <button class="btn-hero-primary" onclick="openAuthModal('login')">Acessar Portal</button>
         </nav>
 
@@ -672,7 +672,7 @@
         </section>
 
         <footer style="text-align: center; padding: 24px; color: var(--text-muted); font-size: 0.85rem;">
-            © 2026 Portal Escolar Avançado - Todos os direitos reservados.
+            © 2026 Game do Saber - Todos os direitos reservados.
         </footer>
     </div>
 
@@ -885,13 +885,11 @@
     </div>
 
     <script>
-        // ESTADO GLOBAL & PERSISTÊNCIA LOCAL
         let currentUser = JSON.parse(localStorage.setItem ? localStorage.getItem('portal_user') : null) || null;
         let generatedCode = "";
 
         const defaultAvatar = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 24 24' fill='%232563eb'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/></svg>";
 
-        // INICIALIZAÇÃO
         window.addEventListener('DOMContentLoaded', () => {
             if (currentUser) {
                 renderAppSession();
@@ -899,7 +897,6 @@
             loadQuiz();
         });
 
-        // NOTIFICAÇÕES TOAST
         const Toast = {
             show(msg, type = 'info') {
                 const container = document.getElementById('toast-container');
@@ -911,7 +908,6 @@
             }
         };
 
-        // MODO ESCURO
         function toggleDarkMode() {
             const html = document.documentElement;
             const isDark = html.getAttribute('data-theme') === 'dark';
@@ -919,7 +915,6 @@
             Toast.show(`Modo ${isDark ? 'Claro' : 'Escuro'} ativado!`, 'success');
         }
 
-        // TELA DE AUTENTICAÇÃO
         function openAuthModal(tab = 'login') {
             document.getElementById('auth-overlay').classList.add('active');
             switchAuthTab(tab);
@@ -942,7 +937,6 @@
             }
         }
 
-        // LOGIN E CADASTRO
         document.getElementById('login-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const userVal = document.getElementById('login-user').value.trim();
@@ -998,7 +992,6 @@
             Toast.show('Você saiu do sistema.', 'info');
         }
 
-        // REDEFINIÇÃO DE SENHA
         function openResetModal() {
             document.getElementById('reset-modal').classList.add('active');
             document.getElementById('form-reset-step1').style.display = 'block';
@@ -1031,7 +1024,6 @@
             }
         });
 
-        // ZOOM DE FOTOS & UPLOAD
         function openLightbox(imgId) {
             document.getElementById('lightbox-img').src = document.getElementById(imgId).src;
             document.getElementById('lightbox-modal').classList.add('active');
@@ -1053,7 +1045,6 @@
             }
         }
 
-        // NAVEGAÇÃO DE ABAS
         function showTab(tabId, btn) {
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
@@ -1062,7 +1053,6 @@
             document.getElementById(tabId).classList.add('active');
         }
 
-        // GAME DO SABER - LÓGICA DO QUIZ
         const quizData = [
             {
                 q: "Qual o objetivo principal do projeto de robótica na escola?",
