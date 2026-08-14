@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
     
     <style>
         /* ==========================================================================
-           1. DESIGN TOKENS & SYSTEM VARIABLES
+           1. DESIGN TOKENS & SYSTEM VARIABLES (LIGHT & DARK THEMES)
            ========================================================================== */
         :root {
             --brand-primary: #0f2c59;
@@ -31,6 +31,7 @@
             --status-success: #10b981;
             --status-success-bg: #ecfdf5;
             
+            --border-color: #e2e8f0;
             --radius-s: 8px;
             --radius-m: 16px;
             --radius-l: 24px;
@@ -45,6 +46,20 @@
             --transition-bounce: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
+        /* OVERRIDES PARA MODO ESCURO (DARK MODE) */
+        [data-theme="dark"] {
+            --surface-ground: #0b1329;
+            --surface-card: #152238;
+            --surface-glass: rgba(21, 34, 56, 0.92);
+            
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            
+            --border-color: #1e293b;
+            --status-danger-bg: rgba(239, 68, 68, 0.15);
+            --status-success-bg: rgba(16, 185, 129, 0.15);
+        }
+
         *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
@@ -57,10 +72,9 @@
             color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.4s ease, color 0.4s ease;
         }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--surface-ground); }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: var(--radius-full); }
@@ -85,6 +99,7 @@
             padding: 16px 20px;
             border-radius: var(--radius-m);
             background: var(--surface-card);
+            color: var(--text-main);
             box-shadow: var(--shadow-lg);
             border-left: 6px solid var(--brand-primary);
             display: flex;
@@ -103,7 +118,7 @@
         }
 
         /* ==========================================================================
-           3. AUTHENTICATION MODULE (LOGIN & CADASTRO)
+           3. AUTHENTICATION MODULE & MODALS
            ========================================================================== */
         .auth-view {
             position: fixed;
@@ -115,34 +130,35 @@
             z-index: 9000;
             padding: 20px;
             transition: var(--transition-smooth);
+            overflow-y: auto;
         }
 
         .auth-card {
             background: var(--surface-glass);
             backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 40px 36px;
+            padding: 36px 32px;
             border-radius: var(--radius-l);
             width: 100%;
             max-width: 460px;
             box-shadow: var(--shadow-3d);
             text-align: center;
+            margin: auto;
         }
 
         .auth-brand img {
-            width: 80px;
-            height: 80px;
+            width: 75px;
+            height: 75px;
             object-fit: contain;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .auth-nav-toggle {
             display: flex;
-            background: rgba(15, 44, 89, 0.08);
+            background: rgba(15, 44, 89, 0.1);
             border-radius: var(--radius-full);
             padding: 4px;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .auth-toggle-btn {
@@ -153,7 +169,7 @@
             background: transparent;
             color: var(--text-muted);
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             cursor: pointer;
             transition: var(--transition-smooth);
         }
@@ -175,7 +191,7 @@
         }
 
         .form-field {
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .form-field label {
@@ -191,10 +207,10 @@
         .input-control {
             width: 100%;
             padding: 12px 16px;
-            border: 2px solid #e2e8f0;
+            border: 2px solid var(--border-color);
             border-radius: var(--radius-m);
             font-size: 0.95rem;
-            background: #ffffff;
+            background: var(--surface-card);
             color: var(--text-main);
             outline: none;
             transition: var(--transition-smooth);
@@ -205,6 +221,18 @@
             box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.1);
         }
 
+        .forgot-pass-link {
+            display: inline-block;
+            font-size: 0.82rem;
+            color: var(--brand-primary-light);
+            font-weight: 600;
+            margin-top: 4px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .forgot-pass-link:hover { text-decoration: underline; }
+
         .btn-btn {
             width: 100%;
             padding: 14px;
@@ -212,7 +240,7 @@
             border-radius: var(--radius-m);
             background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-light));
             color: var(--text-white);
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 700;
             cursor: pointer;
             box-shadow: 0 8px 20px rgba(15, 44, 89, 0.25);
@@ -225,8 +253,45 @@
             box-shadow: 0 12px 24px rgba(15, 44, 89, 0.35);
         }
 
+        /* MODAL ESTRUTURA */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-box {
+            background: var(--surface-card);
+            color: var(--text-main);
+            padding: 32px;
+            border-radius: var(--radius-l);
+            width: 100%;
+            max-width: 420px;
+            box-shadow: var(--shadow-3d);
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-box h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: var(--brand-primary);
+        }
+
+        [data-theme="dark"] .modal-box h3 { color: var(--brand-accent); }
+
         /* ==========================================================================
-           4. MAIN DASHBOARD & USER BAR
+           4. DASHBOARD & BARRA SUPERIOR DO USUÁRIO
            ========================================================================== */
         .app-shell {
             display: none;
@@ -253,26 +318,50 @@
         .user-info {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
-        .user-avatar {
-            width: 32px;
-            height: 32px;
+        .user-avatar-img {
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            background: var(--brand-accent);
-            color: var(--brand-primary);
-            font-weight: 800;
+            object-fit: cover;
+            border: 2px solid var(--brand-accent);
+            background: #e2e8f0;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-theme-gear {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: #fff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-theme-gear:hover {
+            transform: rotate(45deg);
+            background: var(--brand-accent);
+            color: var(--brand-primary);
         }
 
         .btn-logout {
             background: transparent;
             border: 1px solid rgba(255,255,255,0.3);
             color: white;
-            padding: 4px 12px;
+            padding: 6px 14px;
             border-radius: var(--radius-full);
             cursor: pointer;
             font-weight: 600;
@@ -297,8 +386,8 @@
         }
 
         .header-brand-logo {
-            width: 90px;
-            height: 90px;
+            width: 85px;
+            height: 85px;
             object-fit: cover;
             border-radius: var(--radius-m);
             border: 3px solid rgba(255,255,255,0.3);
@@ -308,7 +397,7 @@
         }
 
         .app-header h1 {
-            font-size: 2.1rem;
+            font-size: 2rem;
             font-weight: 800;
             margin-bottom: 10px;
         }
@@ -334,7 +423,7 @@
             padding: 20px;
             border-radius: var(--radius-m);
             box-shadow: var(--shadow-md);
-            border: 1px solid #f1f5f9;
+            border: 1px solid var(--border-color);
             display: flex;
             align-items: center;
             gap: 16px;
@@ -353,12 +442,19 @@
             font-weight: 800;
         }
 
+        [data-theme="dark"] .metric-icon {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--brand-accent);
+        }
+
         .metric-data h4 {
             font-size: 1.6rem;
             font-weight: 800;
             color: var(--brand-primary);
             line-height: 1;
         }
+
+        [data-theme="dark"] .metric-data h4 { color: var(--text-main); }
 
         .metric-data p {
             font-size: 0.85rem;
@@ -376,7 +472,7 @@
             display: flex;
             gap: 8px;
             overflow-x: auto;
-            border: 1px solid #f1f5f9;
+            border: 1px solid var(--border-color);
         }
 
         .nav-tab-btn {
@@ -400,13 +496,18 @@
             box-shadow: 0 6px 16px rgba(15, 44, 89, 0.25);
         }
 
+        [data-theme="dark"] .nav-tab-btn.active {
+            background: var(--brand-accent);
+            color: var(--brand-primary);
+        }
+
         .tab-panel {
             display: none;
             background: var(--surface-card);
             padding: 36px;
             border-radius: var(--radius-l);
             box-shadow: var(--shadow-md);
-            border: 1px solid #f1f5f9;
+            border: 1px solid var(--border-color);
         }
 
         .tab-panel.active {
@@ -421,7 +522,7 @@
 
         .section-header {
             margin-bottom: 28px;
-            border-bottom: 2px solid #f1f5f9;
+            border-bottom: 2px solid var(--border-color);
             padding-bottom: 14px;
         }
 
@@ -430,6 +531,8 @@
             font-weight: 800;
             color: var(--brand-primary);
         }
+
+        [data-theme="dark"] .section-header h3 { color: var(--brand-accent); }
 
         /* 3D FLASHCARDS ENGINE */
         .flashcards-3d-grid {
@@ -467,11 +570,11 @@
             backface-visibility: hidden;
             border-radius: var(--radius-l);
             overflow: hidden;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--border-color);
         }
 
         .card-3d-front {
-            background: #ffffff;
+            background: var(--surface-card);
             display: flex;
             flex-direction: column;
         }
@@ -503,6 +606,8 @@
             color: var(--brand-primary);
         }
 
+        [data-theme="dark"] .card-3d-caption h4 { color: var(--text-main); }
+
         .card-3d-back {
             transform: rotateY(180deg);
             background: linear-gradient(135deg, var(--brand-primary), #1e3a8a);
@@ -521,14 +626,43 @@
             margin-bottom: 10px;
         }
 
-        /* ENQUETE INTERATIVA (POLL ENGINE) */
+        /* HISTÓRIAS & GAME DO SABER CARDS */
+        .story-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-m);
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .story-card h4 {
+            font-size: 1.25rem;
+            color: var(--brand-primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        [data-theme="dark"] .story-card h4 { color: var(--brand-accent); }
+
+        .story-badge {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--brand-accent-hover);
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 800;
+        }
+
+        /* ENQUETE INTERATIVA */
         .poll-item {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
+            background: var(--surface-card);
+            border: 1px solid var(--border-color);
             border-radius: var(--radius-m);
             padding: 20px;
             margin-bottom: 16px;
-            transition: var(--transition-smooth);
         }
 
         .poll-header {
@@ -541,7 +675,7 @@
 
         .poll-progress-bg {
             height: 12px;
-            background: #e2e8f0;
+            background: var(--border-color);
             border-radius: var(--radius-full);
             overflow: hidden;
             margin-bottom: 12px;
@@ -553,6 +687,8 @@
             width: 0%;
             transition: width 0.6s ease;
         }
+
+        [data-theme="dark"] .poll-progress-fill { background: var(--brand-accent); }
 
         .btn-vote {
             background: var(--brand-accent);
@@ -588,6 +724,38 @@
 
     <div id="toast-container"></div>
 
+    <div id="reset-modal" class="modal-overlay">
+        <div class="modal-box">
+            <h3>🔑 Redefinir Senha</h3>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 20px;">
+                Informe seu CGM ou E-mail para receber um código de verificação.
+            </p>
+
+            <form id="reset-step-1">
+                <div class="form-field">
+                    <label for="reset-cgm">CGM / E-mail</label>
+                    <input type="text" id="reset-cgm" class="input-control" placeholder="Digite seu registro" required>
+                </div>
+                <button type="submit" class="btn-btn">Enviar Código de Verificação</button>
+                <button type="button" class="btn-btn" style="background: transparent; color: var(--text-muted); box-shadow: none;" onclick="closeResetModal()">Cancelar</button>
+            </form>
+
+            <form id="reset-step-2" style="display: none;">
+                <div class="form-field">
+                    <label for="reset-code">Código recebido (6 dígitos)</label>
+                    <input type="text" id="reset-code" class="input-control" placeholder="Ex: 849201" maxlength="6" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="reset-new-pass">Nova Senha</label>
+                    <input type="password" id="reset-new-pass" class="input-control" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn-btn">Confirmar Alteração</button>
+            </form>
+        </div>
+    </div>
+
     <div id="auth-view" class="auth-view">
         <div class="auth-card">
             <div class="auth-brand">
@@ -602,15 +770,16 @@
             <form id="login-form" class="auth-form active">
                 <div class="form-field">
                     <label for="input-user">Usuário / CGM</label>
-                    <input type="text" id="input-user" class="input-control" placeholder="Digite seu usuário" required>
+                    <input type="text" id="input-user" class="input-control" placeholder="Digite seu usuário ou CGM" required>
                 </div>
                 
                 <div class="form-field">
                     <label for="input-pass">Senha de Acesso</label>
                     <input type="password" id="input-pass" class="input-control" placeholder="••••••••" required>
+                    <a class="forgot-pass-link" onclick="openResetModal()">Esqueceu a senha?</a>
                 </div>
 
-                <button type="submit" class="btn-btn">Entrar na Conta</button>
+                <button type="submit" class="btn-btn">Entrar no Portal</button>
             </form>
 
             <form id="register-form" class="auth-form">
@@ -630,6 +799,11 @@
                 </div>
 
                 <div class="form-field">
+                    <label for="reg-avatar">Foto de Perfil (Avatar)</label>
+                    <input type="file" id="reg-avatar" class="input-control" accept="image/*">
+                </div>
+
+                <div class="form-field">
                     <label for="reg-pass">Crie uma Senha</label>
                     <input type="password" id="reg-pass" class="input-control" placeholder="••••••••" required>
                 </div>
@@ -643,17 +817,21 @@
         
         <div class="user-header-bar">
             <div class="user-info">
-                <div class="user-avatar" id="user-initials">U</div>
+                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 24 24' fill='%230f2c59'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/></svg>" id="user-avatar-preview" class="user-avatar-img" alt="Avatar">
                 <span>Conectado como: <strong id="logged-user-name">Usuário</strong></span>
             </div>
-            <button class="btn-logout" onclick="fazerLogout()">Sair</button>
+
+            <div class="header-actions">
+                <button class="btn-theme-gear" onclick="toggleTheme()" title="Alternar Modo Escuro/Claro">⚙️</button>
+                <button class="btn-logout" onclick="fazerLogout()">Sair</button>
+            </div>
         </div>
 
         <header class="app-header">
             <div class="header-content">
                 <img src="logo.png" alt="Escola Logo" class="header-brand-logo" id="header-logo-img">
                 <h1>O Que Podemos Fazer Para Tornar Nossa Escola Ainda Melhor?</h1>
-                <p>Painel de Gestão Participativa | Rede Estadual do Paraná</p>
+                <p>Portal de Inovação & Engajamento Estudantil | Rede Estadual do Paraná</p>
             </div>
         </header>
 
@@ -661,24 +839,24 @@
 
             <div class="metrics-bar">
                 <div class="metric-card">
-                    <div class="metric-icon">04</div>
+                    <div class="metric-icon">📖</div>
                     <div class="metric-data">
-                        <h4>Pilares</h4>
-                        <p>Infraestrutura Vital</p>
+                        <h4>História</h4>
+                        <p>Tradição & Futuro</p>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">🎮</div>
+                    <div class="metric-data">
+                        <h4>Game</h4>
+                        <p>Do Saber Ativo</p>
                     </div>
                 </div>
                 <div class="metric-card">
                     <div class="metric-icon">3D</div>
                     <div class="metric-data">
                         <h4>Cards</h4>
-                        <p>Visualização Interativa</p>
-                    </div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-icon" id="vote-count-metric">142</div>
-                    <div class="metric-data">
-                        <h4>Votos</h4>
-                        <p>Registrados na Enquete</p>
+                        <p>Interatividade Real</p>
                     </div>
                 </div>
             </div>
@@ -686,8 +864,8 @@
             <nav class="nav-tabs-wrapper">
                 <button class="nav-tab-btn active" data-tab="tab-lab">💻 Laboratório</button>
                 <button class="nav-tab-btn" data-tab="tab-quadra">🏀 Quadra</button>
-                <button class="nav-tab-btn" data-tab="tab-poll">🗳️ Enquete ao Vivo</button>
-                <button class="nav-tab-btn" data-tab="tab-plano">💡 Plano de Ação</button>
+                <button class="nav-tab-btn" data-tab="tab-historia">📖 História & Game</button>
+                <button class="nav-tab-btn" data-tab="tab-poll">🗳️ Enquete</button>
                 <button class="nav-tab-btn" data-tab="tab-sugerir">✍️ Nova Ideia</button>
             </nav>
 
@@ -709,7 +887,7 @@
                             </div>
                             <div class="card-3d-back">
                                 <h4>Diagnóstico Técnico</h4>
-                                <p>Troca imediata de fones quebrados, limpeza técnica de perifericos e revisão geral das máquinas.</p>
+                                <p>Troca imediata de fones quebrados, limpeza técnica e revisão dos terminais.</p>
                             </div>
                         </div>
                     </div>
@@ -725,7 +903,7 @@
                             </div>
                             <div class="card-3d-back">
                                 <h4>Meta Futurista</h4>
-                                <p>Ambiente moderno, com novos kits de robótica, computadores rápidos e organizadores de cabos.</p>
+                                <p>Ambiente moderno, com kits de robótica, computadores rápidos e organizadores de cabos.</p>
                             </div>
                         </div>
                     </div>
@@ -773,10 +951,29 @@
                 </div>
             </section>
 
+            <section id="tab-historia" class="tab-panel">
+                <div class="section-header">
+                    <h3>Nossa História & O Game do Saber</h3>
+                    <p>Conheça as origens de nossa comunidade escolar e como a gamificação está transformando nosso aprendizado.</p>
+                </div>
+
+                <div class="story-card">
+                    <h4>🏫 A História do Nosso Colégio <span class="story-badge">Legado & Tradição</span></h4>
+                    <p>Fundado com o propósito de oferecer ensino público de excelência, nosso colégio construiu uma história sólida baseada no respeito, na inovação e na união comunitária. Ao longo de décadas, milhares de estudantes passaram por nossas salas de aula, transformando a realidade do nosso bairro e estado.</p>
+                    <p style="margin-top: 10px;">Hoje, a escola se reinventa com foco no protagonismo estudantil, dando voz ativa aos alunos para diagnosticar e propor melhorias diretas na infraestrutura do nosso colégio.</p>
+                </div>
+
+                <div class="story-card">
+                    <h4>🎮 O Game do Saber no Paraná <span class="story-badge">Inovação Pedagógica</span></h4>
+                    <p>O <strong>Game do Saber</strong> é uma iniciativa pioneira de gamificação na educação do estado do Paraná. Através de desafios virtuais, quizzes dinâmicos e missões interativas de conhecimento, os estudantes acumulam pontos, conquistam medalhas e reforçam o aprendizado de disciplinas essenciais como Matemática, Língua Portuguesa e Ciências.</p>
+                    <p style="margin-top: 10px;">Com o Game do Saber, aprender torna-se um jogo coletivo onde o esforço individual impulsiona o ranking da turma e traz orgulho para toda a escola!</p>
+                </div>
+            </section>
+
             <section id="tab-poll" class="tab-panel">
                 <div class="section-header">
                     <h3>Votação de Prioridades da Escola</h3>
-                    <p>Qual dessas melhorias deve ser realizada primeiro? Escolha e vote!</p>
+                    <p>Qual dessas melhorias deve ser realizada primeiro?</p>
                 </div>
 
                 <div id="poll-container">
@@ -815,14 +1012,6 @@
                 </div>
             </section>
 
-            <section id="tab-plano" class="tab-panel">
-                <div class="section-header">
-                    <h3>Plano de Ação Estratégico</h3>
-                    <p>Resumo das atividades divididas por grupos de trabalho.</p>
-                </div>
-                <p>Nossas ações incluem mutirão comunitário de pintura, parceria com a direção para chamados oficiais de manutenção e criação de um comitê estudantil para zelo dos computadores.</p>
-            </section>
-
             <section id="tab-sugerir" class="tab-panel">
                 <div class="section-header">
                     <h3>Submeter Nova Sugestão</h3>
@@ -847,12 +1036,85 @@
     </div>
 
     <script>
-        // Banco de Dados em Memória de Usuários Registrados
+        // Banco de Dados em Memória
         const usuariosCadastrados = [
-            { cgm: "123", senha: "123", nome: "Aluno Demo", turma: "2º B" }
+            { cgm: "123", senha: "123", nome: "Aluno Demo", turma: "2º B", avatar: "" }
         ];
 
+        let generatedResetCode = "";
+        let targetResetUser = null;
         let pollVotes = { p1: 65, p2: 50, p3: 27 };
+
+        // 1. Alternador Modo Escuro/Claro (Dark/Light Mode)
+        function toggleTheme() {
+            const htmlTag = document.documentElement;
+            const currentTheme = htmlTag.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            htmlTag.setAttribute('data-theme', newTheme);
+            Toast.show(`Modo ${newTheme === 'dark' ? 'Escuro' : 'Claro'} ativado!`, 'info');
+        }
+
+        // 2. Modais e Redefinição de Senha
+        function openResetModal() {
+            document.getElementById('reset-modal').classList.add('active');
+            document.getElementById('reset-step-1').style.display = 'block';
+            document.getElementById('reset-step-2').style.display = 'none';
+        }
+
+        function closeResetModal() {
+            document.getElementById('reset-modal').classList.remove('active');
+        }
+
+        document.getElementById('reset-step-1').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const cgmInput = document.getElementById('reset-cgm').value.trim();
+            
+            // Simula busca do usuário e envio do código por e-mail
+            generatedResetCode = Math.floor(100000 + Math.random() * 900000).toString();
+            targetResetUser = usuariosCadastrados.find(u => u.cgm === cgmInput) || { cgm: cgmInput, senha: "" };
+
+            Toast.show(`Código enviado ao e-mail! (CÓDIGO DE TESTE: ${generatedResetCode})`, 'success');
+            
+            document.getElementById('reset-step-1').style.display = 'none';
+            document.getElementById('reset-step-2').style.display = 'block';
+        });
+
+        document.getElementById('reset-step-2').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const codeInput = document.getElementById('reset-code').value.trim();
+            const newPassInput = document.getElementById('reset-new-pass').value.trim();
+
+            if (codeInput === generatedResetCode) {
+                targetResetUser.senha = newPassInput;
+                if (!usuariosCadastrados.includes(targetResetUser)) {
+                    usuariosCadastrados.push(targetResetUser);
+                }
+                Toast.show('Senha redefinida com sucesso! Faça login com a nova senha.', 'success');
+                closeResetModal();
+            } else {
+                Toast.show('Código incorreto! Tente novamente.', 'error');
+            }
+        });
+
+        // 3. Sistema de Notificação Toast
+        const Toast = {
+            show(msg, type = 'info') {
+                const container = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.innerHTML = `<span>${msg}</span><button style="background:none;border:none;cursor:pointer;" onclick="this.parentElement.remove()">✕</button>`;
+                container.appendChild(toast);
+                setTimeout(() => toast.remove(), 4000);
+            }
+        };
+
+        // 4. Tratamento de Imagens Quebradas (SVG Inline Fallback)
+        function setupFallbacks() {
+            const placeholder = (label) => `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="240" viewBox="0 0 400 240"><rect width="100%" height="100%" fill="%23cbd5e1"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="16" fill="%23475569">${encodeURIComponent(label)}</text></svg>`;
+            document.querySelectorAll('img').forEach(img => {
+                img.onerror = function() { this.src = placeholder(this.alt || 'Imagem'); };
+            });
+        }
 
         // Alternar Formulários (Login / Cadastro)
         function toggleAuthMode(mode) {
@@ -871,26 +1133,6 @@
             }
         }
 
-        // Sistema de Notificação Toast
-        const Toast = {
-            show(msg, type = 'info') {
-                const container = document.getElementById('toast-container');
-                const toast = document.createElement('div');
-                toast.className = `toast ${type}`;
-                toast.innerHTML = `<span>${msg}</span><button style="background:none;border:none;cursor:pointer;" onclick="this.parentElement.remove()">✕</button>`;
-                container.appendChild(toast);
-                setTimeout(() => toast.remove(), 4000);
-            }
-        };
-
-        // Tratamento de Imagens Quebradas (SVG Inline Fallback)
-        function setupFallbacks() {
-            const placeholder = (label) => `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="240" viewBox="0 0 400 240"><rect width="100%" height="100%" fill="%23cbd5e1"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="16" fill="%23475569">${encodeURIComponent(label)}</text></svg>`;
-            document.querySelectorAll('img').forEach(img => {
-                img.onerror = function() { this.src = placeholder(this.alt || 'Imagem'); };
-            });
-        }
-
         // Login
         document.getElementById('login-form').addEventListener('submit', (e) => {
             e.preventDefault();
@@ -901,34 +1143,52 @@
 
             if (usuarioEncontrado || (user !== "" && pass !== "")) {
                 const nomeFinal = usuarioEncontrado ? usuarioEncontrado.nome : user;
-                iniciarSessao(nomeFinal);
+                const avatarFinal = usuarioEncontrado ? usuarioEncontrado.avatar : "";
+                iniciarSessao(nomeFinal, avatarFinal);
             } else {
                 Toast.show('Usuário ou senha incorretos!', 'error');
             }
         });
 
-        // Cadastro
+        // Cadastro com Leitura de Avatar
         document.getElementById('register-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const nome = document.getElementById('reg-name').value.trim();
             const cgm = document.getElementById('reg-cgm').value.trim();
             const turma = document.getElementById('reg-class').value.trim();
             const senha = document.getElementById('reg-pass').value.trim();
+            const avatarInput = document.getElementById('reg-avatar');
 
-            // Salva no banco em memória
-            usuariosCadastrados.push({ cgm, senha, nome, turma });
-            Toast.show('Cadastro realizado com sucesso! Faça login para acessar.', 'success');
-            
-            // Limpa formulário e muda para login
-            document.getElementById('register-form').reset();
-            toggleAuthMode('login');
+            let avatarUrl = "";
+
+            if (avatarInput.files && avatarInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarUrl = e.target.result;
+                    salvarEConcluirCadastro(nome, cgm, turma, senha, avatarUrl);
+                };
+                reader.readAsDataURL(avatarInput.files[0]);
+            } else {
+                salvarEConcluirCadastro(nome, cgm, turma, senha, "");
+            }
         });
 
-        function iniciarSessao(nome) {
+        function salvarEConcluirCadastro(nome, cgm, turma, senha, avatar) {
+            usuariosCadastrados.push({ cgm, senha, nome, turma, avatar });
+            Toast.show('Cadastro realizado com sucesso! Faça login.', 'success');
+            document.getElementById('register-form').reset();
+            toggleAuthMode('login');
+        }
+
+        function iniciarSessao(nome, avatar) {
             document.getElementById('auth-view').style.display = 'none';
             document.getElementById('app-shell').classList.add('active');
             document.getElementById('logged-user-name').innerText = nome;
-            document.getElementById('user-initials').innerText = nome.charAt(0).toUpperCase();
+            
+            if (avatar) {
+                document.getElementById('user-avatar-preview').src = avatar;
+            }
+
             Toast.show(`Bem-vindo(a) ao portal, ${nome}!`, 'success');
         }
 
@@ -938,7 +1198,7 @@
             Toast.show('Sessão encerrada com sucesso.', 'info');
         }
 
-        // Sistema de Votação na Enquete
+        // Votação da Enquete
         function votar(opcao) {
             if (opcao === 1) pollVotes.p1++;
             if (opcao === 2) pollVotes.p2++;
@@ -946,20 +1206,14 @@
 
             const total = pollVotes.p1 + pollVotes.p2 + pollVotes.p3;
             
-            const perc1 = Math.round((pollVotes.p1 / total) * 100);
-            const perc2 = Math.round((pollVotes.p2 / total) * 100);
-            const perc3 = Math.round((pollVotes.p3 / total) * 100);
+            document.getElementById('p1-bar').style.width = Math.round((pollVotes.p1 / total) * 100) + '%';
+            document.getElementById('p1-percent').innerText = Math.round((pollVotes.p1 / total) * 100) + '%';
 
-            document.getElementById('p1-bar').style.width = perc1 + '%';
-            document.getElementById('p1-percent').innerText = perc1 + '%';
+            document.getElementById('p2-bar').style.width = Math.round((pollVotes.p2 / total) * 100) + '%';
+            document.getElementById('p2-percent').innerText = Math.round((pollVotes.p2 / total) * 100) + '%';
 
-            document.getElementById('p2-bar').style.width = perc2 + '%';
-            document.getElementById('p2-percent').innerText = perc2 + '%';
-
-            document.getElementById('p3-bar').style.width = perc3 + '%';
-            document.getElementById('p3-percent').innerText = perc3 + '%';
-
-            document.getElementById('vote-count-metric').innerText = total;
+            document.getElementById('p3-bar').style.width = Math.round((pollVotes.p3 / total) * 100) + '%';
+            document.getElementById('p3-percent').innerText = Math.round((pollVotes.p3 / total) * 100) + '%';
 
             Toast.show('Seu voto foi registrado com sucesso!', 'success');
         }
@@ -981,14 +1235,13 @@
             card.addEventListener('click', () => card.classList.toggle('is-flipped'));
         });
 
-        // Evento do Formulário de Ideias
+        // Formulário de Sugestões
         document.getElementById('idea-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            Toast.show('Proposta enviada ao comitê de alunos!', 'success');
+            Toast.show('Proposta enviada ao comitê escolar!', 'success');
             document.getElementById('idea-form').reset();
         });
 
-        // Executar fallbacks na inicialização
         setupFallbacks();
     </script>
 </body>
