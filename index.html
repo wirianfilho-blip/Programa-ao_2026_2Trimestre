@@ -101,7 +101,7 @@
         }
 
         /* ==========================================================================
-           3. MODAL DE LIGHTBOX (ZOOM NA FOTO) E RESET DE SENHA
+           3. MODAL DE LIGHTBOX E REDEFINIÇÃO DE SENHA
            ========================================================================== */
         .modal-overlay {
             position: fixed;
@@ -126,7 +126,7 @@
             padding: 30px;
             border-radius: var(--radius-l);
             width: 100%;
-            max-width: 440px;
+            max-width: 460px;
             box-shadow: var(--shadow-3d);
             border: 1px solid var(--border-color);
             position: relative;
@@ -137,6 +137,28 @@
             max-height: 70vh;
             object-fit: contain;
             border-radius: var(--radius-m);
+        }
+
+        /* CAIXA DE SIMULAÇÃO DE NOTIFICAÇÃO DE E-MAIL */
+        .simulated-email-box {
+            background: rgba(245, 158, 11, 0.15);
+            border: 2px dashed var(--brand-accent);
+            border-radius: var(--radius-m);
+            padding: 16px;
+            margin: 16px 0;
+            text-align: center;
+        }
+
+        .simulated-code-display {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 6px;
+            color: var(--brand-primary);
+            margin: 8px 0;
+        }
+
+        [data-theme="dark"] .simulated-code-display {
+            color: var(--brand-accent);
         }
 
         /* ==========================================================================
@@ -442,7 +464,6 @@
             transform: scale(1.05);
         }
 
-        /* Botões flutuantes sobre a foto do card */
         .card-overlay-actions {
             position: absolute;
             top: 10px;
@@ -493,7 +514,6 @@
             color: var(--text-main);
         }
 
-        /* Seção da História */
         .info-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -538,7 +558,7 @@
         <div class="modal-box">
             <h3>🔑 Redefinir Senha</h3>
             <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
-                Digite seu e-mail ou CGM registrado para receber um código de validação.
+                Digite seu e-mail ou CGM registrado para gerar o código de recuperação.
             </p>
 
             <form id="form-reset-step1">
@@ -546,13 +566,25 @@
                     <label for="reset-email">E-mail ou CGM</label>
                     <input type="text" id="reset-email" class="input-control" placeholder="exemplo@escola.pr.gov.br" required>
                 </div>
-                <button type="submit" class="btn-action">Enviar Código</button>
+                <button type="submit" class="btn-action">Gerar Código de Verificação</button>
                 <button type="button" class="btn-action" style="background: transparent; color: var(--text-muted);" onclick="closeResetModal()">Cancelar</button>
             </form>
 
             <form id="form-reset-step2" style="display: none;">
+                
+                <div class="simulated-email-box">
+                    <span style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--brand-accent-hover);">
+                        📧 Notificação de E-mail Simulado
+                    </span>
+                    <p style="font-size: 0.85rem; margin-top: 4px;">Seu código de verificação é:</p>
+                    <div id="display-generated-code" class="simulated-code-display">------</div>
+                    <button type="button" class="btn-action" style="padding: 6px 12px; font-size: 0.8rem; background: var(--brand-accent); color: black;" onclick="autoFillCode()">
+                        ⚡ Preencher Código Automaticamente
+                    </button>
+                </div>
+
                 <div class="form-field">
-                    <label for="reset-code">Código recebido (6 dígitos)</label>
+                    <label for="reset-code">Digite o Código</label>
                     <input type="text" id="reset-code" class="input-control" placeholder="123456" maxlength="6" required>
                 </div>
                 <div class="form-field">
@@ -560,6 +592,7 @@
                     <input type="password" id="reset-new-pass" class="input-control" placeholder="••••••••" required>
                 </div>
                 <button type="submit" class="btn-action">Confirmar Nova Senha</button>
+                <button type="button" class="btn-action" style="background: transparent; color: var(--text-muted);" onclick="closeResetModal()">Voltar / Cancelar</button>
             </form>
         </div>
     </div>
@@ -609,7 +642,6 @@
     </div>
 
     <div id="app-shell" class="app-shell">
-        
         <div class="top-user-bar">
             <div class="user-profile-info">
                 <img id="user-avatar-display" class="user-avatar-circle" src="" alt="Avatar">
@@ -637,7 +669,7 @@
 
             <section id="tab-quadra" class="tab-content active">
                 <h3 style="margin-bottom: 6px;">Projeto de Revitalização da Quadra</h3>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">Clique nos cards para virar. Use os botões das fotos para ampliar ou enviar uma nova foto!</p>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Clique nos cards para virar e conferir o estado da quadra.</p>
                 
                 <div class="grid-3d">
                     <div class="card-3d" onclick="this.classList.toggle('flipped')">
@@ -694,7 +726,7 @@
 
             <section id="tab-lab" class="tab-content">
                 <h3 style="margin-bottom: 6px;">Manutenção do Laboratório de Informática</h3>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">Clique nos cards para virar e conferir as atualizações técnicas.</p>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Clique nos cards para virar e ver os projetos de TI.</p>
                 
                 <div class="grid-3d">
                     <div class="card-3d" onclick="this.classList.toggle('flipped')">
@@ -752,12 +784,12 @@
             <section id="tab-historia" class="tab-content">
                 <div class="info-card">
                     <h4>🏫 Nossa História Escolar <span class="tag-badge">Legado</span></h4>
-                    <p>Fundado para oferecer ensino público transformador no Paraná, nosso colégio tem orgulho de promover cidadania e conhecimento. Ao longo de décadas, formamos estudantes engajados com o progresso científico, esportivo e comunitário.</p>
+                    <p>Fundado para oferecer ensino público transformador no Paraná, nosso colégio tem orgulho de promover cidadania e conhecimento. Ao longo de décadas, formamos estudantes engajados com o progresso científico e comunitário.</p>
                 </div>
 
                 <div class="info-card">
                     <h4>🎮 O Game do Saber <span class="tag-badge">SEEDED-PR</span></h4>
-                    <p>O <strong>Game do Saber</strong> integra elementos de gamificação ao aprendizado escolar no Estado do Paraná. Através de missões e quizzes dinâmicos, os alunos acumulam pontos, competem de forma saudável no ranking da turma e reforçam a aprendizagem de Português, Matemática e Ciências.</p>
+                    <p>O <strong>Game do Saber</strong> integra elementos de gamificação ao aprendizado escolar no Estado do Paraná. Através de missões e quizzes dinâmicos, os alunos acumulam pontos, competem de forma saudável e reforçam os estudos.</p>
                 </div>
             </section>
 
@@ -774,18 +806,17 @@
     </div>
 
     <script>
-        // Banco de Dados em Memória
+        // Banco de dados em memória
         const usuarios = [
             { cgm: "123", senha: "123", nome: "Aluno Demo", avatar: "" }
         ];
 
-        let resetCodeGenerated = "";
+        let generatedCode = "";
         let currentResetUser = null;
 
-        // Avatar SVG Padrão
         const defaultAvatar = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 24 24' fill='%230f2c59'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/></svg>";
 
-        // 1. Modo Escuro / Claro
+        // Modo Escuro / Claro
         function toggleDarkMode() {
             const html = document.documentElement;
             const isDark = html.getAttribute('data-theme') === 'dark';
@@ -793,7 +824,7 @@
             Toast.show(`Modo ${isDark ? 'Claro' : 'Escuro'} ativado!`, 'success');
         }
 
-        // 2. Sistema de Notificações Toast
+        // Sistema Toast
         const Toast = {
             show(msg, type = 'info') {
                 const container = document.getElementById('toast-container');
@@ -805,7 +836,7 @@
             }
         };
 
-        // 3. Zoom de Fotos (Lightbox Modal)
+        // Zoom das Fotos
         function openLightbox(imgElementId) {
             const imgSrc = document.getElementById(imgElementId).src;
             document.getElementById('lightbox-img').src = imgSrc;
@@ -816,20 +847,20 @@
             document.getElementById('lightbox-modal').classList.remove('active');
         }
 
-        // 4. Alterar Foto do Card em Tempo Real (Upload Local)
+        // Upload de Imagem no Card
         function uploadCardImage(event, targetImgId) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     document.getElementById(targetImgId).src = e.target.result;
-                    Toast.show('Foto do card atualizada com sucesso!', 'success');
+                    Toast.show('Imagem do card alterada!', 'success');
                 };
                 reader.readAsDataURL(file);
             }
         }
 
-        // 5. Alternar Formulários (Login / Cadastro)
+        // Alternar Login/Cadastro
         function switchAuthTab(tab) {
             document.querySelectorAll('.auth-toggle-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
@@ -843,7 +874,9 @@
             }
         }
 
-        // 6. Modal de Redefinição de Senha
+        // ==========================================================================
+        // LÓGICA DE REDEFINIÇÃO DE SENHA CORRIGIDA
+        // ==========================================================================
         function openResetModal() {
             document.getElementById('reset-modal').classList.add('active');
             document.getElementById('form-reset-step1').style.display = 'block';
@@ -854,35 +887,65 @@
             document.getElementById('reset-modal').classList.remove('active');
         }
 
+        // Passo 1: Solicitou o código
         document.getElementById('form-reset-step1').addEventListener('submit', (e) => {
             e.preventDefault();
-            const email = document.getElementById('reset-email').value.trim();
-            resetCodeGenerated = Math.floor(100000 + Math.random() * 900000).toString();
-            
-            currentResetUser = usuarios.find(u => u.cgm === email) || { cgm: email, senha: "" };
+            const emailInput = document.getElementById('reset-email').value.trim();
 
-            Toast.show(`Código enviado por e-mail! (CÓDIGO DE TESTE: ${resetCodeGenerated})`, 'success');
+            if (!emailInput) {
+                Toast.show('Por favor, informe seu e-mail ou CGM.', 'error');
+                return;
+            }
 
+            // Gera código aleatório de 6 dígitos
+            generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+            // Procura o usuário ou cria referência local
+            currentResetUser = usuarios.find(u => u.cgm === emailInput) || { cgm: emailInput, senha: "" };
+
+            // Exibe o código na caixa de simulação
+            document.getElementById('display-generated-code').innerText = generatedCode;
+
+            // Troca os formulários da modal
             document.getElementById('form-reset-step1').style.display = 'none';
             document.getElementById('form-reset-step2').style.display = 'block';
+
+            Toast.show('Código de verificação gerado com sucesso!', 'success');
         });
 
+        // Preenchimento automático do código simulado
+        function autoFillCode() {
+            document.getElementById('reset-code').value = generatedCode;
+            Toast.show('Código preenchido automaticamente!', 'info');
+        }
+
+        // Passo 2: Confirmar nova senha
         document.getElementById('form-reset-step2').addEventListener('submit', (e) => {
             e.preventDefault();
-            const code = document.getElementById('reset-code').value.trim();
-            const newPass = document.getElementById('reset-new-pass').value.trim();
+            const inputCode = document.getElementById('reset-code').value.trim();
+            const newPassword = document.getElementById('reset-new-pass').value.trim();
 
-            if (code === resetCodeGenerated) {
-                currentResetUser.senha = newPass;
-                if (!usuarios.includes(currentResetUser)) usuarios.push(currentResetUser);
-                Toast.show('Senha alterada! Faça login com a nova senha.', 'success');
-                closeResetModal();
-            } else {
-                Toast.show('Código incorreto! Digite o código exibido no aviso.', 'error');
+            if (inputCode !== generatedCode) {
+                Toast.show('Código incorreto! Confira o código exibido no quadro.', 'error');
+                return;
             }
+
+            if (!newPassword) {
+                Toast.show('Digite uma nova senha válida.', 'error');
+                return;
+            }
+
+            // Atualiza no banco
+            currentResetUser.senha = newPassword;
+            if (!usuarios.some(u => u.cgm === currentResetUser.cgm)) {
+                usuarios.push(currentResetUser);
+            }
+
+            Toast.show('Senha redefinida! Faça seu login.', 'success');
+            closeResetModal();
         });
 
-        // 7. Cadastro com Upload de Avatar
+        // Cadastro com Avatar
         document.getElementById('register-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const nome = document.getElementById('reg-name').value.trim();
@@ -903,12 +966,12 @@
 
         function concluirCadastro(nome, cgm, senha, avatar) {
             usuarios.push({ cgm, senha, nome, avatar });
-            Toast.show('Conta criada! Faça seu login.', 'success');
+            Toast.show('Conta criada! Faça login.', 'success');
             document.getElementById('register-form').reset();
             switchAuthTab('login');
         }
 
-        // 8. Login
+        // Login
         document.getElementById('login-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const userVal = document.getElementById('login-user').value.trim();
@@ -939,7 +1002,7 @@
             Toast.show('Você saiu.', 'info');
         }
 
-        // 9. Navegação entre Abas
+        // Navegação entre abas
         function showTab(tabId, btn) {
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
