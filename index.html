@@ -1,724 +1,830 @@
 <!DOCTYPE html>
 <html lang="pt-BR" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game do Saber & Portal Escolar</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <style>
-        /* ==========================================================================
-           1. SISTEMA DE DESIGN & VARIÁVEIS (LIGHT / DARK)
-           ========================================================================== */
-        :root {
-            --brand-primary: #0f2c59;
-            --brand-primary-light: #2563eb;
-            --brand-accent: #f59e0b;
-            --brand-accent-hover: #d97706;
-            --brand-success: #10b981;
-            --brand-danger: #ef4444;
-            --yellow-neon: #facc15;
-            
-            --bg-body: #f8fafc;
-            --bg-card: #ffffff;
-            --bg-glass: rgba(255, 255, 255, 0.88);
-            --bg-subtle: #f1f5f9;
-            
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --text-white: #ffffff;
-            
-            --border-color: #e2e8f0;
-            --radius-s: 8px;
-            --radius-m: 16px;
-            --radius-l: 24px;
-            --radius-full: 9999px;
-            
-            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 12px 24px -4px rgba(15, 23, 42, 0.08);
-            --shadow-3d: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
-            --glow: 0 0 20px rgba(37, 99, 235, 0.35);
-            
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        [data-theme="dark"] {
-            --bg-body: #070a12;
-            --bg-card: #0f172a;
-            --bg-glass: rgba(15, 23, 42, 0.88);
-            --bg-subtle: #1e293b;
-            
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            
-            --border-color: #1e293b;
-            --glow: 0 0 25px rgba(245, 158, 11, 0.25);
-        }
-
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            min-height: 100vh;
-        }
-
-        /* ==========================================================================
-           2. EFEITO DO RAIO ILUMINADO PISCANDO (AMARELO NÉON)
-           ========================================================================== */
-        @keyframes yellowLightningPulse {
-            0%, 100% {
-                opacity: 1;
-                filter: drop-shadow(0 0 6px #facc15) drop-shadow(0 0 18px #eab308);
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.3;
-                filter: drop-shadow(0 0 2px #facc15);
-                transform: scale(0.92);
-            }
-        }
-
-        .flashing-lightning {
-            display: inline-block;
-            color: var(--yellow-neon);
-            animation: yellowLightningPulse 0.8s infinite alternate ease-in-out;
-            font-size: 1.5rem;
-            vertical-align: middle;
-            margin-right: 6px;
-        }
-
-        /* ==========================================================================
-           3. TOAST & NOTIFICAÇÕES
-           ========================================================================== */
-        #toast-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 10000;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            pointer-events: none;
-        }
-
-        .toast {
-            pointer-events: auto;
-            min-width: 300px;
-            padding: 14px 18px;
-            border-radius: var(--radius-m);
-            background: var(--bg-card);
-            color: var(--text-main);
-            box-shadow: var(--shadow-md);
-            border-left: 5px solid var(--brand-primary-light);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            animation: slideIn 0.3s ease forwards;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .toast.success { border-left-color: var(--brand-success); }
-        .toast.error { border-left-color: var(--brand-danger); }
-        .toast.warning { border-left-color: var(--brand-accent); }
-
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        /* ==========================================================================
-           4. LANDING PAGE (PRÉ-LOGIN)
-           ========================================================================== */
-        .landing-view {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            background: radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.12) 0%, transparent 50%),
-                        radial-gradient(circle at 20% 80%, rgba(245, 158, 11, 0.08) 0%, transparent 50%);
-        }
-
-        .landing-nav {
-            padding: 24px 8%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-badge {
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--brand-primary-light), var(--brand-accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .hero-section {
-            padding: 40px 8%;
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 50px;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        @media (max-width: 968px) {
-            .hero-section { grid-template-columns: 1fr; text-align: center; }
-            .hero-buttons { justify-content: center; }
-        }
-
-        .hero-title {
-            font-size: 3.2rem;
-            font-weight: 800;
-            line-height: 1.15;
-            margin-bottom: 20px;
-        }
-
-        .hero-title span { color: var(--brand-primary-light); }
-
-        .hero-subtitle {
-            font-size: 1.15rem;
-            color: var(--text-muted);
-            margin-bottom: 32px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .btn-hero-primary {
-            padding: 16px 36px;
-            border-radius: var(--radius-full);
-            border: none;
-            background: linear-gradient(135deg, var(--brand-primary-light), #1d4ed8);
-            color: white;
-            font-size: 1.05rem;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: var(--glow);
-            transition: var(--transition);
-        }
-
-        .btn-hero-primary:hover { transform: translateY(-3px) scale(1.02); }
-
-        .btn-hero-secondary {
-            padding: 16px 32px;
-            border-radius: var(--radius-full);
-            border: 2px solid var(--border-color);
-            background: transparent;
-            color: var(--text-main);
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .btn-hero-secondary:hover {
-            border-color: var(--brand-primary-light);
-            background: rgba(37, 99, 235, 0.05);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 40px;
-            padding-top: 30px;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .stat-item h3 {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--brand-accent);
-        }
-
-        .stat-item p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        .hero-banner-card {
-            background: var(--bg-glass);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-l);
-            padding: 32px;
-            box-shadow: var(--shadow-3d);
-            position: relative;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-        }
-
-        .preview-badge-list {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-top: 20px;
-        }
-
-        .preview-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            background: var(--bg-card);
-            padding: 14px 18px;
-            border-radius: var(--radius-m);
-            border: 1px solid var(--border-color);
-        }
-
-        .preview-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            background: rgba(37, 99, 235, 0.1);
-            color: var(--brand-primary-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-
-        /* ==========================================================================
-           5. MODAL DE AUTENTICAÇÃO
-           ========================================================================== */
-        .auth-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(10px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9500;
-            padding: 20px;
-        }
-
-        .auth-overlay.active { display: flex; animation: fadeIn 0.3s ease; }
-
-        .auth-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 36px;
-            border-radius: var(--radius-l);
-            width: 100%;
-            max-width: 440px;
-            box-shadow: var(--shadow-3d);
-            position: relative;
-        }
-
-        .close-modal-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
-
-        .auth-nav-toggle {
-            display: flex;
-            background: var(--bg-subtle);
-            border-radius: var(--radius-full);
-            padding: 4px;
-            margin-bottom: 24px;
-        }
-
-        .auth-toggle-btn {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: var(--radius-full);
-            background: transparent;
-            color: var(--text-muted);
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .auth-toggle-btn.active {
-            background: var(--brand-primary-light);
-            color: white;
-        }
-
-        .auth-form { display: none; }
-        .auth-form.active { display: block; }
-
-        .form-field { margin-bottom: 16px; }
-        .form-field label {
-            display: block;
-            font-size: 0.8rem;
-            font-weight: 700;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-        }
-
-        .input-control {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid var(--border-color);
-            border-radius: var(--radius-m);
-            font-size: 0.95rem;
-            background: var(--bg-body);
-            color: var(--text-main);
-            outline: none;
-            transition: var(--transition);
-        }
-
-        .input-control:focus {
-            border-color: var(--brand-primary-light);
-            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
-        }
-
-        .btn-action {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: var(--radius-m);
-            background: linear-gradient(135deg, var(--brand-primary-light), #1d4ed8);
-            color: white;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .btn-action:hover { opacity: 0.95; transform: translateY(-1px); }
-
-        /* ==========================================================================
-           6. APP SHELL & DASHBOARD (PÓS-LOGIN)
-           ========================================================================== */
-        .app-shell { display: none; }
-        .app-shell.active { display: block; }
-
-        .top-user-bar {
-            background: var(--bg-card);
-            border-bottom: 1px solid var(--border-color);
-            padding: 12px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .user-badge-group {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .user-avatar-circle {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--brand-primary-light), var(--brand-accent));
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 1.1rem;
-        }
-
-        .stat-pill {
-            background: var(--bg-subtle);
-            padding: 6px 14px;
-            border-radius: var(--radius-full);
-            font-size: 0.85rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .stat-pill i { color: var(--brand-accent); }
-
-        .theme-toggle-btn {
-            background: var(--bg-subtle);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-
-        /* NAVEGAÇÃO DE ABAS */
-        .app-nav-tabs {
-            background: var(--bg-card);
-            border-bottom: 1px solid var(--border-color);
-            padding: 0 5%;
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            scrollbar-width: none;
-        }
-
-        .app-nav-tabs::-webkit-scrollbar { display: none; }
-
-        .tab-btn {
-            padding: 16px 20px;
-            border: none;
-            background: transparent;
-            color: var(--text-muted);
-            font-weight: 700;
-            font-size: 0.95rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border-bottom: 3px solid transparent;
-            white-space: nowrap;
-            transition: var(--transition);
-        }
-
-        .tab-btn:hover { color: var(--brand-primary-light); }
-
-        .tab-btn.active {
-            color: var(--brand-primary-light);
-            border-bottom-color: var(--brand-primary-light);
-        }
-
-        /* CONTEÚDO DAS ABAS */
-        .tab-content-area {
-            padding: 32px 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .tab-pane { display: none; }
-        .tab-pane.active { display: block; animation: fadeIn 0.4s ease; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ==========================================================================
-           7. ABA 1: GAME DO SABER (QUIZ & TRILHAS)
-           ========================================================================== */
-        .game-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 28px;
-        }
-
-        @media (max-width: 968px) { .game-grid { grid-template-columns: 1fr; } }
-
-        .game-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-l);
-            padding: 28px;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .quiz-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .quiz-timer {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--brand-danger);
-            padding: 6px 14px;
-            border-radius: var(--radius-full);
-            font-weight: 800;
-        }
-
-        .question-text {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 24px;
-        }
-
-        .options-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .option-btn {
-            width: 100%;
-            text-align: left;
-            padding: 16px 20px;
-            border: 2px solid var(--border-color);
-            border-radius: var(--radius-m);
-            background: var(--bg-body);
-            color: var(--text-main);
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .option-btn:hover {
-            border-color: var(--brand-primary-light);
-            background: rgba(37, 99, 235, 0.05);
-        }
-
-        .option-btn.correct {
-            border-color: var(--brand-success);
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--brand-success);
-        }
-
-        .option-btn.wrong {
-            border-color: var(--brand-danger);
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--brand-danger);
-        }
-
-        .trail-card-item {
-            padding: 16px;
-            border-radius: var(--radius-m);
-            border: 1px solid var(--border-color);
-            background: var(--bg-body);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .trail-card-item:hover { transform: translateX(4px); border-color: var(--brand-primary-light); }
-
-        /* ==========================================================================
-           8. ABA 2: FLASHCARDS INTERATIVOS (3D FLIP)
-           ========================================================================== */
-        .flashcards-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .category-filter {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-        }
-
-        .filter-chip {
-            padding: 8px 16px;
-            border-radius: var(--radius-full);
-            border: 1px solid var(--border-color);
-            background: var(--bg-card);
-            color: var(--text-muted);
-            font-weight: 700;
-            font-size: 0.85rem;
-            cursor: pointer;
-        }
-
-        .filter-chip.active {
-            background: var(--brand-primary-light);
-            color: white;
-            border-color: var(--brand-primary-light);
-        }
-
-        /* CONTAINER DO FLASHCARD 3D */
-        .flashcard-container {
-            perspective: 1000px;
-            width: 100%;
-            max-width: 600px;
-            height: 350px;
-            margin: 0 auto 24px;
-            cursor: pointer;
-        }
-
-        .flashcard-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-        }
-
-        .flashcard-container.flipped .flashcard-inner {
-            transform: rotateY(180deg);
-        }
-
-        .flashcard-front, .flashcard-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            border-radius: var(--radius-l);
-            padding: 32px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            border: 2px solid var(--border-color);
-            box-shadow: var(--shadow-md);
-        }
-
-        .flashcard-front {
-            background: var(--bg-card);
-            color: var(--text-main);
-        }
-
-        .flashcard-back {
-            background: linear-gradient(135deg, var(--brand-primary), #1e3a8a);
-            color: white;
-            transform: rotateY(180deg);
-        }
-
-        .card-tag {
-            font-size: 0.8rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 4px 12px;
-            border-radius: var(--radius-full);
-            background: rgba(37, 99, 235, 0.1);
-            color: var(--brand-primary-light);
-        }
-
-        .flashcard-back .card-tag {
-            background
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game do Saber & Portal Escolar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           1. SISTEMA DE DESIGN & VARIÁVEIS (LIGHT / DARK)
+           ========================================================================== */
+        :root {
+            --brand-primary: #0f2c59;
+            --brand-primary-light: #2563eb;
+            --brand-accent: #f59e0b;
+            --brand-accent-hover: #d97706;
+            --brand-success: #10b981;
+            --yellow-neon: #facc15;
+            
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-glass: rgba(255, 255, 255, 0.85);
+            
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --text-white: #ffffff;
+            
+            --border-color: #e2e8f0;
+            --radius-s: 8px;
+            --radius-m: 16px;
+            --radius-l: 24px;
+            --radius-full: 9999px;
+            
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 12px 24px -4px rgba(15, 23, 42, 0.08);
+            --shadow-3d: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+            --glow: 0 0 20px rgba(37, 99, 235, 0.35);
+            
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #070a12;
+            --bg-card: #0f172a;
+            --bg-glass: rgba(15, 23, 42, 0.85);
+            
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            
+            --border-color: #1e293b;
+            --glow: 0 0 25px rgba(245, 158, 11, 0.25);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* ==========================================================================
+           2. EFEITO DO RAIO ILUMINADO PISCANDO (AMARELO NÉON)
+           ========================================================================== */
+        @keyframes yellowLightningPulse {
+            0%, 100% {
+                opacity: 1;
+                filter: drop-shadow(0 0 6px #facc15) drop-shadow(0 0 18px #eab308);
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.25;
+                filter: drop-shadow(0 0 2px #facc15);
+                transform: scale(0.92);
+            }
+        }
+
+        .flashing-lightning {
+            display: inline-block;
+            color: var(--yellow-neon);
+            animation: yellowLightningPulse 0.8s infinite alternate ease-in-out;
+            font-size: 1.6rem;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+
+        /* ==========================================================================
+           3. TOAST & MODAIS FLUTUANTES
+           ========================================================================== */
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .toast {
+            pointer-events: auto;
+            min-width: 320px;
+            padding: 14px 18px;
+            border-radius: var(--radius-m);
+            background: var(--bg-card);
+            color: var(--text-main);
+            box-shadow: var(--shadow-md);
+            border-left: 5px solid var(--brand-primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            animation: slideIn 0.3s ease forwards;
+        }
+
+        .toast.success { border-left-color: var(--brand-success); }
+        .toast.error { border-left-color: #ef4444; }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-box {
+            background: var(--bg-card);
+            color: var(--text-main);
+            padding: 32px;
+            border-radius: var(--radius-l);
+            width: 100%;
+            max-width: 480px;
+            box-shadow: var(--shadow-3d);
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        /* ==========================================================================
+           4. LANDING PAGE SÊNIOR (PRÉ-LOGIN)
+           ========================================================================== */
+        .landing-view {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 20% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+        }
+
+        .landing-nav {
+            padding: 24px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-badge {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--brand-primary-light), var(--brand-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-section {
+            padding: 60px 8%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 968px) {
+            .hero-section { grid-template-columns: 1fr; text-align: center; }
+        }
+
+        .hero-title {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .hero-title span { color: var(--brand-primary-light); }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-hero-primary {
+            padding: 16px 36px;
+            border-radius: var(--radius-full);
+            border: none;
+            background: linear-gradient(135deg, var(--brand-primary-light), #1d4ed8);
+            color: white;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: var(--glow);
+            transition: var(--transition);
+        }
+
+        .btn-hero-primary:hover { transform: translateY(-3px) scale(1.02); }
+
+        .btn-hero-secondary {
+            padding: 16px 32px;
+            border-radius: var(--radius-full);
+            border: 2px solid var(--border-color);
+            background: transparent;
+            color: var(--text-main);
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-hero-secondary:hover {
+            border-color: var(--brand-primary-light);
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .stat-item h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--brand-accent);
+        }
+
+        .stat-item p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .hero-banner-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-l);
+            padding: 24px;
+            box-shadow: var(--shadow-3d);
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        /* ==========================================================================
+           5. TELA DE AUTENTICAÇÃO (MODAL SLIDE-IN)
+           ========================================================================== */
+        .auth-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(12px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9500;
+            padding: 20px;
+        }
+
+        .auth-overlay.active { display: flex; animation: fadeIn 0.3s ease; }
+
+        .auth-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 36px;
+            border-radius: var(--radius-l);
+            width: 100%;
+            max-width: 440px;
+            box-shadow: var(--shadow-3d);
+        }
+
+        .auth-nav-toggle {
+            display: flex;
+            background: rgba(0,0,0,0.05);
+            border-radius: var(--radius-full);
+            padding: 4px;
+            margin-bottom: 24px;
+        }
+
+        .auth-toggle-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: var(--radius-full);
+            background: transparent;
+            color: var(--text-muted);
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .auth-toggle-btn.active {
+            background: var(--brand-primary-light);
+            color: white;
+        }
+
+        .auth-form { display: none; }
+        .auth-form.active { display: block; }
+
+        .form-field { margin-bottom: 16px; }
+        .form-field label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .input-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-m);
+            font-size: 0.95rem;
+            background: var(--bg-body);
+            color: var(--text-main);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .input-control:focus {
+            border-color: var(--brand-primary-light);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+        }
+
+        .btn-action {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: var(--radius-m);
+            background: linear-gradient(135deg, var(--brand-primary-light), #1d4ed8);
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-action:hover { opacity: 0.95; transform: translateY(-1px); }
+
+        /* ==========================================================================
+           6. DASHBOARD PRINCIPAL (POS-LOGIN)
+           ========================================================================== */
+        .app-shell { display: none; }
+        .app-shell.active { display: block; }
+
+        .top-user-bar {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-badge-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-avatar-circle {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--brand-accent);
+        }
+
+        .xp-pill {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--brand-accent-hover);
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 800;
+        }
+
+        .main-header {
+            background: linear-gradient(135deg, var(--brand-primary), #1e3a8a);
+            color: white;
+            padding: 50px 20px 70px 20px;
+            text-align: center;
+        }
+
+        .main-container {
+            max-width: 1140px;
+            margin: -40px auto 50px auto;
+            padding: 0 20px;
+        }
+
+        .nav-tabs {
+            background: var(--bg-glass);
+            backdrop-filter: blur(12px);
+            padding: 8px;
+            border-radius: var(--radius-full);
+            box-shadow: var(--shadow-md);
+            display: flex;
+            gap: 8px;
+            margin-bottom: 28px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 14px 20px;
+            border: none;
+            border-radius: var(--radius-full);
+            background: transparent;
+            color: var(--text-muted);
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+
+        .tab-btn.active {
+            background: var(--brand-primary-light);
+            color: white;
+            box-shadow: var(--glow);
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--bg-card);
+            padding: 32px;
+            border-radius: var(--radius-l);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+
+        /* CARDS 3D DE PROJETOS */
+        .grid-3d {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 28px;
+            perspective: 1000px;
+        }
+
+        .card-3d { height: 390px; cursor: pointer; }
+
+        .card-3d-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: var(--radius-m);
+        }
+
+        .card-3d:hover .card-3d-inner,
+        .card-3d.flipped .card-3d-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            border-radius: var(--radius-m);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-card);
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, var(--brand-primary), #1e3a8a);
+            color: white;
+            padding: 28px;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .card-image-container {
+            height: 65%;
+            position: relative;
+            overflow: hidden;
+            background: #cbd5e1;
+        }
+
+        .card-image-render {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card-3d:hover .card-image-render { transform: scale(1.08); }
+
+        .card-overlay-actions {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .btn-card-icon {
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(4px);
+            color: white;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-card-icon:hover { background: var(--brand-accent); color: black; }
+
+        .card-body-text {
+            padding: 18px;
+            height: 35%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* GAME DO SABER - QUIZ INTERATIVO */
+        .quiz-card {
+            background: var(--bg-body);
+            border: 2px dashed var(--brand-primary-light);
+            border-radius: var(--radius-m);
+            padding: 24px;
+            margin-top: 20px;
+        }
+
+        .quiz-option {
+            width: 100%;
+            padding: 14px;
+            margin: 8px 0;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-m);
+            background: var(--bg-card);
+            color: var(--text-main);
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .quiz-option:hover {
+            border-color: var(--brand-primary-light);
+            background: rgba(37, 99, 235, 0.05);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="toast-container"></div>
+
+    <div id="lightbox-modal" class="modal-overlay" onclick="closeLightbox()">
+        <div class="modal-box" style="max-width: 750px; text-align: center; background: transparent; border: none; box-shadow: none;" onclick="event.stopPropagation()">
+            <img id="lightbox-img" style="width: 100%; max-height: 75vh; object-fit: contain; border-radius: var(--radius-m);" src="" alt="Ampliação">
+            <button class="btn-action" style="margin-top: 15px; background: var(--brand-accent); color: black;" onclick="closeLightbox()">Fechar Visualização</button>
+        </div>
+    </div>
+
+    <div id="reset-modal" class="modal-overlay">
+        <div class="modal-box">
+            <h3>🔑 Redefinir Senha</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+                Digite seu e-mail ou CGM para receber a chave de segurança.
+            </p>
+
+            <form id="form-reset-step1">
+                <div class="form-field">
+                    <label>E-mail ou CGM</label>
+                    <input type="text" id="reset-email" class="input-control" placeholder="exemplo@escola.pr.gov.br" required>
+                </div>
+                <button type="submit" class="btn-action">Gerar Código</button>
+                <button type="button" class="btn-action" style="background: transparent; color: var(--text-muted);" onclick="closeResetModal()">Cancelar</button>
+            </form>
+
+            <form id="form-reset-step2" style="display: none;">
+                <div style="background: rgba(245, 158, 11, 0.15); border: 2px dashed var(--brand-accent); border-radius: var(--radius-m); padding: 14px; text-align: center; margin-bottom: 16px;">
+                    <span style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--brand-accent-hover);">📧 Notificação de E-mail Simulado</span>
+                    <div id="display-generated-code" style="font-size: 1.8rem; font-weight: 800; letter-spacing: 6px; color: var(--brand-primary-light); margin: 6px 0;">------</div>
+                    <button type="button" class="btn-action" style="padding: 6px 12px; font-size: 0.8rem; background: var(--brand-accent); color: black;" onclick="autoFillCode()">⚡ Preencher Código</button>
+                </div>
+
+                <div class="form-field">
+                    <label>Digite o Código</label>
+                    <input type="text" id="reset-code" class="input-control" placeholder="123456" maxlength="6" required>
+                </div>
+                <div class="form-field">
+                    <label>Nova Senha</label>
+                    <input type="password" id="reset-new-pass" class="input-control" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-action">Salvar Nova Senha</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="landing-view" class="landing-view">
+        <nav class="landing-nav">
+            <div class="logo-badge">
+                <span class="flashing-lightning">⚡</span> GAME DO <span>SABER</span>
+            </div>
+            <button class="btn-hero-primary" onclick="openAuthModal('login')">Acessar Portal</button>
+        </nav>
+
+        <section class="hero-section">
+            <div>
+                <h1 class="hero-title">
+                    <span class="flashing-lightning" style="font-size: 3rem;">⚡</span> Inovação e Transparência na <span>Sua Escola</span>.
+                </h1>
+                <p class="hero-subtitle">Acompanhe projetos de infraestrutura, participe ativamente de enquetes e aprenda jogando no Game do Saber da rede pública.</p>
+                
+                <div class="hero-buttons">
+                    <button class="btn-hero-primary" onclick="openAuthModal('login')">Entrar com CGM</button>
+                    <button class="btn-hero-secondary" onclick="openAuthModal('register')">Criar Conta Aluno</button>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <h3>1.200+</h3>
+                        <p>Alunos Conectados</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>100%</h3>
+                        <p>Projetos Auditados</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>XP & Level</h3>
+                        <p>Game do Saber</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-banner-card">
+                <div style="position: relative; height: 260px; border-radius: var(--radius-m); overflow: hidden; margin-bottom: 16px;">
+                    <img id="img-hero" src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop" style="width:100%; height:100%; object-fit:cover;" alt="Escola Modernizada" onerror="this.src='escola.jpg'">
+                </div>
+                <h3>Plataforma Integrada de Gestão & Aprendizado</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 6px;">Tecnologia avançada para transformar o ecossistema educacional.</p>
+            </div>
+        </section>
+
+        <footer style="text-align: center; padding: 24px; color: var(--text-muted); font-size: 0.85rem;">
+            © 2026 Game do Saber - Todos os direitos reservados.
+        </footer>
+    </div>
+
+    <div id="auth-overlay" class="auth-overlay">
+        <div class="auth-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="color: var(--brand-primary-light);">Autenticação</h2>
+                <button style="background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--text-muted);" onclick="closeAuthModal()">✕</button>
+            </div>
+
+            <div class="auth-nav-toggle">
+                <button type="button" class="auth-toggle-btn active" onclick="switchAuthTab('login')">Entrar</button>
+                <button type="button" class="auth-toggle-btn" onclick="switchAuthTab('register')">Cadastrar</button>
+            </div>
+
+            <form id="login-form" class="auth-form active">
+                <div class="form-field">
+                    <label>CGM ou E-mail</label>
+                    <input type="text" id="login-user" class="input-control" placeholder="Seu código ou e-mail" required>
+                </div>
+                <div class="form-field">
+                    <label>Senha</label>
+                    <input type="password" id="login-pass" class="input-control" placeholder="••••••••" required>
+                    <a style="font-size:0.8rem; color:var(--brand-primary-light); cursor:pointer; margin-top:4px; display:inline-block;" onclick="openResetModal()">Esqueceu a senha?</a>
+                </div>
+                <button type="submit" class="btn-action">Entrar no Sistema</button>
+            </form>
+
+            <form id="register-form" class="auth-form">
+                <div class="form-field">
+                    <label>Nome Completo</label>
+                    <input type="text" id="reg-name" class="input-control" placeholder="Seu nome" required>
+                </div>
+                <div class="form-field">
+                    <label>CGM / E-mail</label>
+                    <input type="text" id="reg-cgm" class="input-control" placeholder="Seu CGM" required>
+                </div>
+                <div class="form-field">
+                    <label>Foto de Perfil (Avatar)</label>
+                    <input type="file" id="reg-avatar" class="input-control" accept="image/*">
+                </div>
+                <div class="form-field">
+                    <label>Senha</label>
+                    <input type="password" id="reg-pass" class="input-control" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-action">Criar Conta</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="app-shell" class="app-shell">
+        <div class="top-user-bar">
+            <div class="user-badge-group">
+                <img id="user-avatar-display" class="user-avatar-circle" src="" alt="Avatar">
+                <div>
+                    <div><strong id="user-name-display">Aluno</strong></div>
+                    <span id="user-level-display" class="xp-pill">Nível 1 • 0 XP</span>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 12px; align-items: center;">
+                <button class="btn-hero-secondary" style="padding: 8px 16px; font-size:0.9rem;" onclick="toggleDarkMode()">⚙️ Tema</button>
+                <button class="btn-hero-primary" style="padding: 8px 16px; font-size:0.9rem; background: #ef4444;" onclick="logout()">Sair</button>
+            </div>
+        </div>
+
+        <header class="main-header">
+            <h1><span class="flashing-lightning">⚡</span> Painel de Infraestrutura & Game Escolar</h1>
+            <p>Gerencie, sugira e ganhe XP participando das decisões da sua escola</p>
+        </header>
+
+        <main class="main-container">
+            <nav class="nav-tabs">
+                <button class="tab-btn active" onclick="showTab('tab-quadra', this)">🏀 Quadra</button>
+                <button class="tab-btn" onclick="showTab('tab-lab', this)">💻 Laboratório TI</button>
+                <button class="tab-btn" onclick="showTab('tab-game', this)">⚡ Game do Saber (Quiz)</button>
+                <button class="tab-btn" onclick="showTab('tab-enquete', this)">🗳️ Enquete</button>
+            </nav>
+
+            <section id="tab-quadra" class="tab-content active">
+                <h3>Revitalização da Quadra Poliesportiva</h3>
+                <p style="color: var(--text-muted); margin-bottom: 24px;">Virar os cards mostra os detalhes técnicos de cada ambiente.</p>
+                
+                <div class="grid-3d">
+                    <div class="card-3d" onclick="this.classList.toggle('flipped')">
+                        <div class="card-3d-inner">
+                            <div class="card-front">
+                                <div class="card-image-container">
+                                    <div class="card-overlay-actions" onclick="event.stopPropagation()">
+                                        <button class="btn-card-icon" onclick="openLightbox('img-quadra-1')">🔍</button>
+                                        <label class="btn-card-icon">
+                                            📷 <input type="file" accept="image/*" style="display:none;" onchange="uploadCardImage(event, 'img-quadra-1')">
+                                        </label>
+                                    </div>
+                                    <img id="img-quadra-1" class="card-image-render" src="https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=800&auto=format&fit=crop" alt="Quadra Atual" onerror="this.src='quadra1.jpg'">
+                                </div>
+                                <div class="card-body-text">
+                                    <span style="color: var(--brand-accent-hover); font-weight:800; font-size:0.75rem;">SITUAÇÃO ATUAL</span>
+                                    <h4>Piso & Marcações Antigas</h4>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <h4>Diagnóstico Técnico</h4>
+                                <p style="margin-top:10px;">Necessidade de pintura em epóxi de alta resistência e troca das redes das traves.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-3d" onclick="this.classList.toggle('flipped')">
+                        <div class="card-3d-inner">
+                            <div class="card-front">
+                                <div class="card-image-container">
+                                    <div class="card-overlay-actions" onclick="event.stopPropagation()">
+                                        <button class="btn-card-icon" onclick="openLightbox('img-quadra-2')">🔍</button>
+                                        <label class="btn-card-icon">
+                                            📷 <input type="file" accept="image/*" style="display:none;" onchange="uploadCardImage(event, 'img-quadra-2')">
+                                        </label>
+                                    </div>
+                                    <img id="img-quadra-2" class="card-image-render" src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=800&auto=format&fit=crop" alt="Nova Quadra" onerror="this.src='quadra2.jpg'">
+                                </div>
+                                <div class="card-body-text">
+                                    <span style="color: var(--brand-success); font-weight:800; font-size:0.75rem;">PROJETO FUTURO</span>
+                                    <h4>Arena Multiuso & Iluminação LED</h4>
+                                </div>
+                            </div>
+                            <div class="card-back
